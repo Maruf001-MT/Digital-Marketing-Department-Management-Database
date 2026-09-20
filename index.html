@@ -1,0 +1,1077 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Room — Digital Marketing Ops</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #10131A;
+    --bg-2: #0C0E13;
+    --surface: #171B24;
+    --surface-2: #1E2330;
+    --surface-3: #262C3B;
+    --border: #2A3040;
+    --border-soft: #21273400;
+    --text: #EDEFF5;
+    --text-muted: #8B93A7;
+    --text-dim: #5C6478;
+    --accent-social: #FF6B57;
+    --accent-web: #43D9C8;
+    --accent-email: #F5B942;
+    --status-active: #5FD68A;
+    --status-paused: #F0A93E;
+    --status-lost: #E5544B;
+    --shadow: 0 10px 30px rgba(0,0,0,.35);
+    --radius: 14px;
+    --radius-sm: 9px;
+    --font-display: "Space Grotesk", "Segoe UI", Arial, sans-serif;
+    --font-body: "Inter", "Segoe UI", Arial, sans-serif;
+    color-scheme: dark;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  :root[data-theme="light"]{
+    --bg:#F3F4F8; --bg-2:#E9EAF0; --surface:#FFFFFF; --surface-2:#F3F4F8; --surface-3:#E9EAF0;
+    --border:#DCDFE8; --text:#161923; --text-muted:#5A607A; --text-dim:#8C92A8;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#F3F4F8; --bg-2:#E9EAF0; --surface:#FFFFFF; --surface-2:#F3F4F8; --surface-3:#E9EAF0;
+      --border:#DCDFE8; --text:#161923; --text-muted:#5A607A; --text-dim:#8C92A8;
+      color-scheme: light;
+    }
+  }
+  html,body{ height:100%; }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0; background: radial-gradient(1200px 600px at 15% -10%, rgba(255,107,87,.08), transparent 60%),
+                          radial-gradient(1000px 500px at 90% 0%, rgba(67,217,200,.06), transparent 55%),
+                          var(--bg);
+    color: var(--text); font-family: var(--font-body); line-height:1.45;
+    -webkit-font-smoothing: antialiased;
+  }
+  html{ scroll-padding-top: env(safe-area-inset-top, 0px); }
+  a{ color:inherit; }
+  button{ font-family: inherit; cursor:pointer; }
+  ::selection{ background: rgba(255,107,87,.35); }
+
+  .wrap{ max-width: 1320px; margin: 0 auto; padding: 0 24px 80px; }
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 40;
+    padding-top: calc(18px + env(safe-area-inset-top, 0px));
+    padding-bottom: 16px;
+    background: linear-gradient(var(--bg) 78%, transparent);
+    backdrop-filter: blur(6px);
+  }
+  .topbar-inner{ max-width:1320px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:20px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+  .brand-mark{ width:38px; height:38px; border-radius:10px; display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:15px;
+    background: conic-gradient(from 210deg, var(--accent-social), var(--accent-email), var(--accent-web), var(--accent-social)); color:#12141A; }
+  .brand-text h1{ font-family: var(--font-display); font-size:18px; margin:0; letter-spacing:.2px; }
+  .brand-text p{ margin:0; font-size:12px; color:var(--text-muted); }
+  .search{ position:relative; }
+  .search input{
+    width: 220px; background: var(--surface); border:1px solid var(--border); color:var(--text);
+    border-radius: 10px; padding:9px 12px 9px 34px; font-size:13.5px; outline:none;
+  }
+  .search input:focus{ border-color: var(--accent-web); }
+  .search svg{ position:absolute; left:10px; top:9px; width:16px; height:16px; color:var(--text-dim); }
+  .btn{
+    display:inline-flex; align-items:center; gap:7px; border-radius:10px; border:1px solid var(--border);
+    background: var(--surface); color:var(--text); padding:9px 14px; font-size:13.5px; font-weight:600;
+    transition: transform .12s ease, border-color .12s ease, background .12s ease;
+  }
+  .btn:hover{ border-color: var(--text-dim); transform: translateY(-1px); }
+  .btn:active{ transform: translateY(0); }
+  .btn-primary{ background: var(--text); color: var(--bg-2); border-color: var(--text); }
+  .btn-primary:hover{ opacity:.92; border-color:var(--text); }
+  .btn-ghost{ background: transparent; }
+  .btn-sm{ padding:6px 10px; font-size:12.5px; border-radius:8px; }
+  .btn-danger{ color: var(--status-lost); border-color: var(--status-lost); background: transparent; }
+  .theme-toggle{ width:36px; height:36px; border-radius:10px; display:grid; place-items:center; border:1px solid var(--border); background:var(--surface); }
+
+  /* ---------- Layout sections ---------- */
+  section{ margin-top: 34px; }
+  .section-head{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+  .section-head h2{ font-family: var(--font-display); font-size:19px; margin:0; }
+  .section-head .sub{ font-size:12.5px; color:var(--text-muted); }
+
+  /* ---------- KPIs ---------- */
+  .kpis{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:14px; }
+  .kpi{ background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding:18px; position:relative; overflow:hidden; }
+  .kpi::after{ content:""; position:absolute; right:-30px; top:-30px; width:110px; height:110px; border-radius:50%;
+    background: radial-gradient(circle, var(--kpi-glow, var(--accent-web)) 0%, transparent 70%); opacity:.18; }
+  .kpi .label{ font-size:12px; color:var(--text-muted); font-weight:600; text-transform: none; }
+  .kpi .value{ font-family: var(--font-display); font-size:28px; margin-top:8px; font-weight:700; }
+  .kpi .delta{ font-size:12px; margin-top:6px; color: var(--text-dim); }
+
+  /* ---------- Board ---------- */
+  .board{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; align-items:start; }
+  .col{ background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding:16px; min-height: 140px; }
+  .col-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .col-head .tag{ display:flex; align-items:center; gap:8px; font-family: var(--font-display); font-weight:600; font-size:14.5px; }
+  .dot{ width:9px; height:9px; border-radius:50%; flex:none; }
+  .col-count{ font-size:12px; color:var(--text-muted); background: var(--surface-3); padding:2px 8px; border-radius:20px; }
+  .cards{ display:flex; flex-direction:column; gap:8px; }
+  .card{
+    background: var(--surface-2); border:1px solid var(--border); border-radius: var(--radius-sm);
+    padding:10px 12px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    cursor:pointer; transition: border-color .12s ease, background .12s ease;
+  }
+  .card:hover{ border-color: var(--text-dim); background: var(--surface-3); }
+  .card-name{ font-weight:600; font-size:13.5px; }
+  .card-rev{ font-size:11.5px; color: var(--text-muted); margin-top:2px; }
+  .status-pill{ font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:20px; flex:none; letter-spacing:.2px; white-space:nowrap; }
+  .col-add{ margin-top:10px; width:100%; justify-content:center; border-style: dashed; color: var(--text-muted); }
+  .empty-hint{ font-size:12.5px; color: var(--text-dim); padding: 10px 2px; }
+
+  /* ---------- Analytics ---------- */
+  .analytics-grid{ display:grid; grid-template-columns: 1.1fr 1fr 1.2fr; gap:16px; align-items: stretch; }
+  .panel{ background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); padding:18px; }
+  .panel h3{ font-family: var(--font-display); font-size:14px; margin:0 0 14px; font-weight:600; }
+  .legend{ display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:12px; font-size:12px; color: var(--text-muted); }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .legend i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .bar-row{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .bar-row .bl{ width:96px; font-size:12px; color: var(--text-muted); flex:none; }
+  .bar-track{ flex:1; height:10px; background: var(--surface-3); border-radius:20px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:20px; }
+  .bar-row .bv{ width:78px; text-align:right; font-size:12.5px; font-weight:600; flex:none; }
+  .donut-wrap{ display:flex; align-items:center; gap:18px; }
+  .trend-empty, .table-empty{ font-size:12.5px; color: var(--text-dim); padding:20px 4px; text-align:center; }
+
+  /* ---------- Projects ---------- */
+  .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .chip{ font-size:12px; padding:6px 12px; border-radius:20px; border:1px solid var(--border); background: var(--surface); color: var(--text-muted); font-weight:600; }
+  .chip.active{ color: var(--text); border-color: var(--text-dim); background: var(--surface-3); }
+  .proj-table{ background: var(--surface); border:1px solid var(--border); border-radius: var(--radius); overflow:hidden; }
+  .proj-row{ display:grid; grid-template-columns: 1.6fr 1fr .9fr 1.3fr .9fr 90px; gap:10px; align-items:center; padding:13px 16px; border-bottom:1px solid var(--border); font-size:13px; }
+  .proj-row:last-child{ border-bottom:none; }
+  .proj-row.head{ font-size:11px; text-transform: none; color: var(--text-dim); font-weight:700; background: var(--surface-2); }
+  .proj-name{ font-weight:600; }
+  .proj-client{ font-size:11.5px; color: var(--text-muted); margin-top:1px; }
+  .progress-wrap{ display:flex; align-items:center; gap:8px; }
+  .progress-track{ flex:1; height:6px; border-radius:10px; background: var(--surface-3); overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:10px; background: var(--accent-web); }
+  .row-actions{ display:flex; gap:6px; justify-content:flex-end; }
+  .icon-btn{ width:28px; height:28px; border-radius:8px; border:1px solid var(--border); background: var(--surface-2); display:grid; place-items:center; color: var(--text-muted); }
+  .icon-btn:hover{ color: var(--text); border-color: var(--text-dim); }
+  .dept-tag{ font-size:10.5px; font-weight:700; padding:3px 8px; border-radius:20px; }
+  @media (max-width: 720px){
+    .wrap{ overflow-x: hidden; }
+    .proj-row{ grid-template-columns: 1fr; row-gap:6px; }
+    .proj-row.head{ display:none; }
+    .proj-row > div::before{ content: attr(data-k); display:block; font-size:10px; color:var(--text-dim); font-weight:700; margin-bottom:2px; }
+  }
+
+  /* ---------- Revenue log ---------- */
+  .revlog-table{ width:100%; border-collapse: collapse; font-size:13px; }
+  .revlog-table th{ text-align:left; font-size:11px; color: var(--text-dim); font-weight:700; padding:8px 10px; border-bottom:1px solid var(--border); }
+  .revlog-table td{ padding:10px; border-bottom:1px solid var(--border); }
+  .table-scroll{ overflow-x:auto; }
+
+  /* ---------- Responsive grid ---------- */
+  @media (max-width: 1180px){
+    .kpis{ grid-template-columns: repeat(3,minmax(0,1fr)); }
+  }
+  @media (max-width: 980px){
+    .kpis{ grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .board{ grid-template-columns: 1fr; }
+    .analytics-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px){
+    .kpis{ grid-template-columns: 1fr; }
+    .topbar-inner{ gap:10px; }
+    .search input{ width: 150px; }
+  }
+
+  /* ---------- Modal ---------- */
+  .overlay{
+    position: fixed; inset:0; background: rgba(6,7,10,.6); backdrop-filter: blur(3px);
+    display:flex; align-items:flex-end; justify-content:center; z-index:100; opacity:0; pointer-events:none;
+    transition: opacity .15s ease;
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+  @media (min-width: 680px){ .overlay{ align-items:center; } }
+  .modal{
+    background: var(--surface); border:1px solid var(--border); border-radius: 18px 18px 0 0; width:100%; max-width:520px;
+    max-height: 88vh; overflow-y:auto; padding: 22px 22px calc(22px + env(safe-area-inset-bottom,0px));
+    transform: translateY(16px); transition: transform .18s ease; box-shadow: var(--shadow);
+  }
+  @media (min-width: 680px){ .modal{ border-radius:18px; transform: translateY(0) scale(.98); } }
+  .overlay.open .modal{ transform: translateY(0) scale(1); }
+  .modal h3{ font-family: var(--font-display); margin:0 0 4px; font-size:18px; }
+  .modal .mhint{ font-size:12.5px; color: var(--text-muted); margin:0 0 18px; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; font-weight:600; color: var(--text-muted); margin-bottom:6px; }
+  .field input, .field select, .field textarea{
+    width:100%; background: var(--surface-2); border:1px solid var(--border); color: var(--text);
+    border-radius:9px; padding:10px 11px; font-size:13.5px; font-family: inherit; outline:none;
+  }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color: var(--accent-web); }
+  .field textarea{ resize: vertical; min-height:64px; }
+  .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .modal-actions{ display:flex; justify-content:space-between; align-items:center; margin-top: 20px; gap:10px; }
+
+  /* ---------- Toast ---------- */
+  .toast{
+    position: fixed; left:50%; bottom: calc(22px + env(safe-area-inset-bottom,0px)); transform: translateX(-50%) translateY(20px);
+    background: var(--text); color: var(--bg-2); padding:10px 18px; border-radius:20px; font-size:13px; font-weight:600;
+    z-index:200; opacity:0; transition: all .2s ease; pointer-events:none; box-shadow: var(--shadow);
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0); }
+
+  .mode-note{ text-align:center; font-size:11.5px; color: var(--text-dim); margin-top: 40px; }
+  .banner{ background: var(--surface); border:1px dashed var(--border); border-radius: var(--radius); padding:14px 16px; font-size:12.5px; color: var(--text-muted); margin-top:18px; display:flex; align-items:center; justify-content:space-between; gap:10px; }
+  .banner button{ flex:none; }
+
+  :where(a,button,input,select,textarea):focus-visible{ outline: 2px solid var(--accent-web); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">SR</div>
+      <div class="brand-text">
+        <h1>Signal Room</h1>
+        <p>Digital marketing ops dashboard</p>
+      </div>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="searchInput" placeholder="Search clients…" autocomplete="off">
+    </div>
+    <button class="btn" id="btnAddRevenue">＋ Log revenue</button>
+    <button class="btn" id="btnAddProject">＋ Project</button>
+    <button class="btn btn-primary" id="btnAddClient">＋ Client</button>
+    <button class="theme-toggle" id="btnRefresh" title="Refresh data" aria-label="Refresh data">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+    </button>
+    <button class="theme-toggle" id="btnSettings" title="Connect Google Sheet" aria-label="Connect Google Sheet">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+      <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+    </button>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <section class="kpis" id="kpis"></section>
+
+  <section id="boardSection">
+    <div class="section-head">
+      <h2>Client board</h2>
+      <span class="sub">By department · click a card to edit or update status</span>
+    </div>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="analyticsSection">
+    <div class="section-head">
+      <h2>Revenue &amp; performance</h2>
+      <span class="sub">Live from your client and revenue-log data</span>
+    </div>
+    <div class="analytics-grid">
+      <div class="panel">
+        <h3>Monthly revenue by department</h3>
+        <div id="deptRevenue"></div>
+      </div>
+      <div class="panel">
+        <h3>Engagement status</h3>
+        <div id="statusDonut"></div>
+      </div>
+      <div class="panel">
+        <h3>Revenue trend</h3>
+        <div id="revTrend"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="projectsSection">
+    <div class="section-head">
+      <h2>Projects</h2>
+      <span class="sub" id="projSub">Active work across every department</span>
+    </div>
+    <div class="filters" id="projFilters"></div>
+    <div class="proj-table" id="projTable"></div>
+  </section>
+
+  <section id="revenueSection">
+    <div class="section-head">
+      <h2>Revenue log</h2>
+      <span class="sub">Manually logged monthly figures power the trend chart above</span>
+    </div>
+    <div class="panel table-scroll">
+      <table class="revlog-table" id="revTable"></table>
+    </div>
+  </section>
+
+  <p class="mode-note" id="modeNote"></p>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+
+  /* ============================= CONFIG ============================= */
+  var DEPTS = [
+    { key:'social', label:'Social Media + CC', color:'var(--accent-social)', hex:'#FF6B57' },
+    { key:'web',    label:'Website Dev',        color:'var(--accent-web)',    hex:'#43D9C8' },
+    { key:'email',  label:'Email Marketing',    color:'var(--accent-email)',  hex:'#F5B942' }
+  ];
+  var STATUS_META = {
+    active:    { label:'Active',    color:'#5FD68A', strike:false, dim:false },
+    pause:     { label:'Pause',     color:'#F0A93E', strike:false, dim:true  },
+    paused:    { label:'Paused',    color:'#F0A93E', strike:false, dim:true  },
+    done:      { label:'Done',      color:'#6C8CFF', strike:false, dim:false },
+    completed: { label:'Completed', color:'#43D9C8', strike:false, dim:false },
+    lost:      { label:'Lost',      color:'#E5544B', strike:true,  dim:false }
+  };
+  var STATUS_BY_DEPT = {
+    social: ['active','pause','done','lost'],
+    web:    ['active','completed'],
+    email:  ['active','paused','lost']
+  };
+  function statusMeta(key){ return STATUS_META[key] || { label:key, color:'#8B93A7', strike:false, dim:false }; }
+  var TERMINAL_STATUSES = ['lost','done','completed'];
+  var PROJ_STATUS = [
+    { key:'planning', label:'Planning' },
+    { key:'in_progress', label:'In progress' },
+    { key:'review', label:'Review' },
+    { key:'completed', label:'Completed' },
+    { key:'on_hold', label:'On hold' }
+  ];
+  var PROJ_STATUS_COLOR = { planning:'#8B93A7', in_progress:'#43D9C8', review:'#F5B942', completed:'#5FD68A', on_hold:'#E5544B' };
+
+  function deptOf(key){ return DEPTS.filter(function(d){return d.key===key;})[0] || DEPTS[0]; }
+  function fmtMoney(n){
+    n = Number(n)||0;
+    return '৳' + n.toLocaleString('en-US',{maximumFractionDigits:0});
+  }
+  function uid(){ return 'id_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+
+  /* ============================= STATE ============================= */
+  var STATE = { engagements: [], projects: [], revenueLog: [], search:'', projFilterDept:'all', projFilterStatus:'all' };
+  var MODE = 'local'; // 'sheets' or 'local'
+  var SHEETS_URL = null;
+  var pollTimer = null;
+
+  var SEED_ENGAGEMENTS = [
+    { clientName:'Strata', department:'social', status:'active' },
+    { clientName:'VIEC', department:'social', status:'active' },
+    { clientName:'ArtCircle', department:'social', status:'active' },
+    { clientName:'Ascent', department:'social', status:'lost' },
+    { clientName:'Aerolex', department:'social', status:'lost' },
+    { clientName:'SOAS', department:'social', status:'lost' },
+    { clientName:'CCCL', department:'social', status:'lost' },
+    { clientName:'Chitrorekha', department:'social', status:'lost' },
+    { clientName:'InfoTitan', department:'social', status:'active' },
+    { clientName:'Flow Fest', department:'social', status:'active' },
+    { clientName:'CIU', department:'social', status:'active' },
+    { clientName:'Essential Foods', department:'social', status:'active' },
+    { clientName:'VIEC', department:'web', status:'completed' },
+    { clientName:'PSPLL', department:'web', status:'active' },
+    { clientName:'GBEL', department:'web', status:'active' },
+    { clientName:'InfoTitan', department:'web', status:'active' },
+    { clientName:'Aerolex', department:'email', status:'lost' }
+  ];
+
+  /* ============================= PERSISTENCE ============================= */
+  function localLoad(){
+    try{
+      var raw = localStorage.getItem('signalroom_data');
+      if(raw){
+        var parsed = JSON.parse(raw);
+        STATE.engagements = parsed.engagements || [];
+        STATE.projects = parsed.projects || [];
+        STATE.revenueLog = parsed.revenueLog || [];
+      }
+    }catch(e){}
+  }
+  function localSave(){
+    try{
+      localStorage.setItem('signalroom_data', JSON.stringify({
+        engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog
+      }));
+    }catch(e){}
+  }
+  function seedLocalIfEmpty(){
+    if(STATE.engagements.length===0 && STATE.projects.length===0 && STATE.revenueLog.length===0){
+      STATE.engagements = SEED_ENGAGEMENTS.map(function(e){
+        return Object.assign({ id: uid(), revenue:0, startDate:'', endDate:'', notes:'', createdAt: Date.now() }, e);
+      });
+      localSave();
+    }
+  }
+
+  /* ---- Google Sheets (Apps Script Web App) backend ---- */
+  async function sheetsGet(collection){
+    var res = await fetch(SHEETS_URL + '?collection=' + encodeURIComponent(collection) + '&t=' + Date.now());
+    var json = await res.json();
+    if(!json || json.ok===false) throw new Error((json && json.error) || 'Request failed');
+    return json.data || [];
+  }
+  async function sheetsPost(body){
+    var res = await fetch(SHEETS_URL, {
+      method:'POST',
+      headers:{ 'Content-Type':'text/plain;charset=utf-8' }, // avoids a CORS preflight against Apps Script
+      body: JSON.stringify(body)
+    });
+    var json = await res.json();
+    if(!json || json.ok===false) throw new Error((json && json.error) || 'Request failed');
+    return json;
+  }
+  async function fetchAllFromSheets(){
+    var results = await Promise.all([
+      sheetsGet('engagements'), sheetsGet('projects'), sheetsGet('revenueLog')
+    ]);
+    STATE.engagements = results[0];
+    STATE.projects = results[1];
+    STATE.revenueLog = results[2];
+  }
+  async function seedSheetsIfEmpty(){
+    if(STATE.engagements.length===0 && STATE.projects.length===0 && STATE.revenueLog.length===0){
+      for(var i=0;i<SEED_ENGAGEMENTS.length;i++){
+        var e = SEED_ENGAGEMENTS[i];
+        await sheetsPost({ action:'add', collection:'engagements', data: Object.assign({ revenue:0, startDate:'', endDate:'', notes:'', createdAt: Date.now() }, e) });
+      }
+      await fetchAllFromSheets();
+    }
+  }
+  function startPolling(){
+    stopPolling();
+    pollTimer = setInterval(async function(){
+      try{ await fetchAllFromSheets(); render(); }catch(e){ /* keep last known state on transient errors */ }
+    }, 30000);
+  }
+  function stopPolling(){ if(pollTimer){ clearInterval(pollTimer); pollTimer=null; } }
+
+  async function connectSheets(url){
+    var prevUrl = SHEETS_URL, prevMode = MODE;
+    SHEETS_URL = url;
+    await fetchAllFromSheets(); // throws if unreachable — caller handles the error
+    MODE = 'sheets';
+    try{ localStorage.setItem('signalroom_sheets_url', url); }catch(e){}
+    await seedSheetsIfEmpty();
+    migrateStatuses();
+    render();
+    updateModeNote();
+    startPolling();
+  }
+  function disconnectSheets(){
+    SHEETS_URL = null; MODE = 'local';
+    try{ localStorage.removeItem('signalroom_sheets_url'); }catch(e){}
+    stopPolling();
+    localLoad(); seedLocalIfEmpty(); migrateStatuses(); render(); updateModeNote();
+  }
+
+  async function initData(){
+    var savedUrl = null;
+    try{ savedUrl = localStorage.getItem('signalroom_sheets_url'); }catch(e){}
+    if(savedUrl){
+      try{
+        SHEETS_URL = savedUrl;
+        await fetchAllFromSheets();
+        MODE = 'sheets';
+        await seedSheetsIfEmpty();
+        migrateStatuses();
+        render();
+        startPolling();
+        updateModeNote();
+        return;
+      }catch(e){
+        toast('Could not reach your Google Sheet — using local data for now');
+        SHEETS_URL = null;
+      }
+    }
+    MODE = 'local';
+    localLoad();
+    seedLocalIfEmpty();
+    migrateStatuses();
+    render();
+    updateModeNote();
+  }
+
+  var statusesMigrated = false;
+  function migrateStatuses(){
+    if(statusesMigrated) return;
+    statusesMigrated = true;
+    STATE.engagements.forEach(function(e){
+      var allowed = STATUS_BY_DEPT[e.department] || STATUS_BY_DEPT.social;
+      if(allowed.indexOf(e.status) === -1){
+        var fallback = e.department==='web' ? 'completed' : allowed[allowed.length-1];
+        updateDoc('engagements', e.id, { status: fallback });
+      }
+    });
+  }
+
+  function updateModeNote(){
+    var el = document.getElementById('modeNote');
+    if(MODE==='sheets'){ el.textContent = 'Synced to your Google Sheet — refreshes automatically every 30s.'; }
+    else{ el.textContent = 'Standalone mode — data is saved to this browser only. Connect a Google Sheet to sync it.'; }
+  }
+
+  /* ---- generic CRUD across both modes ---- */
+  async function addDoc(collection, data){
+    if(MODE==='sheets'){
+      var res = await sheetsPost({ action:'add', collection:collection, data:data });
+      var item = Object.assign({}, data, { id: res.id });
+      STATE[collection].push(item);
+      render();
+    } else {
+      var item = Object.assign({ id: uid() }, data);
+      STATE[collection].push(item);
+      localSave(); render();
+    }
+  }
+  async function updateDoc(collection, id, data){
+    if(MODE==='sheets'){
+      await sheetsPost({ action:'update', collection:collection, id:id, data:data });
+      var arr = STATE[collection];
+      for(var i=0;i<arr.length;i++){ if(arr[i].id===id){ Object.assign(arr[i], data); break; } }
+      render();
+    } else {
+      var arr2 = STATE[collection];
+      for(var j=0;j<arr2.length;j++){ if(arr2[j].id===id){ Object.assign(arr2[j], data); break; } }
+      localSave(); render();
+    }
+  }
+  async function deleteDoc(collection, id){
+    if(MODE==='sheets'){
+      await sheetsPost({ action:'delete', collection:collection, id:id });
+      STATE[collection] = STATE[collection].filter(function(x){ return x.id!==id; });
+      render();
+    } else {
+      STATE[collection] = STATE[collection].filter(function(x){ return x.id!==id; });
+      localSave(); render();
+    }
+  }
+
+  /* ============================= TOAST ============================= */
+  var toastTimer=null;
+  function toast(msg){
+    var el = document.getElementById('toast');
+    el.textContent = msg; el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2200);
+  }
+
+  /* ============================= DERIVED DATA ============================= */
+  function activeEngagements(){ return STATE.engagements.filter(function(e){ return e.status==='active'; }); }
+  function deptRevenue(){
+    return DEPTS.map(function(d){
+      var sum = activeEngagements().filter(function(e){return e.department===d.key;}).reduce(function(a,e){return a+(Number(e.revenue)||0);},0);
+      return { key:d.key, label:d.label, color:d.hex, value:sum };
+    });
+  }
+  function statusCounts(){
+    var counts = {};
+    STATE.engagements.forEach(function(e){ counts[e.status] = (counts[e.status]||0) + 1; });
+    return counts;
+  }
+  function sortedRevenueLog(){
+    return STATE.revenueLog.slice().sort(function(a,b){ return (a.month||'').localeCompare(b.month||''); });
+  }
+  function monthlyAgg(){
+    var map = {};
+    STATE.revenueLog.forEach(function(r){
+      var m = r.month || '—';
+      if(!map[m]) map[m] = { recurring:0, addon:0 };
+      var t = r.type==='addon' ? 'addon' : 'recurring';
+      map[m][t] += Number(r.amount)||0;
+    });
+    return Object.keys(map).sort().map(function(m){ return Object.assign({month:m}, map[m]); });
+  }
+
+  /* ============================= RENDER: KPIs ============================= */
+  function renderKPIs(){
+    var mrr = activeEngagements().reduce(function(a,e){return a+(Number(e.revenue)||0);},0);
+    var activeClients = activeEngagements().length;
+    var activeProjects = STATE.projects.filter(function(p){ return p.status!=='completed'; }).length;
+    var avgProgress = STATE.projects.length ? Math.round(STATE.projects.reduce(function(a,p){return a+(Number(p.progress)||0);},0)/STATE.projects.length) : 0;
+
+    var now = new Date();
+    var curMonthKey = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+    var curMonthAgg = monthlyAgg().filter(function(a){return a.month===curMonthKey;})[0];
+    var curMonthTotal = curMonthAgg ? (curMonthAgg.recurring+curMonthAgg.addon) : null;
+
+    var cards = [
+      { label:'Client MRR (recurring)', value: fmtMoney(mrr), glow:'var(--accent-social)' },
+      { label:'This month (logged)', value: curMonthTotal==null ? '—' : fmtMoney(curMonthTotal), glow:'var(--accent-email)' },
+      { label:'Active engagements', value: activeClients, glow:'var(--accent-web)' },
+      { label:'Projects in motion', value: activeProjects, glow:'var(--accent-email)' },
+      { label:'Avg. project progress', value: avgProgress + '%', glow:'var(--accent-web)' }
+    ];
+    document.getElementById('kpis').innerHTML = cards.map(function(c){
+      return '<div class="kpi" style="--kpi-glow:'+c.glow+'"><div class="label">'+c.label+'</div><div class="value">'+c.value+'</div></div>';
+    }).join('');
+  }
+
+  /* ============================= RENDER: BOARD ============================= */
+  function renderBoard(){
+    var q = STATE.search.trim().toLowerCase();
+    var html = DEPTS.map(function(d){
+      var items = STATE.engagements.filter(function(e){ return e.department===d.key && (!q || e.clientName.toLowerCase().indexOf(q)>-1); });
+      var cardsHtml = items.map(function(e){
+        var revTxt = e.revenue ? fmtMoney(e.revenue)+'/mo' : 'No revenue logged';
+        if(e.endDate){ revTxt += ' · Ended ' + e.endDate; }
+        var sm = statusMeta(e.status);
+        var nameStyle = (sm.strike ? 'text-decoration:line-through;' : '') + (sm.dim ? 'color:var(--text-muted);' : '');
+        return '<div class="card" data-open-engagement="'+e.id+'">'+
+          '<div><div class="card-name" style="'+nameStyle+'">'+escapeHtml(e.clientName)+'</div><div class="card-rev">'+revTxt+'</div></div>'+
+          '<span class="status-pill" style="color:'+sm.color+';background:'+sm.color+'22">'+sm.label+'</span>'+
+        '</div>';
+      }).join('') || '<div class="empty-hint">No clients here yet.</div>';
+      return '<div class="col">'+
+        '<div class="col-head"><span class="tag"><span class="dot" style="background:'+d.color+'"></span>'+d.label+'</span><span class="col-count">'+items.length+'</span></div>'+
+        '<div class="cards">'+cardsHtml+'</div>'+
+        '<button class="btn col-add btn-sm" data-add-engagement="'+d.key+'">＋ Add to '+d.label+'</button>'+
+      '</div>';
+    }).join('');
+    document.getElementById('board').innerHTML = html;
+  }
+
+  /* ============================= RENDER: CHARTS ============================= */
+  function renderDeptRevenue(){
+    var data = deptRevenue();
+    var max = Math.max.apply(null, data.map(function(d){return d.value;}).concat([1]));
+    var html = data.map(function(d){
+      var pct = Math.round((d.value/max)*100);
+      return '<div class="bar-row"><div class="bl">'+d.label+'</div>'+
+        '<div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+d.color+'"></div></div>'+
+        '<div class="bv">'+fmtMoney(d.value)+'</div></div>';
+    }).join('');
+    document.getElementById('deptRevenue').innerHTML = html;
+  }
+
+  function renderStatusDonut(){
+    var c = statusCounts();
+    var keys = Object.keys(c);
+    var total = keys.reduce(function(a,k){return a+c[k];},0);
+    var el = document.getElementById('statusDonut');
+    if(total===0){ el.innerHTML = '<div class="trend-empty">No engagements yet.</div>'; return; }
+    var R = 46, C = 2*Math.PI*R, offset = 0, circles = '';
+    keys.forEach(function(k){
+      var v = c[k]; if(v<=0) return;
+      var color = statusMeta(k).color;
+      var frac = v/total, len = frac*C;
+      circles += '<circle cx="60" cy="60" r="'+R+'" fill="none" stroke="'+color+'" stroke-width="14" ' +
+        'stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-offset)+'" transform="rotate(-90 60 60)" stroke-linecap="butt"/>';
+      offset += len;
+    });
+    var svg = '<svg viewBox="0 0 120 120" width="120" height="120">'+circles+
+      '<text x="60" y="55" text-anchor="middle" font-family="Space Grotesk, sans-serif" font-size="22" font-weight="700" fill="var(--text)">'+total+'</text>'+
+      '<text x="60" y="72" text-anchor="middle" font-family="Inter, sans-serif" font-size="10" fill="var(--text-muted)">total</text>'+
+      '</svg>';
+    var legend = '<div class="legend">'+ keys.map(function(k){
+      var sm = statusMeta(k);
+      return '<span><i style="background:'+sm.color+'"></i>'+sm.label+' · '+c[k]+'</span>';
+    }).join('') +'</div>';
+    el.innerHTML = '<div class="donut-wrap">'+svg+'</div>'+legend;
+  }
+
+  function renderRevTrend(){
+    var el = document.getElementById('revTrend');
+    var agg = monthlyAgg();
+    if(agg.length===0){ el.innerHTML = '<div class="trend-empty">Log monthly revenue to see the trend.</div>'; return; }
+    var max = Math.max.apply(null, agg.map(function(a){return a.recurring+a.addon;}).concat([1]));
+    var rows = agg.map(function(a){
+      var total = a.recurring + a.addon;
+      var recPct = (a.recurring/max)*100;
+      var addPct = (a.addon/max)*100;
+      return '<div class="bar-row"><div class="bl">'+escapeHtml(a.month)+'</div>'+
+        '<div class="bar-track" style="display:flex">'+
+          (a.recurring>0 ? '<div class="bar-fill" style="width:'+recPct+'%;background:#43D9C8;flex:none"></div>' : '') +
+          (a.addon>0 ? '<div class="bar-fill" style="width:'+addPct+'%;background:#F5B942;flex:none"></div>' : '') +
+        '</div>'+
+        '<div class="bv">'+fmtMoney(total)+'</div></div>';
+    }).join('');
+    var legend = '<div class="legend"><span><i style="background:#43D9C8"></i>Recurring</span><span><i style="background:#F5B942"></i>Add-on / project</span></div>';
+    el.innerHTML = rows + legend;
+  }
+
+  /* ============================= RENDER: PROJECTS ============================= */
+  function renderProjFilters(){
+    var deptChips = [{key:'all',label:'All departments'}].concat(DEPTS.map(function(d){return {key:d.key,label:d.label};}));
+    var statusChips = [{key:'all',label:'All statuses'}].concat(PROJ_STATUS);
+    var html = '<div style="display:flex;gap:8px;flex-wrap:wrap">' +
+      deptChips.map(function(c){ return '<button class="chip'+(STATE.projFilterDept===c.key?' active':'')+'" data-proj-dept="'+c.key+'">'+c.label+'</button>'; }).join('') +
+      '</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' +
+      statusChips.map(function(c){ return '<button class="chip'+(STATE.projFilterStatus===c.key?' active':'')+'" data-proj-status="'+c.key+'">'+c.label+'</button>'; }).join('') +
+      '</div>';
+    document.getElementById('projFilters').innerHTML = html;
+  }
+
+  function renderProjects(){
+    var list = STATE.projects.filter(function(p){
+      return (STATE.projFilterDept==='all' || p.department===STATE.projFilterDept) &&
+             (STATE.projFilterStatus==='all' || p.status===STATE.projFilterStatus);
+    });
+    document.getElementById('projSub').textContent = list.length + ' project' + (list.length===1?'':'s') + ' shown';
+    var head = '<div class="proj-row head"><div>Project</div><div>Department</div><div>Status</div><div>Progress</div><div>Due</div><div></div></div>';
+    var rows = list.map(function(p){
+      var d = deptOf(p.department);
+      var st = PROJ_STATUS_COLOR[p.status] || '#8B93A7';
+      var stLabel = (PROJ_STATUS.filter(function(s){return s.key===p.status;})[0]||{}).label || p.status;
+      return '<div class="proj-row" data-open-project="'+p.id+'">'+
+        '<div data-k="Project"><div class="proj-name">'+escapeHtml(p.name)+'</div><div class="proj-client">'+escapeHtml(p.clientName||'—')+'</div></div>'+
+        '<div data-k="Department"><span class="dept-tag" style="background:rgba(255,255,255,.06);color:'+d.hex+'">'+d.label+'</span></div>'+
+        '<div data-k="Status"><span class="status-pill" style="color:'+st+';background:'+st+'22">'+stLabel+'</span></div>'+
+        '<div data-k="Progress"><div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:'+(p.progress||0)+'%;background:'+st+'"></div></div><span style="font-size:11.5px;color:var(--text-muted)">'+(p.progress||0)+'%</span></div></div>'+
+        '<div data-k="Due">'+(p.dueDate?escapeHtml(p.dueDate):'—')+'</div>'+
+        '<div class="row-actions"><button class="icon-btn" data-del-project="'+p.id+'" title="Delete" aria-label="Delete project">✕</button></div>'+
+      '</div>';
+    }).join('') || '<div class="table-empty">No projects match these filters yet.</div>';
+    document.getElementById('projTable').innerHTML = head + rows;
+  }
+
+  /* ============================= RENDER: REVENUE LOG ============================= */
+  function renderRevTable(){
+    var rows = sortedRevenueLog().slice().reverse();
+    var html = '<thead><tr><th>Month</th><th>Type</th><th>Department</th><th>Amount</th><th>Note</th><th></th></tr></thead><tbody>';
+    if(rows.length===0){
+      html += '<tr><td colspan="6" class="table-empty">No revenue logged yet — use “Log revenue” above.</td></tr>';
+    } else {
+      rows.forEach(function(r){
+        var d = r.department && r.department!=='all' ? deptOf(r.department).label : 'All departments';
+        var typeLabel = r.type==='addon' ? 'Add-on / project' : 'Recurring';
+        var typeColor = r.type==='addon' ? '#F5B942' : '#43D9C8';
+        html += '<tr><td>'+escapeHtml(r.month)+'</td>'+
+          '<td><span class="status-pill" style="color:'+typeColor+';background:'+typeColor+'22">'+typeLabel+'</span></td>'+
+          '<td>'+escapeHtml(d)+'</td><td>'+fmtMoney(r.amount)+'</td><td>'+escapeHtml(r.note||'—')+'</td>'+
+          '<td><button class="icon-btn" data-del-revenue="'+r.id+'" title="Delete" aria-label="Delete entry">✕</button></td></tr>';
+      });
+    }
+    html += '</tbody>';
+    document.getElementById('revTable').innerHTML = html;
+  }
+
+  function render(){
+    renderKPIs();
+    renderBoard();
+    renderDeptRevenue();
+    renderStatusDonut();
+    renderRevTrend();
+    renderProjFilters();
+    renderProjects();
+    renderRevTable();
+  }
+
+  /* ============================= MODALS ============================= */
+  var modalRoot = document.getElementById('modalRoot');
+
+  function closeModal(){
+    var ov = modalRoot.querySelector('.overlay');
+    if(ov){ ov.classList.remove('open'); setTimeout(function(){ modalRoot.innerHTML=''; }, 160); }
+  }
+
+  function openModal(html){
+    modalRoot.innerHTML = '<div class="overlay"><div class="modal">'+html+'</div></div>';
+    var ov = modalRoot.querySelector('.overlay');
+    requestAnimationFrame(function(){ ov.classList.add('open'); });
+    ov.addEventListener('click', function(e){ if(e.target===ov) closeModal(); });
+  }
+
+  function deptOptionsHtml(selected){
+    return DEPTS.map(function(d){ return '<option value="'+d.key+'"'+(d.key===selected?' selected':'')+'>'+d.label+'</option>'; }).join('');
+  }
+
+  function statusOptionsHtml(deptKey, selected){
+    var allowed = STATUS_BY_DEPT[deptKey] || STATUS_BY_DEPT.social;
+    return allowed.map(function(k){
+      var sm = statusMeta(k);
+      return '<option value="'+k+'"'+(k===selected?' selected':'')+'>'+sm.label+'</option>';
+    }).join('');
+  }
+
+  function openEngagementModal(existing, presetDept){
+    var e = existing || { clientName:'', department: presetDept || 'social', status:'active', revenue:'', startDate:'', endDate:'', notes:'' };
+    var isEdit = !!existing;
+    var statusOpts = statusOptionsHtml(e.department, e.status);
+    var showEnd = TERMINAL_STATUSES.indexOf(e.status) > -1;
+    openModal(
+      '<h3>'+(isEdit?'Edit client':'Add client')+'</h3>'+
+      '<p class="mhint">Track a client\'s engagement with one of your service lines.</p>'+
+      '<form id="engForm">'+
+        '<div class="field"><label>Client name</label><input required id="f_name" value="'+escapeHtml(e.clientName)+'" placeholder="e.g. Strata"></div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Department</label><select id="f_dept">'+deptOptionsHtml(e.department)+'</select></div>'+
+          '<div class="field"><label>Status</label><select id="f_status">'+statusOpts+'</select></div>'+
+        '</div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Monthly revenue (৳)</label><input id="f_rev" type="number" min="0" step="1" value="'+(e.revenue||'')+'" placeholder="0"></div>'+
+          '<div class="field"><label>Start date</label><input id="f_start" type="date" value="'+(e.startDate||'')+'"></div>'+
+        '</div>'+
+        '<div class="field" id="f_endWrap" style="display:'+(showEnd?'block':'none')+'"><label>End date</label><input id="f_end" type="date" value="'+(e.endDate||'')+'"></div>'+
+        '<div class="field"><label>Notes</label><textarea id="f_notes" placeholder="Scope, contact, contract details…">'+escapeHtml(e.notes||'')+'</textarea></div>'+
+        '<div class="modal-actions">'+
+          (isEdit ? '<button type="button" class="btn btn-danger" id="engDelete">Delete</button>' : '<span></span>')+
+          '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="engCancel">Cancel</button><button type="submit" class="btn btn-primary">'+(isEdit?'Save changes':'Add client')+'</button></div>'+
+        '</div>'+
+      '</form>'
+    );
+    function toggleEndDate(status){
+      var wrap = document.getElementById('f_endWrap');
+      var isTerminal = TERMINAL_STATUSES.indexOf(status) > -1;
+      wrap.style.display = isTerminal ? 'block' : 'none';
+      if(!isTerminal) document.getElementById('f_end').value = '';
+    }
+    document.getElementById('engCancel').onclick = closeModal;
+    document.getElementById('f_dept').onchange = function(){
+      document.getElementById('f_status').innerHTML = statusOptionsHtml(this.value, null);
+      toggleEndDate(document.getElementById('f_status').value);
+    };
+    document.getElementById('f_status').onchange = function(){ toggleEndDate(this.value); };
+    if(isEdit){
+      document.getElementById('engDelete').onclick = async function(){
+        if(confirm('Remove '+e.clientName+' from '+deptOf(e.department).label+'?')){
+          await deleteDoc('engagements', e.id); toast('Client removed'); closeModal();
+        }
+      };
+    }
+    document.getElementById('engForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        clientName: document.getElementById('f_name').value.trim(),
+        department: document.getElementById('f_dept').value,
+        status: document.getElementById('f_status').value,
+        revenue: Number(document.getElementById('f_rev').value)||0,
+        startDate: document.getElementById('f_start').value,
+        endDate: document.getElementById('f_end').value,
+        notes: document.getElementById('f_notes').value.trim()
+      };
+      if(!data.clientName) return;
+      if(isEdit){ await updateDoc('engagements', e.id, data); toast('Client updated'); }
+      else{ data.createdAt = Date.now(); await addDoc('engagements', data); toast('Client added'); }
+      closeModal();
+    };
+  }
+
+  function clientOptionsHtml(selected){
+    var names = STATE.engagements.map(function(e){return e.clientName;});
+    var uniq = names.filter(function(n,i){return names.indexOf(n)===i;});
+    if(uniq.length===0) return '<option value="">No clients yet</option>';
+    return uniq.map(function(n){ return '<option value="'+escapeHtml(n)+'"'+(n===selected?' selected':'')+'>'+escapeHtml(n)+'</option>'; }).join('');
+  }
+
+  function openProjectModal(existing){
+    var p = existing || { name:'', clientName:'', department:'social', status:'planning', progress:0, dueDate:'', value:'', notes:'' };
+    var isEdit = !!existing;
+    var statusOpts = PROJ_STATUS.map(function(s){ return '<option value="'+s.key+'"'+(s.key===p.status?' selected':'')+'>'+s.label+'</option>'; }).join('');
+    openModal(
+      '<h3>'+(isEdit?'Edit project':'Add project')+'</h3>'+
+      '<p class="mhint">Track a specific deliverable or campaign for a client.</p>'+
+      '<form id="projForm">'+
+        '<div class="field"><label>Project name</label><input required id="p_name" value="'+escapeHtml(p.name)+'" placeholder="e.g. Q4 Instagram campaign"></div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Client</label><select id="p_client">'+clientOptionsHtml(p.clientName)+'</select></div>'+
+          '<div class="field"><label>Department</label><select id="p_dept">'+deptOptionsHtml(p.department)+'</select></div>'+
+        '</div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Status</label><select id="p_status">'+statusOpts+'</select></div>'+
+          '<div class="field"><label>Progress (%)</label><input id="p_progress" type="number" min="0" max="100" value="'+(p.progress||0)+'"></div>'+
+        '</div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Due date</label><input id="p_due" type="date" value="'+(p.dueDate||'')+'"></div>'+
+          '<div class="field"><label>Project value (৳)</label><input id="p_value" type="number" min="0" value="'+(p.value||'')+'"></div>'+
+        '</div>'+
+        '<div class="field"><label>Notes</label><textarea id="p_notes" placeholder="Milestones, blockers…">'+escapeHtml(p.notes||'')+'</textarea></div>'+
+        '<div class="modal-actions">'+
+          (isEdit ? '<button type="button" class="btn btn-danger" id="projDelete">Delete</button>' : '<span></span>')+
+          '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="projCancel">Cancel</button><button type="submit" class="btn btn-primary">'+(isEdit?'Save changes':'Add project')+'</button></div>'+
+        '</div>'+
+      '</form>'
+    );
+    document.getElementById('projCancel').onclick = closeModal;
+    if(isEdit){
+      document.getElementById('projDelete').onclick = async function(){
+        if(confirm('Delete project “'+p.name+'”?')){ await deleteDoc('projects', p.id); toast('Project deleted'); closeModal(); }
+      };
+    }
+    document.getElementById('projForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        name: document.getElementById('p_name').value.trim(),
+        clientName: document.getElementById('p_client').value,
+        department: document.getElementById('p_dept').value,
+        status: document.getElementById('p_status').value,
+        progress: Math.max(0, Math.min(100, Number(document.getElementById('p_progress').value)||0)),
+        dueDate: document.getElementById('p_due').value,
+        value: Number(document.getElementById('p_value').value)||0,
+        notes: document.getElementById('p_notes').value.trim()
+      };
+      if(!data.name) return;
+      if(isEdit){ await updateDoc('projects', p.id, data); toast('Project updated'); }
+      else{ data.createdAt = Date.now(); await addDoc('projects', data); toast('Project added'); }
+      closeModal();
+    };
+  }
+
+  function openRevenueModal(){
+    var now = new Date();
+    var defMonth = now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0');
+    var deptOpts = '<option value="all">All departments</option>' + deptOptionsHtml('');
+    openModal(
+      '<h3>Log revenue</h3>'+
+      '<p class="mhint">Add a monthly revenue figure to build the trend chart.</p>'+
+      '<form id="revForm">'+
+        '<div class="row2">'+
+          '<div class="field"><label>Month</label><input required id="r_month" type="month" value="'+defMonth+'"></div>'+
+          '<div class="field"><label>Amount (৳)</label><input required id="r_amount" type="number" min="0" placeholder="0"></div>'+
+        '</div>'+
+        '<div class="row2">'+
+          '<div class="field"><label>Type</label><select id="r_type"><option value="recurring">Recurring (retainer)</option><option value="addon">Add-on / small project</option></select></div>'+
+          '<div class="field"><label>Department</label><select id="r_dept">'+deptOpts+'</select></div>'+
+        '</div>'+
+        '<div class="field"><label>Note</label><input id="r_note" placeholder="Optional context"></div>'+
+        '<div class="modal-actions"><span></span><div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="revCancel">Cancel</button><button type="submit" class="btn btn-primary">Save entry</button></div></div>'+
+      '</form>'
+    );
+    document.getElementById('revCancel').onclick = closeModal;
+    document.getElementById('revForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        month: document.getElementById('r_month').value,
+        type: document.getElementById('r_type').value,
+        amount: Number(document.getElementById('r_amount').value)||0,
+        department: document.getElementById('r_dept').value,
+        note: document.getElementById('r_note').value.trim(),
+        createdAt: Date.now()
+      };
+      if(!data.month) return;
+      await addDoc('revenueLog', data);
+      toast('Revenue logged'); closeModal();
+    };
+  }
+
+  function openSettingsModal(){
+    var connected = MODE==='sheets';
+    openModal(
+      '<h3>Connect Google Sheet</h3>'+
+      '<p class="mhint">Paste your deployed Apps Script Web App URL to sync this dashboard to a Google Sheet. Leave it blank to keep data on this device only.</p>'+
+      '<form id="settingsForm">'+
+        '<div class="field"><label>Web App URL</label><input id="s_url" placeholder="https://script.google.com/macros/s/…/exec" value="'+escapeHtml(SHEETS_URL||'')+'"></div>'+
+        '<div id="s_status" style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px">'+(connected?'Currently connected and syncing.':'Currently in standalone (local-only) mode.')+'</div>'+
+        '<div class="modal-actions">'+
+          (connected ? '<button type="button" class="btn btn-danger" id="s_disconnect">Disconnect</button>' : '<span></span>')+
+          '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="s_cancel">Cancel</button><button type="submit" class="btn btn-primary" id="s_connect">Connect</button></div>'+
+        '</div>'+
+      '</form>'
+    );
+    document.getElementById('s_cancel').onclick = closeModal;
+    if(connected){
+      document.getElementById('s_disconnect').onclick = function(){
+        disconnectSheets(); toast('Disconnected — back to standalone mode'); closeModal();
+      };
+    }
+    document.getElementById('settingsForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var url = document.getElementById('s_url').value.trim();
+      if(!url){ toast('Enter a Web App URL first'); return; }
+      var btn = document.getElementById('s_connect');
+      btn.textContent = 'Connecting…'; btn.disabled = true;
+      try{
+        await connectSheets(url);
+        toast('Connected to Google Sheet'); closeModal();
+      }catch(err){
+        document.getElementById('s_status').textContent = 'Could not connect — check the URL and that the script is deployed with "Anyone" access.';
+        btn.textContent = 'Connect'; btn.disabled = false;
+      }
+    };
+  }
+
+  /* ============================= EVENTS ============================= */
+  document.getElementById('btnAddClient').onclick = function(){ openEngagementModal(null); };
+  document.getElementById('btnAddProject').onclick = function(){ openProjectModal(null); };
+  document.getElementById('btnAddRevenue').onclick = function(){ openRevenueModal(); };
+  document.getElementById('btnSettings').onclick = function(){ openSettingsModal(); };
+  document.getElementById('btnRefresh').onclick = async function(){
+    if(MODE==='sheets'){
+      try{ await fetchAllFromSheets(); render(); toast('Refreshed'); }
+      catch(e){ toast('Could not refresh — check your connection'); }
+    } else {
+      toast('Standalone mode — nothing to refresh');
+    }
+  };
+  document.getElementById('searchInput').oninput = function(e){ STATE.search = e.target.value; renderBoard(); };
+
+  document.body.addEventListener('click', function(e){
+    var t = e.target;
+    var openEng = t.closest('[data-open-engagement]');
+    if(openEng){
+      var id = openEng.getAttribute('data-open-engagement');
+      var eng = STATE.engagements.filter(function(x){return x.id===id;})[0];
+      if(eng) openEngagementModal(eng);
+      return;
+    }
+    var addEng = t.closest('[data-add-engagement]');
+    if(addEng){ openEngagementModal(null, addEng.getAttribute('data-add-engagement')); return; }
+
+    var openProj = t.closest('[data-open-project]');
+    if(openProj && !t.closest('[data-del-project]')){
+      var pid = openProj.getAttribute('data-open-project');
+      var proj = STATE.projects.filter(function(x){return x.id===pid;})[0];
+      if(proj) openProjectModal(proj);
+      return;
+    }
+    var delProj = t.closest('[data-del-project]');
+    if(delProj){
+      e.stopPropagation();
+      var did = delProj.getAttribute('data-del-project');
+      if(confirm('Delete this project?')){ deleteDoc('projects', did).then(function(){ toast('Project deleted'); }); }
+      return;
+    }
+    var delRev = t.closest('[data-del-revenue]');
+    if(delRev){
+      var rid = delRev.getAttribute('data-del-revenue');
+      if(confirm('Delete this revenue entry?')){ deleteDoc('revenueLog', rid).then(function(){ toast('Entry deleted'); }); }
+      return;
+    }
+    var pd = t.closest('[data-proj-dept]');
+    if(pd){ STATE.projFilterDept = pd.getAttribute('data-proj-dept'); renderProjFilters(); renderProjects(); return; }
+    var ps = t.closest('[data-proj-status]');
+    if(ps){ STATE.projFilterStatus = ps.getAttribute('data-proj-status'); renderProjFilters(); renderProjects(); return; }
+  });
+
+  /* ============================= THEME ============================= */
+  function applyThemeIcon(){
+    var isLight = document.documentElement.getAttribute('data-theme')==='light';
+    document.getElementById('themeIcon').innerHTML = isLight
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+      : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>';
+  }
+  document.getElementById('themeToggle').onclick = function(){
+    var cur = document.documentElement.getAttribute('data-theme');
+    var next = cur==='light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem('signalroom_theme', next); }catch(e){}
+    applyThemeIcon();
+  };
+  try{
+    var savedTheme = localStorage.getItem('signalroom_theme');
+    if(savedTheme) document.documentElement.setAttribute('data-theme', savedTheme);
+  }catch(e){}
+  applyThemeIcon();
+
+  /* ============================= INIT ============================= */
+  initData();
+
+})();
+</script>
+</body>
+</html>
