@@ -1,0 +1,1758 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Signal Room — Digital Marketing CRM</title>
+<script>
+  /* Apply saved theme before first paint so nothing flashes */
+  try{ var t=localStorage.getItem('signalroom_theme'); if(t) document.documentElement.setAttribute('data-theme', t); }catch(e){}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #08090D;
+    --bg-2: #0C0D12;
+    --surface: rgba(255,255,255,.055);
+    --surface-2: rgba(255,255,255,.035);
+    --surface-3: rgba(255,255,255,.09);
+    --glass-border: rgba(255,255,255,.14);
+    --glass-border-soft: rgba(255,255,255,.08);
+    --glass-sheen: rgba(255,255,255,.16);
+    --border: rgba(255,255,255,.14);
+    --text: #F3F4F8;
+    --text-muted: #A0A6B8;
+    --text-dim: #6B7186;
+    --accent-social: #FF6B57;
+    --accent-web: #43D9C8;
+    --accent-email: #F5B942;
+    --status-active: #5FD68A;
+    --status-paused: #F0A93E;
+    --status-lost: #E5544B;
+    --shadow: 0 20px 60px -12px rgba(0,0,0,.55), 0 2px 8px rgba(0,0,0,.25);
+    --shadow-sm: 0 8px 24px -6px rgba(0,0,0,.35);
+    --radius: 22px;
+    --radius-sm: 14px;
+    --ease-spring: cubic-bezier(.34, 1.56, .64, 1);
+    --ease-out: cubic-bezier(.16, 1, .3, 1);
+    --font-display: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Segoe UI", Arial, sans-serif;
+    --font-body: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", "Segoe UI", Arial, sans-serif;
+    color-scheme: dark;
+  }
+  :root[data-theme="light"]{
+    --bg:#EEF0F5; --bg-2:#E4E7EF;
+    --surface: rgba(255,255,255,.55); --surface-2: rgba(255,255,255,.4); --surface-3: rgba(255,255,255,.75);
+    --glass-border: rgba(255,255,255,.9); --glass-border-soft: rgba(0,0,0,.05); --glass-sheen: rgba(255,255,255,.8);
+    --border: rgba(20,22,30,.09); --text:#15171F; --text-muted:#5B5F6E; --text-dim:#8B8F9E;
+    --shadow: 0 20px 50px -14px rgba(30,34,50,.22), 0 2px 8px rgba(30,34,50,.06);
+    --shadow-sm: 0 10px 24px -8px rgba(30,34,50,.14);
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: light){
+    :root:not([data-theme="dark"]){
+      --bg:#EEF0F5; --bg-2:#E4E7EF;
+      --surface: rgba(255,255,255,.55); --surface-2: rgba(255,255,255,.4); --surface-3: rgba(255,255,255,.75);
+      --glass-border: rgba(255,255,255,.9); --glass-border-soft: rgba(0,0,0,.05); --glass-sheen: rgba(255,255,255,.8);
+      --border: rgba(20,22,30,.09); --text:#15171F; --text-muted:#5B5F6E; --text-dim:#8B8F9E;
+      --shadow: 0 20px 50px -14px rgba(30,34,50,.22), 0 2px 8px rgba(30,34,50,.06);
+      --shadow-sm: 0 10px 24px -8px rgba(30,34,50,.14);
+      color-scheme: light;
+    }
+  }
+  html,body{ height:100%; }
+  *{ box-sizing: border-box; }
+  body{
+    margin:0; background: var(--bg);
+    color: var(--text); font-family: var(--font-body); line-height:1.45;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: -.005em;
+    position: relative;
+    overflow-x: hidden;
+  }
+  a{ color:inherit; }
+  button{ font-family: inherit; cursor:pointer; }
+  ::selection{ background: rgba(255,107,87,.35); }
+
+  /* ---------- Liquid mesh backdrop ---------- */
+  .bg-mesh{ position: fixed; inset:0; z-index:0; overflow:hidden; pointer-events:none; }
+  .bg-mesh span{ position:absolute; border-radius:50%; filter: blur(90px); opacity:.5; will-change: transform; }
+  .bg-mesh span:nth-child(1){ width:56vw; height:56vw; max-width:640px; max-height:640px; left:-14%; top:-16%;
+    background: radial-gradient(circle, var(--accent-social), transparent 68%); animation: drift1 26s var(--ease-out) infinite alternate; }
+  .bg-mesh span:nth-child(2){ width:46vw; height:46vw; max-width:560px; max-height:560px; right:-12%; top:6%;
+    background: radial-gradient(circle, var(--accent-web), transparent 68%); animation: drift2 32s var(--ease-out) infinite alternate; }
+  .bg-mesh span:nth-child(3){ width:42vw; height:42vw; max-width:520px; max-height:520px; left:24%; bottom:-18%;
+    background: radial-gradient(circle, var(--accent-email), transparent 68%); animation: drift3 29s var(--ease-out) infinite alternate; }
+  :root[data-theme="light"] .bg-mesh span{ opacity:.3; }
+  @media (prefers-color-scheme: light){ :root:not([data-theme="dark"]) .bg-mesh span{ opacity:.3; } }
+  @keyframes drift1{ from{ transform: translate(0,0) scale(1);} to{ transform: translate(6%,8%) scale(1.12);} }
+  @keyframes drift2{ from{ transform: translate(0,0) scale(1.05);} to{ transform: translate(-8%,6%) scale(.95);} }
+  @keyframes drift3{ from{ transform: translate(0,0) scale(1);} to{ transform: translate(4%,-6%) scale(1.08);} }
+  @media (prefers-reduced-motion: reduce){ .bg-mesh span{ animation:none !important; } }
+
+  .wrap{ max-width: 1320px; margin: 0 auto; padding: 0 24px 80px; position:relative; z-index:1; }
+
+  /* ---------- Glass base ---------- */
+  .kpi, .panel, .col, .pcol, .card, .pcard, .proj-table, .modal, .lock-box, .banner{
+    position: relative; isolation: isolate;
+    background: var(--surface);
+    border: 1px solid var(--glass-border);
+    -webkit-backdrop-filter: blur(28px) saturate(180%);
+    backdrop-filter: blur(28px) saturate(180%);
+    box-shadow: var(--shadow-sm);
+  }
+  .kpi::before, .panel::before, .col::before, .pcol::before, .card::before, .pcard::before, .proj-table::before, .modal::before, .lock-box::before{
+    content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none; z-index:0;
+    background: linear-gradient(165deg, var(--glass-sheen) 0%, transparent 30%, transparent 78%, rgba(0,0,0,.05) 100%);
+    opacity:.7; mix-blend-mode: overlay;
+  }
+  .kpi > *, .panel > *, .col > *, .pcol > *, .card > *, .pcard > *, .proj-table > *, .modal > *, .lock-box > *{ position:relative; z-index:1; }
+
+  /* ---------- Topbar ---------- */
+  .topbar{
+    position: sticky; top:0; z-index: 40;
+    padding-top: calc(14px + env(safe-area-inset-top, 0px));
+    padding-bottom: 10px;
+    background: color-mix(in srgb, var(--bg) 62%, transparent);
+    -webkit-backdrop-filter: blur(22px) saturate(180%);
+    backdrop-filter: blur(22px) saturate(180%);
+    border-bottom: 1px solid var(--glass-border-soft);
+  }
+  .topbar-inner{ max-width:1320px; margin:0 auto; padding:0 24px; display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+  .brand{ display:flex; align-items:center; gap:12px; margin-right:auto; }
+  .brand-mark{ width:38px; height:38px; border-radius:12px; display:grid; place-items:center; font-family:var(--font-display); font-weight:700; font-size:15px;
+    background: conic-gradient(from 210deg, var(--accent-social), var(--accent-email), var(--accent-web), var(--accent-social));
+    color:#12141A; box-shadow: 0 4px 14px -4px rgba(0,0,0,.4), inset 0 1px 1px rgba(255,255,255,.5); }
+  .brand-text h1{ font-family: var(--font-display); font-size:18px; margin:0; letter-spacing:-.01em; font-weight:650; }
+  .brand-text p{ margin:0; font-size:12px; color:var(--text-muted); }
+  .search{ position:relative; }
+  .search input{
+    width: 220px; background: var(--surface-2); border:1px solid var(--border); color:var(--text);
+    -webkit-backdrop-filter: blur(16px); backdrop-filter: blur(16px);
+    border-radius: 980px; padding:9px 14px 9px 34px; font-size:13.5px; outline:none;
+    transition: border-color .2s var(--ease-out), background .2s var(--ease-out), box-shadow .2s var(--ease-out);
+  }
+  .search input:focus{ border-color: var(--accent-web); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-web) 18%, transparent); }
+  .search svg{ position:absolute; left:11px; top:9px; width:16px; height:16px; color:var(--text-dim); }
+
+  .nav{ flex-basis:100%; display:flex; gap:6px; overflow-x:auto; padding:2px 0 2px; scrollbar-width:none; }
+  .nav::-webkit-scrollbar{ display:none; }
+  .nav-btn{ border:1px solid transparent; background:transparent; color:var(--text-muted); padding:8px 16px; border-radius:980px; font-size:13.5px; font-weight:600; white-space:nowrap;
+    display:inline-flex; align-items:center; gap:7px; transition: background .2s var(--ease-out), color .2s var(--ease-out), transform .25s var(--ease-spring); }
+  .nav-btn:hover{ color:var(--text); transform: translateY(-1px); }
+  .nav-btn.active{ background: var(--surface-3); color: var(--text); border-color: var(--glass-border); box-shadow: var(--shadow-sm); }
+  .nav-badge{ background: var(--status-lost); color:#fff; font-size:10.5px; font-weight:700; padding:1px 7px; border-radius:980px; display:none; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:7px; border-radius:980px; border:1px solid var(--glass-border);
+    background: var(--surface); color:var(--text); padding:9px 16px; font-size:13.5px; font-weight:600;
+    -webkit-backdrop-filter: blur(18px) saturate(180%); backdrop-filter: blur(18px) saturate(180%);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glass-sheen);
+    transition: transform .28s var(--ease-spring), border-color .2s var(--ease-out), background .2s var(--ease-out), box-shadow .2s var(--ease-out);
+  }
+  .btn:hover{ border-color: var(--text-dim); transform: translateY(-1px) scale(1.015); }
+  .btn:active{ transform: translateY(0) scale(.97); transition-duration: .12s; }
+  .btn:disabled{ opacity:.6; cursor:default; transform:none; }
+  .btn-primary{ background: var(--text); color: var(--bg-2); border-color: var(--text); -webkit-backdrop-filter:none; backdrop-filter:none; }
+  .btn-primary:hover{ opacity:.92; border-color:var(--text); }
+  .btn-ghost{ background: transparent; box-shadow:none; }
+  .btn-sm{ padding:6px 12px; font-size:12.5px; }
+  .btn-danger{ color: var(--status-lost); border-color: color-mix(in srgb, var(--status-lost) 45%, transparent); background: color-mix(in srgb, var(--status-lost) 10%, transparent); }
+  .theme-toggle{ width:36px; height:36px; border-radius:50%; display:grid; place-items:center; border:1px solid var(--glass-border);
+    background: var(--surface); color:var(--text); -webkit-backdrop-filter: blur(18px) saturate(180%); backdrop-filter: blur(18px) saturate(180%);
+    box-shadow: var(--shadow-sm), inset 0 1px 0 var(--glass-sheen);
+    transition: transform .28s var(--ease-spring), background .2s var(--ease-out); }
+  .theme-toggle:hover{ transform: rotate(-8deg) scale(1.08); }
+  .theme-toggle:active{ transform: scale(.92); }
+
+  /* ---------- Views ---------- */
+  .view{ display:none; margin-top: 28px; }
+  .view.active{ display:block; animation: viewIn .35s var(--ease-out); }
+  @keyframes viewIn{ from{ opacity:0; transform: translateY(8px);} to{ opacity:1; transform:none;} }
+  .section-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:14px; flex-wrap:wrap; }
+  .section-head h2{ font-family: var(--font-display); font-size:20px; margin:0; font-weight:650; letter-spacing:-.01em; }
+  .section-head .sub{ font-size:12.5px; color:var(--text-muted); display:block; margin-top:2px; }
+  .head-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  .gap-top{ margin-top:28px; }
+
+  /* ---------- KPIs ---------- */
+  .kpis{ display:grid; grid-template-columns: repeat(5, minmax(0,1fr)); gap:14px; }
+  .kpis.four{ grid-template-columns: repeat(4, minmax(0,1fr)); margin-bottom:18px; }
+  .kpi{ border-radius: var(--radius); padding:20px; overflow:hidden;
+    transition: transform .35s var(--ease-spring), box-shadow .35s var(--ease-out); }
+  .kpi:hover{ transform: translateY(-3px); box-shadow: var(--shadow); }
+  .kpi::after{ content:""; position:absolute; right:-34px; top:-34px; width:140px; height:140px; border-radius:50%;
+    background: radial-gradient(circle, var(--kpi-glow, var(--accent-web)) 0%, transparent 70%); opacity:.28; filter: blur(2px); z-index:0; }
+  .kpi .label{ font-size:12px; color:var(--text-muted); font-weight:600; }
+  .kpi .value{ font-family: var(--font-display); font-size:28px; margin-top:8px; font-weight:700; letter-spacing:-.02em; }
+
+  /* ---------- Client board ---------- */
+  .board{ display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:16px; align-items:start; }
+  .col{ border-radius: var(--radius); padding:16px; min-height: 140px; }
+  .col-head{ display:flex; align-items:center; justify-content:space-between; margin-bottom:12px; }
+  .col-head .tag{ display:flex; align-items:center; gap:8px; font-family: var(--font-display); font-weight:650; font-size:14.5px; }
+  .dot{ width:9px; height:9px; border-radius:50%; flex:none; box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 18%, transparent); }
+  .col-count{ font-size:12px; color:var(--text-muted); background: var(--surface-3); padding:2px 9px; border-radius:980px; }
+  .cards{ display:flex; flex-direction:column; gap:8px; }
+  .card{
+    border-radius: var(--radius-sm);
+    padding:11px 13px; display:flex; align-items:center; justify-content:space-between; gap:8px;
+    cursor:pointer; transition: transform .25s var(--ease-spring), border-color .2s var(--ease-out), background .2s var(--ease-out), box-shadow .25s var(--ease-out);
+  }
+  .card:hover{ border-color: var(--text-dim); background: var(--surface-3); transform: translateY(-2px) scale(1.01); box-shadow: var(--shadow-sm); }
+  .card:active{ transform: scale(.98); }
+  .card-name{ font-weight:600; font-size:13.5px; }
+  .card-rev{ font-size:11.5px; color: var(--text-muted); margin-top:2px; }
+  .status-pill{ font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:980px; flex:none; letter-spacing:.2px; white-space:nowrap; }
+  .col-add{ margin-top:10px; width:100%; justify-content:center; border-style: dashed; color: var(--text-muted); }
+  .empty-hint{ font-size:12.5px; color: var(--text-dim); padding: 10px 2px; }
+
+  /* ---------- Pipeline ---------- */
+  .pipe{ display:flex; gap:14px; overflow-x:auto; padding:2px 2px 14px; align-items:flex-start; scroll-snap-type:x proximity; }
+  .pcol{ flex:0 0 272px; border-radius: var(--radius); padding:14px; min-height:160px; scroll-snap-align:start; transition: border-color .2s var(--ease-out), background .2s var(--ease-out); }
+  .pcol.drop{ border-color: var(--accent-web); background: color-mix(in srgb, var(--accent-web) 10%, var(--surface)); }
+  .pcol-sum{ font-size:11.5px; color:var(--text-dim); margin:-6px 0 10px; }
+  .pcard{ border-radius: var(--radius-sm); padding:12px 13px; cursor:pointer; display:block;
+    transition: transform .25s var(--ease-spring), border-color .2s var(--ease-out), background .2s var(--ease-out); }
+  .pcard:hover{ border-color: var(--text-dim); background: var(--surface-3); transform: translateY(-2px); }
+  .pcard[draggable="true"]{ cursor:grab; }
+  .pcard-top{ display:flex; justify-content:space-between; gap:8px; align-items:flex-start; }
+  .pcard .scope{ font-size:12px; color:var(--text-muted); margin-top:6px; display:-webkit-box; -webkit-line-clamp:2; -webkit-box-orient:vertical; overflow:hidden; }
+  .pcard .meta{ display:flex; flex-wrap:wrap; gap:6px; margin-top:8px; align-items:center; }
+  .pcard .fu{ font-size:11.5px; margin-top:8px; font-weight:600; }
+  .pcard .links{ display:flex; gap:6px; margin-top:8px; }
+  .link-chip{ font-size:11px; font-weight:600; padding:3px 10px; border-radius:980px; border:1px solid var(--glass-border); text-decoration:none; color:var(--text-muted); background: var(--surface-2); }
+  .link-chip:hover{ color:var(--text); border-color:var(--text-dim); }
+  .adv{ width:24px; height:24px; border-radius:50%; border:1px solid var(--glass-border); background: var(--surface-2); color:var(--text-muted); font-size:13px; line-height:1; flex:none; display:grid; place-items:center; }
+  .adv:hover{ color:var(--text); border-color:var(--text-dim); }
+  .fu-item{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 2px; border-bottom:1px solid var(--border); cursor:pointer; }
+  .fu-item:last-child{ border-bottom:none; }
+  .fu-item:hover .card-name{ text-decoration:underline; }
+
+  /* ---------- Analytics ---------- */
+  .analytics-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:16px; align-items: stretch; }
+  .panel{ border-radius: var(--radius); padding:20px; }
+  .panel h3{ font-family: var(--font-display); font-size:14px; margin:0 0 14px; font-weight:650; }
+  .legend{ display:flex; flex-wrap:wrap; gap:10px 16px; margin-top:12px; font-size:12px; color: var(--text-muted); }
+  .legend span{ display:inline-flex; align-items:center; gap:6px; }
+  .legend i{ width:8px; height:8px; border-radius:50%; display:inline-block; }
+  .bar-row{ display:flex; align-items:center; gap:10px; margin-bottom:12px; }
+  .bar-row .bl{ width:96px; font-size:12px; color: var(--text-muted); flex:none; }
+  .bar-track{ flex:1; height:10px; background: var(--surface-3); border-radius:980px; overflow:hidden; }
+  .bar-fill{ height:100%; border-radius:980px; transition: width .5s var(--ease-out); }
+  .bar-row .bv{ width:78px; text-align:right; font-size:12.5px; font-weight:600; flex:none; }
+  .donut-wrap{ display:flex; align-items:center; gap:18px; }
+  .trend-empty, .table-empty{ font-size:12.5px; color: var(--text-dim); padding:20px 4px; text-align:center; }
+
+  /* ---------- Projects ---------- */
+  .filters{ display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; }
+  .chip{ font-size:12px; padding:7px 13px; border-radius:980px; border:1px solid var(--glass-border); background: var(--surface);
+    -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); color: var(--text-muted); font-weight:600;
+    transition: transform .25s var(--ease-spring), color .2s var(--ease-out), border-color .2s var(--ease-out), background .2s var(--ease-out); }
+  .chip:hover{ transform: translateY(-1px); }
+  .chip.active{ color: var(--text); border-color: var(--text-dim); background: var(--surface-3); box-shadow: var(--shadow-sm); }
+  .proj-table{ border-radius: var(--radius); overflow:hidden; }
+  .proj-row{ display:grid; grid-template-columns: 1.6fr 1fr .9fr 1.3fr .9fr 90px; gap:10px; align-items:center; padding:14px 18px; border-bottom:1px solid var(--border); font-size:13px;
+    transition: background .2s var(--ease-out); position:relative; z-index:1; cursor:pointer; }
+  .proj-row:hover{ background: var(--surface-3); }
+  .proj-row:last-child{ border-bottom:none; }
+  .proj-row.head{ font-size:11px; color: var(--text-dim); font-weight:700; background: transparent; cursor:default; }
+  .proj-row.head:hover{ background:transparent; }
+  .proj-name{ font-weight:600; }
+  .proj-client{ font-size:11.5px; color: var(--text-muted); margin-top:1px; }
+  .progress-wrap{ display:flex; align-items:center; gap:8px; }
+  .progress-track{ flex:1; height:6px; border-radius:980px; background: var(--surface-3); overflow:hidden; }
+  .progress-fill{ height:100%; border-radius:980px; background: var(--accent-web); transition: width .5s var(--ease-out); }
+  .row-actions{ display:flex; gap:6px; justify-content:flex-end; }
+  .icon-btn{ width:28px; height:28px; border-radius:50%; border:1px solid var(--glass-border); background: var(--surface-2); display:grid; place-items:center; color: var(--text-muted);
+    transition: transform .25s var(--ease-spring), color .2s var(--ease-out), border-color .2s var(--ease-out); }
+  .icon-btn:hover{ color: var(--text); border-color: var(--text-dim); transform: scale(1.1); }
+  .icon-btn:active{ transform: scale(.9); }
+  .dept-tag{ font-size:10.5px; font-weight:700; padding:3px 9px; border-radius:980px; background: rgba(255,255,255,.06); white-space:nowrap; }
+  @media (max-width: 720px){
+    .proj-row{ grid-template-columns: 1fr; row-gap:6px; }
+    .proj-row.head{ display:none; }
+    .proj-row > div::before{ content: attr(data-k); display:block; font-size:10px; color:var(--text-dim); font-weight:700; margin-bottom:2px; }
+  }
+
+  /* ---------- Revenue ---------- */
+  .revlog-table{ width:100%; border-collapse: collapse; font-size:13px; }
+  .revlog-table th{ text-align:left; font-size:11px; color: var(--text-dim); font-weight:700; padding:8px 10px; border-bottom:1px solid var(--border); }
+  .revlog-table td{ padding:11px 10px; border-bottom:1px solid var(--border); }
+  .revlog-table tfoot td{ font-weight:700; border-bottom:none; }
+  .table-scroll{ overflow-x:auto; }
+  .month-input{ background: var(--surface-2); border:1px solid var(--border); color:var(--text); border-radius:980px; padding:8px 14px; font-size:13px; font-family:inherit; outline:none; color-scheme: inherit; }
+  .month-input:focus{ border-color: var(--accent-web); }
+
+  /* ---------- Shared (public link) mode: pipeline only ---------- */
+  .share-mode .nav, .share-mode #btnSettings, .share-mode #btnShare, .share-mode .mode-note{ display:none !important; }
+  .share-mode .view{ display:none !important; }
+  .share-mode #view-pipeline{ display:block !important; }
+  .share-row{ background: var(--surface-2); border:1px solid var(--border); border-radius:16px; padding:12px 14px; margin-bottom:10px; }
+  .share-top{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:8px; }
+  .share-link{ display:flex; gap:8px; }
+  .share-link input{ flex:1; min-width:0; background: var(--surface-2); border:1px solid var(--border); color:var(--text); border-radius:12px; padding:8px 10px; font-size:12px; font-family:inherit; }
+  .warn-box{ font-size:12.5px; color:var(--accent-email); background: color-mix(in srgb, var(--accent-email) 12%, transparent); border:1px solid color-mix(in srgb, var(--accent-email) 35%, transparent); border-radius:14px; padding:10px 12px; margin-bottom:14px; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 1180px){ .kpis{ grid-template-columns: repeat(3,minmax(0,1fr)); } }
+  @media (max-width: 980px){
+    .kpis, .kpis.four{ grid-template-columns: repeat(2,minmax(0,1fr)); }
+    .board{ grid-template-columns: 1fr; }
+    .analytics-grid{ grid-template-columns: 1fr; }
+  }
+  @media (max-width: 560px){
+    .kpis, .kpis.four{ grid-template-columns: 1fr 1fr; }
+    .topbar-inner{ gap:10px; padding:0 16px; }
+    .wrap{ padding:0 16px 80px; }
+    .search input{ width: 150px; }
+    .pcol{ flex-basis: 84vw; }
+  }
+
+  /* ---------- Modal ---------- */
+  .overlay{
+    position: fixed; inset:0; background: rgba(6,7,10,.5); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+    display:flex; align-items:flex-end; justify-content:center; z-index:100; opacity:0; pointer-events:none;
+    transition: opacity .28s var(--ease-out);
+  }
+  .overlay.open{ opacity:1; pointer-events:auto; }
+  @media (min-width: 680px){ .overlay{ align-items:center; } }
+  .modal{
+    border-radius: 26px 26px 0 0; width:100%; max-width:520px;
+    max-height: 88vh; overflow-y:auto; padding: 24px 24px calc(24px + env(safe-area-inset-bottom,0px));
+    transform: translateY(24px) scale(.98); transition: transform .38s var(--ease-spring), opacity .28s var(--ease-out); box-shadow: var(--shadow);
+    background: color-mix(in srgb, var(--bg) 70%, var(--surface));
+  }
+  .modal.wide{ max-width:680px; }
+  @media (min-width: 680px){ .modal{ border-radius:26px; transform: translateY(10px) scale(.94); } }
+  .overlay.open .modal{ transform: translateY(0) scale(1); }
+  .modal h3{ font-family: var(--font-display); margin:0 0 4px; font-size:18px; font-weight:650; }
+  .modal .mhint{ font-size:12.5px; color: var(--text-muted); margin:0 0 18px; }
+  .field{ margin-bottom:14px; }
+  .field label{ display:block; font-size:12px; font-weight:600; color: var(--text-muted); margin-bottom:6px; }
+  .field input, .field select, .field textarea{
+    width:100%; background: var(--surface-2); border:1px solid var(--border); color: var(--text);
+    border-radius:14px; padding:10px 12px; font-size:13.5px; font-family: inherit; outline:none;
+    transition: border-color .2s var(--ease-out), box-shadow .2s var(--ease-out);
+  }
+  .field select option{ background: var(--bg-2); color: var(--text); }
+  .field input:focus, .field select:focus, .field textarea:focus{ border-color: var(--accent-web); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent-web) 16%, transparent); }
+  .field textarea{ resize: vertical; min-height:64px; }
+  .row2{ display:grid; grid-template-columns: 1fr 1fr; gap:12px; }
+  .modal-actions{ display:flex; justify-content:space-between; align-items:center; margin-top: 20px; gap:10px; flex-wrap:wrap; }
+  .fin-controls{ display:flex; gap:8px; align-items:center; margin-bottom:16px; flex-wrap:wrap; }
+  .fin-grid{ display:grid; grid-template-columns: 1fr 1fr; gap:10px; margin-bottom:18px; }
+  .fin-card{ background: var(--surface-2); border:1px solid var(--border); border-radius:16px; padding:14px 16px; }
+  .fin-card .label{ font-size:11.5px; color:var(--text-muted); font-weight:600; }
+  .fin-card .value{ font-family:var(--font-display); font-size:22px; font-weight:700; margin-top:4px; }
+  .group-title{ font-size:12px; font-weight:700; color:var(--text-dim); margin:16px 0 8px; display:flex; align-items:center; gap:8px; }
+
+  .toast{
+    position: fixed; left:50%; bottom: calc(22px + env(safe-area-inset-bottom,0px)); transform: translateX(-50%) translateY(28px) scale(.92);
+    background: var(--text); color: var(--bg-2); padding:11px 20px; border-radius:980px; font-size:13px; font-weight:600;
+    z-index:600; opacity:0; transition: all .4s var(--ease-spring); pointer-events:none; box-shadow: var(--shadow);
+  }
+  .toast.show{ opacity:1; transform: translateX(-50%) translateY(0) scale(1); }
+  .mode-note{ text-align:center; font-size:11.5px; color: var(--text-dim); margin-top: 40px; }
+
+  /* ---------- Lock screen (visible by default, so the app never flashes first) ---------- */
+  .lock-overlay{
+    position: fixed; inset:0; z-index:500; background: var(--bg);
+    display:flex; align-items:center; justify-content:center; padding:20px;
+    padding-top: calc(20px + env(safe-area-inset-top,0px)); padding-bottom: calc(20px + env(safe-area-inset-bottom,0px));
+  }
+  .lock-box{ width:100%; max-width:340px; text-align:center; border-radius: var(--radius); padding:32px 26px; }
+  .lock-box h3{ font-family: var(--font-display); margin:0 0 6px; font-size:18px; font-weight:650; }
+  .lock-box .mhint{ font-size:12.5px; color: var(--text-muted); margin:0 0 18px; }
+  .lock-box .field{ margin-bottom:12px; }
+  .lock-box input{ text-align:center; width:100%; background: var(--surface-2); border:1px solid var(--border); color: var(--text); border-radius:14px; padding:10px 12px; font-size:14px; outline:none; }
+  .lock-box input:focus{ border-color: var(--accent-web); }
+  .spinner{ width:22px; height:22px; border-radius:50%; border:3px solid var(--surface-3); border-top-color: var(--accent-web); margin:6px auto 0; animation: spin .8s linear infinite; }
+  @keyframes spin{ to{ transform: rotate(360deg);} }
+
+  ::-webkit-scrollbar{ width:10px; height:10px; }
+  ::-webkit-scrollbar-track{ background:transparent; }
+  ::-webkit-scrollbar-thumb{ background: var(--border); border-radius:980px; border:2px solid transparent; background-clip:content-box; }
+  ::-webkit-scrollbar-thumb:hover{ background: var(--text-dim); background-clip:content-box; }
+  :where(a,button,input,select,textarea):focus-visible{ outline: 2px solid var(--accent-web); outline-offset:2px; }
+  @media (prefers-reduced-motion: reduce){ *{ transition:none !important; animation:none !important; } }
+</style>
+</head>
+<body>
+
+<!-- Lock screen is the FIRST thing in the page and visible by default.
+     JS hides it only when no password is needed or the user is unlocked. -->
+<div id="lockScreen" class="lock-overlay">
+  <div class="lock-box">
+    <div class="brand-mark" style="margin:0 auto 14px">MZ</div>
+    <div id="lockChecking">
+      <h3>Signal Room</h3>
+      <p class="mhint">Loading…</p>
+      <div class="spinner"></div>
+    </div>
+    <div id="lockFormWrap" style="display:none">
+      <h3>The system is locked</h3>
+      <p class="mhint">Enter the department password to continue.</p>
+      <form id="lockForm">
+        <div class="field"><input id="lockPass" type="password" placeholder="Password" autocomplete="current-password"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%;justify-content:center">Unlock</button>
+        <div id="lockError" style="color:var(--status-lost);font-size:12px;margin-top:10px;display:none">Incorrect password — try again.</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div class="bg-mesh" aria-hidden="true"><span></span><span></span><span></span></div>
+
+<div class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-mark">MZ</div>
+      <div class="brand-text">
+        <h1>Maruf Zisan</h1>
+        <p>Digital marketing CRM</p>
+      </div>
+    </div>
+    <div class="search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/></svg>
+      <input id="searchInput" placeholder="Search clients & leads…" autocomplete="off">
+    </div>
+    <button class="theme-toggle" id="btnRefresh" title="Refresh data" aria-label="Refresh data">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12a9 9 0 1 1-2.6-6.4M21 4v5h-5"/></svg>
+    </button>
+    <button class="theme-toggle" id="btnSettings" title="Connect Google Sheet" aria-label="Connect Google Sheet">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.9l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.9-.3 1.7 1.7 0 0 0-1 1.6V21a2 2 0 1 1-4 0v-.2a1.7 1.7 0 0 0-1-1.5 1.7 1.7 0 0 0-1.9.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.9 1.7 1.7 0 0 0-1.6-1H3a2 2 0 1 1 0-4h.2a1.7 1.7 0 0 0 1.5-1 1.7 1.7 0 0 0-.3-1.9l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.9.3H9a1.7 1.7 0 0 0 1-1.6V3a2 2 0 1 1 4 0v.2a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.9-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.9V9a1.7 1.7 0 0 0 1.6 1H21a2 2 0 1 1 0 4h-.2a1.7 1.7 0 0 0-1.5 1z"/></svg>
+    </button>
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme" aria-label="Toggle theme">
+      <svg id="themeIcon" width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/></svg>
+    </button>
+    <nav class="nav" id="nav">
+      <button class="nav-btn active" data-view="overview">Overview</button>
+      <button class="nav-btn" data-view="clients">Clients</button>
+      <button class="nav-btn" data-view="pipeline">Pipeline <span class="nav-badge" id="dueBadge"></span></button>
+      <button class="nav-btn" data-view="projects">Projects</button>
+      <button class="nav-btn" data-view="revenue">Revenue</button>
+    </nav>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ OVERVIEW ============ -->
+  <div class="view active" id="view-overview">
+    <div class="section-head">
+      <div><h2>Overview</h2><span class="sub">Your department at a glance</span></div>
+      <div class="head-actions">
+        <button class="btn" id="btnFinance">Financial statement</button>
+      </div>
+    </div>
+    <div class="kpis" id="kpis"></div>
+
+    <div class="section-head gap-top"><div><h2>Insights</h2><span class="sub">Live from your clients, leads and revenue log</span></div></div>
+    <div class="analytics-grid">
+      <div class="panel"><h3>Follow-ups due</h3><div id="followups"></div></div>
+      <div class="panel"><h3>Engagement status</h3><div id="statusDonut"></div></div>
+      <div class="panel"><h3>Monthly revenue by department</h3><div id="deptRevenue"></div></div>
+      <div class="panel"><h3>Revenue trend</h3><div id="revTrend"></div></div>
+    </div>
+  </div>
+
+  <!-- ============ CLIENTS ============ -->
+  <div class="view" id="view-clients">
+    <div class="section-head">
+      <div><h2>Client board</h2><span class="sub">Active clients by department · click a card to edit</span></div>
+      <div class="head-actions">
+        <button class="btn" id="btnInactive">Inactive clients</button>
+        <button class="btn btn-primary" id="btnAddClient">＋ Client</button>
+      </div>
+    </div>
+    <div class="board" id="board"></div>
+  </div>
+
+  <!-- ============ PIPELINE ============ -->
+  <div class="view" id="view-pipeline">
+    <div class="section-head">
+      <div><h2>Prospect pipeline</h2><span class="sub">Track leads from first contact to won · drag cards between stages</span></div>
+      <div class="head-actions"><button class="btn" id="btnShare">Share pipeline</button><button class="btn btn-primary" id="btnAddProspect">＋ Prospect</button></div>
+    </div>
+    <div class="kpis four" id="pipeKpis"></div>
+    <div class="filters" id="pipeFilters"></div>
+    <div class="pipe" id="pipeBoard"></div>
+  </div>
+
+  <!-- ============ PROJECTS ============ -->
+  <div class="view" id="view-projects">
+    <div class="section-head">
+      <div><h2>Projects</h2><span class="sub" id="projSub">Active work across every department</span></div>
+      <div class="head-actions"><button class="btn btn-primary" id="btnAddProject">＋ Project</button></div>
+    </div>
+    <div class="filters" id="projFilters"></div>
+    <div class="proj-table" id="projTable"></div>
+  </div>
+
+  <!-- ============ REVENUE ============ -->
+  <div class="view" id="view-revenue">
+    <div class="section-head">
+      <div><h2>Revenue log</h2><span class="sub" id="revSub">Pick a month to see what was logged</span></div>
+      <div class="head-actions">
+        <input type="month" id="revMonthInput" class="month-input" aria-label="Select month">
+        <button class="btn btn-sm" id="btnRevThis">This month</button>
+        <button class="btn btn-sm" id="btnRevAll">All months</button>
+        <button class="btn btn-primary" id="btnAddRevenue">＋ Log revenue</button>
+      </div>
+    </div>
+    <div class="kpis four" id="revKpis"></div>
+    <div class="panel table-scroll"><table class="revlog-table" id="revTable"></table></div>
+  </div>
+
+  <p class="mode-note" id="modeNote"></p>
+</div>
+
+<div id="modalRoot"></div>
+<div class="toast" id="toast"></div>
+
+<script>
+(function(){
+
+  /* ============================= CONFIG ============================= */
+  var DEPTS = [
+    { key:'social', label:'Social Media + CC', color:'var(--accent-social)', hex:'#FF6B57' },
+    { key:'web',    label:'Website Dev',        color:'var(--accent-web)',    hex:'#43D9C8' },
+    { key:'email',  label:'Email Marketing',    color:'var(--accent-email)',  hex:'#F5B942' }
+  ];
+  var STATUS_META = {
+    active:    { label:'Active',    color:'#5FD68A', strike:false, dim:false },
+    pause:     { label:'Pause',     color:'#F0A93E', strike:false, dim:true  },
+    paused:    { label:'Paused',    color:'#F0A93E', strike:false, dim:true  },
+    done:      { label:'Done',      color:'#6C8CFF', strike:false, dim:false },
+    completed: { label:'Completed', color:'#43D9C8', strike:false, dim:false },
+    lost:      { label:'Lost',      color:'#E5544B', strike:true,  dim:false }
+  };
+  var STATUS_BY_DEPT = {
+    social: ['active','pause','done','lost'],
+    web:    ['active','completed'],
+    email:  ['active','paused','lost']
+  };
+  function statusMeta(key){ return STATUS_META[key] || { label:key, color:'#8B93A7', strike:false, dim:false }; }
+  var TERMINAL_STATUSES = ['lost','done','completed'];
+  var PROJ_STATUS = [
+    { key:'planning', label:'Planning' },
+    { key:'in_progress', label:'In progress' },
+    { key:'review', label:'Review' },
+    { key:'completed', label:'Completed' },
+    { key:'on_hold', label:'On hold' }
+  ];
+  var PROJ_STATUS_COLOR = { planning:'#8B93A7', in_progress:'#43D9C8', review:'#F5B942', completed:'#5FD68A', on_hold:'#E5544B' };
+
+  /* Prospect pipeline */
+  var P_STAGES = [
+    { key:'new',         label:'New lead',       color:'#8B93A7' },
+    { key:'contacted',   label:'Contacted',      color:'#6C8CFF' },
+    { key:'meeting',     label:'Meeting / Demo', color:'#43D9C8' },
+    { key:'proposal',    label:'Proposal sent',  color:'#F5B942' },
+    { key:'negotiation', label:'Negotiation',    color:'#FF6B57' },
+    { key:'won',         label:'Won',            color:'#5FD68A' },
+    { key:'lost',        label:'Lost',           color:'#E5544B' }
+  ];
+  var P_OPEN = ['new','contacted','meeting','proposal','negotiation'];
+  var P_FOLLOW = [
+    { key:'pending',     label:'Pending',      color:'#F0A93E' },
+    { key:'scheduled',   label:'Scheduled',    color:'#6C8CFF' },
+    { key:'done',        label:'Done',         color:'#5FD68A' },
+    { key:'no_response', label:'No response',  color:'#E5544B' },
+    { key:'none',        label:'Not needed',   color:'#8B93A7' }
+  ];
+  var P_SOURCES = ['Referral','Facebook','LinkedIn','Website','Cold outreach','Event','WhatsApp','Other'];
+  function pStage(k){ return P_STAGES.filter(function(s){return s.key===k;})[0] || P_STAGES[0]; }
+  function pFollow(k){ return P_FOLLOW.filter(function(s){return s.key===k;})[0] || P_FOLLOW[0]; }
+
+  /* ============================================================
+     PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL BELOW.
+     ============================================================ */
+  var DEFAULT_SHEETS_URL = "https://script.google.com/macros/s/AKfycbwIQpcOuXI1H68r_mH7dy7OGK-8KKUasmA1eTEqHdWeA8PA9LQblaZi6vZBzpDi7srn/exec";
+
+  var CACHE_KEY = 'signalroom_cache_v2';
+  var AUTH_KEY  = 'signalroom_auth_v1';
+
+  function deptOf(key){ return DEPTS.filter(function(d){return d.key===key;})[0] || DEPTS[0]; }
+  function fmtMoney(n){ n = Number(n)||0; return '৳' + n.toLocaleString('en-US',{maximumFractionDigits:0}); }
+  function uid(){ return 'id_' + Date.now().toString(36) + Math.random().toString(36).slice(2,8); }
+  function escapeHtml(s){ return String(s==null?'':s).replace(/[&<>"']/g, function(c){ return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]; }); }
+  function pad(n){ return String(n).padStart(2,'0'); }
+  function todayStr(){ var d=new Date(); return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()); }
+  function curMonth(){ return todayStr().slice(0,7); }
+  function normDate(s){ s = String(s==null?'':s); return /^\d{4}-\d{2}-\d{2}/.test(s) ? s.slice(0,10) : s; }
+  function monthKey(r){ var m = String(r.month==null?'':r.month); return /^\d{4}-\d{2}/.test(m) ? m.slice(0,7) : m; }
+  function daysBetween(a, b){ return Math.round((new Date(a+'T00:00:00') - new Date(b+'T00:00:00'))/864e5); }
+  function sumBy(arr, fn){ return arr.reduce(function(a,x){ return a + (Number(fn(x))||0); }, 0); }
+
+  /* ============================= STATE ============================= */
+  var SHARE_TOKEN = null; try{ SHARE_TOKEN = new URLSearchParams(location.search).get('share'); }catch(e){}
+  var SHARE_MODE = !!SHARE_TOKEN, SHARE_PERM = 'view';
+  function canEdit(){ return !SHARE_MODE || SHARE_PERM==='edit'; }
+  var STATE = { engagements: [], projects: [], revenueLog: [], prospects: [], shares: [],
+    search:'', projFilterDept:'all', projFilterStatus:'all', pipeFilter:'all', revMonth: curMonth(), view:'overview' };
+  var MODE = 'local';
+  var SHEETS_URL = null;
+  var pollTimer = null;
+
+  var SEED_ENGAGEMENTS = [
+    { clientName:'Strata', department:'social', status:'active' },
+    { clientName:'VIEC', department:'social', status:'active' },
+    { clientName:'ArtCircle', department:'social', status:'active' },
+    { clientName:'Ascent', department:'social', status:'lost' },
+    { clientName:'Aerolex', department:'social', status:'lost' },
+    { clientName:'SOAS', department:'social', status:'lost' },
+    { clientName:'CCCL', department:'social', status:'lost' },
+    { clientName:'Chitrorekha', department:'social', status:'lost' },
+    { clientName:'InfoTitan', department:'social', status:'active' },
+    { clientName:'Flow Fest', department:'social', status:'active' },
+    { clientName:'CIU', department:'social', status:'active' },
+    { clientName:'Essential Foods', department:'social', status:'active' },
+    { clientName:'VIEC', department:'web', status:'completed' },
+    { clientName:'PSPLL', department:'web', status:'active' },
+    { clientName:'GBEL', department:'web', status:'active' },
+    { clientName:'InfoTitan', department:'web', status:'active' },
+    { clientName:'Aerolex', department:'email', status:'lost' }
+  ];
+
+  /* ============================= PERSISTENCE ============================= */
+  function localLoad(){
+    try{
+      var raw = localStorage.getItem('signalroom_data');
+      if(raw){
+        var p = JSON.parse(raw);
+        STATE.engagements = p.engagements || []; STATE.projects = p.projects || [];
+        STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || [];
+      }
+    }catch(e){}
+  }
+  function localSave(){
+    try{ localStorage.setItem('signalroom_data', JSON.stringify({
+      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects })); }catch(e){}
+  }
+  function seedLocalIfEmpty(){
+    if(STATE.engagements.length===0 && STATE.projects.length===0 && STATE.revenueLog.length===0){
+      STATE.engagements = SEED_ENGAGEMENTS.map(function(e){
+        return Object.assign({ id: uid(), revenue:0, startDate:'', endDate:'', notes:'', createdAt: Date.now() }, e);
+      });
+      localSave();
+    }
+  }
+
+  /* ---- instant-load cache of the last synced sheet data ---- */
+  function cacheSave(){
+    if(MODE!=='sheets' || SHARE_MODE) return;
+    try{ localStorage.setItem(CACHE_KEY, JSON.stringify({
+      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects, shares: STATE.shares })); }catch(e){}
+  }
+  function cacheLoad(){
+    try{
+      var raw = localStorage.getItem(CACHE_KEY);
+      if(!raw) return false;
+      var p = JSON.parse(raw);
+      STATE.engagements = p.engagements || []; STATE.projects = p.projects || [];
+      STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || []; STATE.shares = p.shares || [];
+      return true;
+    }catch(e){ return false; }
+  }
+
+  /* ---- Google Sheets (Apps Script Web App) backend ---- */
+  async function sheetsGet(collection){
+    var res = await fetch(SHEETS_URL + '?collection=' + encodeURIComponent(collection) + '&t=' + Date.now());
+    var json = await res.json();
+    if(!json || json.ok===false) throw new Error((json && json.error) || 'Request failed');
+    return json.data || [];
+  }
+  async function sheetsPost(body){
+    var res = await fetch(SHEETS_URL, { method:'POST', headers:{ 'Content-Type':'text/plain;charset=utf-8' }, body: JSON.stringify(body) });
+    var json = await res.json();
+    if(!json || json.ok===false) throw new Error((json && json.error) || 'Request failed');
+    return json;
+  }
+  /* All five requests (including the password setting) run in parallel — one round of waiting instead of a chain. */
+  async function fetchAllFromSheets(){
+    var r = await Promise.all([
+      sheetsGet('engagements'), sheetsGet('projects'), sheetsGet('revenueLog'),
+      sheetsGet('prospects').catch(function(){ return null; }),
+      sheetsGet('settings').catch(function(){ return null; }),
+      sheetsGet('shares').catch(function(){ return null; })
+    ]);
+    STATE.engagements = r[0]; STATE.projects = r[1]; STATE.revenueLog = r[2];
+    if(r[3]) STATE.prospects = r[3];
+    if(r[5]) STATE.shares = r[5];
+    if(r[4]) applyAuthRows(r[4]);
+    cacheSave();
+  }
+  async function seedSheetsIfEmpty(){
+    if(STATE.engagements.length===0 && STATE.projects.length===0 && STATE.revenueLog.length===0){
+      await Promise.all(SEED_ENGAGEMENTS.map(function(e){
+        return sheetsPost({ action:'add', collection:'engagements', data: Object.assign({ revenue:0, startDate:'', endDate:'', notes:'', createdAt: Date.now() }, e) });
+      }));
+      await fetchAllFromSheets();
+    }
+  }
+  function startPolling(){
+    stopPolling();
+    pollTimer = setInterval(async function(){
+      if(document.hidden) return;
+      try{ await refreshData(); }catch(e){}
+    }, 30000);
+  }
+  function stopPolling(){ if(pollTimer){ clearInterval(pollTimer); pollTimer=null; } }
+  document.addEventListener('visibilitychange', async function(){
+    if(!document.hidden && MODE==='sheets'){ try{ await refreshData(); }catch(e){} }
+  });
+
+  /* ---- shared-link mode: loads ONLY the shares list (to check the token) and prospects ---- */
+  async function fetchShareData(){
+    var r = await Promise.all([ sheetsGet('shares'), sheetsGet('prospects') ]);
+    var rec = r[0].filter(function(x){ return String(x.token)===SHARE_TOKEN && x.active!=='no'; })[0];
+    if(!rec) return false;
+    SHARE_PERM = rec.permission==='edit' ? 'edit' : 'view';
+    STATE.prospects = r[1];
+    return true;
+  }
+  async function refreshData(){
+    if(SHARE_MODE){
+      var ok = await fetchShareData();
+      if(!ok){ showShareError('This link is invalid or has been revoked.'); return; }
+      applySharePerm(); renderPipeline();
+    } else { await fetchAllFromSheets(); render(); }
+  }
+  function showShareError(msg){
+    lockEl().style.display = 'flex'; document.body.style.overflow = 'hidden';
+    document.getElementById('lockFormWrap').style.display = 'none';
+    var c = document.getElementById('lockChecking'); c.style.display = 'block';
+    c.innerHTML = '<h3>Shared pipeline</h3><p class="mhint" style="margin-bottom:0">'+escapeHtml(msg)+'</p>';
+  }
+  function applySharePerm(){
+    var edit = SHARE_PERM==='edit';
+    document.getElementById('btnAddProspect').style.display = edit ? '' : 'none';
+    document.querySelector('.brand-text p').textContent = 'Shared prospect pipeline · ' + (edit ? 'can edit' : 'view only');
+    var sub = document.querySelector('#view-pipeline .section-head .sub');
+    if(sub) sub.textContent = edit ? 'Add and update leads · drag cards between stages' : 'View only — you can browse leads but not change them';
+  }
+  async function initShare(){
+    document.body.classList.add('share-mode');
+    document.title = 'Shared pipeline — Signal Room';
+    var url = (DEFAULT_SHEETS_URL||'').trim();
+    if(!url){ showShareError('This link is not set up correctly.'); return; }
+    SHEETS_URL = url; MODE = 'sheets';
+    try{
+      var ok = await fetchShareData();
+      if(!ok){ showShareError('This link is invalid or has been revoked.'); return; }
+    }catch(e){ showShareError('Could not load this shared pipeline. Check your connection and try again.'); return; }
+    setView('pipeline'); applySharePerm(); hideLock(); renderPipeline(); startPolling();
+  }
+
+  /* ---- password lock ---- */
+  var AUTH_PASSWORD = null, AUTH_LOADED = false, authRecordId = null, cachedAuth = null;
+  async function sha256(s){
+    try{
+      var buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(s));
+      return Array.from(new Uint8Array(buf)).map(function(b){ return b.toString(16).padStart(2,'0'); }).join('');
+    }catch(e){
+      var h = 5381; for(var i=0;i<s.length;i++){ h = ((h<<5)+h+s.charCodeAt(i))|0; } return 'x'+h;
+    }
+  }
+  function readAuthCache(){ try{ return JSON.parse(localStorage.getItem(AUTH_KEY)||'null'); }catch(e){ return null; } }
+  function writeAuthCache(){
+    if(AUTH_PASSWORD){
+      sha256(AUTH_PASSWORD).then(function(h){ cachedAuth = { locked:true, hash:h }; try{ localStorage.setItem(AUTH_KEY, JSON.stringify(cachedAuth)); }catch(e){} });
+    } else {
+      cachedAuth = { locked:false }; try{ localStorage.setItem(AUTH_KEY, JSON.stringify(cachedAuth)); }catch(e){}
+    }
+  }
+  function applyAuthRows(rows){
+    var rec = rows.filter(function(r){ return r.key==='password'; })[0];
+    AUTH_PASSWORD = (rec && rec.value) ? String(rec.value) : null;
+    authRecordId = rec ? rec.id : null;
+    AUTH_LOADED = true;
+    writeAuthCache();
+  }
+  function isUnlocked(){ try{ return sessionStorage.getItem('signalroom_unlocked')==='1'; }catch(e){ return false; } }
+  function lockEl(){ return document.getElementById('lockScreen'); }
+  function hideLock(){ lockEl().style.display='none'; document.body.style.overflow=''; }
+  function showLockForm(){
+    lockEl().style.display='flex'; document.body.style.overflow='hidden';
+    document.getElementById('lockChecking').style.display='none';
+    document.getElementById('lockFormWrap').style.display='block';
+    setTimeout(function(){ var i=document.getElementById('lockPass'); if(i) i.focus(); }, 50);
+  }
+  function applyLockDecision(){
+    if(MODE!=='sheets' || !AUTH_PASSWORD || isUnlocked()) hideLock(); else showLockForm();
+  }
+
+  async function connectSheets(url){
+    SHEETS_URL = url; MODE = 'sheets';
+    try{
+      await fetchAllFromSheets();
+    }catch(e){ MODE='local'; SHEETS_URL=null; throw e; }
+    try{ localStorage.setItem('signalroom_sheets_url', url); }catch(e){}
+    await seedSheetsIfEmpty();
+    migrateStatuses();
+    render(); applyLockDecision(); updateModeNote(); startPolling();
+  }
+  function disconnectSheets(){
+    SHEETS_URL = null; MODE = 'local';
+    try{ localStorage.removeItem('signalroom_sheets_url'); localStorage.removeItem(CACHE_KEY); localStorage.removeItem(AUTH_KEY); }catch(e){}
+    stopPolling();
+    AUTH_PASSWORD = null; authRecordId = null; AUTH_LOADED = false; cachedAuth = null;
+    hideLock();
+    STATE.engagements=[]; STATE.projects=[]; STATE.revenueLog=[]; STATE.prospects=[];
+    localLoad(); seedLocalIfEmpty(); migrateStatuses(); render(); updateModeNote();
+  }
+
+  async function initData(){
+    var savedUrl = null;
+    try{ savedUrl = localStorage.getItem('signalroom_sheets_url'); }catch(e){}
+    var urlToUse = savedUrl || (DEFAULT_SHEETS_URL && DEFAULT_SHEETS_URL.trim()) || null;
+
+    if(!urlToUse){
+      MODE = 'local'; localLoad(); seedLocalIfEmpty(); migrateStatuses(); render(); updateModeNote(); hideLock(); return;
+    }
+
+    SHEETS_URL = urlToUse; MODE = 'sheets';
+    cachedAuth = readAuthCache();
+    var hadCache = cacheLoad();
+    if(hadCache) render();            // show last-synced data immediately (behind the lock if there is one)
+    updateModeNote();
+
+    /* Decide the lock from what we already know — no waiting on the network if we've been here before. */
+    if(cachedAuth){
+      if(cachedAuth.locked && !isUnlocked()) showLockForm(); else hideLock();
+    } /* else: first visit on this device — lock screen stays in "Loading…" until the sheet answers */
+
+    try{
+      await fetchAllFromSheets();
+      await seedSheetsIfEmpty();
+      migrateStatuses();
+      render(); applyLockDecision(); updateModeNote(); startPolling();
+    }catch(e){
+      if(hadCache){
+        toast('Offline — showing your last synced data');
+        applyLockDecision(); startPolling();
+      } else {
+        toast('Could not reach your Google Sheet — using local data for now');
+        SHEETS_URL = null; MODE = 'local';
+        localLoad(); seedLocalIfEmpty(); migrateStatuses(); render(); updateModeNote(); hideLock();
+      }
+    }
+  }
+
+  var statusesMigrated = false;
+  function migrateStatuses(){
+    if(statusesMigrated) return;
+    statusesMigrated = true;
+    STATE.engagements.forEach(function(e){
+      var allowed = STATUS_BY_DEPT[e.department] || STATUS_BY_DEPT.social;
+      if(allowed.indexOf(e.status) === -1){
+        var fallback = e.department==='web' ? 'completed' : allowed[allowed.length-1];
+        updateDoc('engagements', e.id, { status: fallback });
+      }
+    });
+  }
+
+  function updateModeNote(){
+    var el = document.getElementById('modeNote');
+    el.textContent = MODE==='sheets'
+      ? 'Synced to your Google Sheet — refreshes automatically every 30s.'
+      : 'Standalone mode — data is saved to this browser only. Connect a Google Sheet to sync it.';
+  }
+
+  /* ---- generic CRUD (updates/deletes are instant on screen, then synced; rolled back if the sync fails) ---- */
+  async function addDoc(collection, data){
+    try{
+      if(MODE==='sheets'){
+        var res = await sheetsPost({ action:'add', collection:collection, data:data });
+        STATE[collection].push(Object.assign({}, data, { id: res.id }));
+        cacheSave();
+      } else {
+        STATE[collection].push(Object.assign({ id: uid() }, data));
+        localSave();
+      }
+      render(); return true;
+    }catch(e){ toast('Could not save — check your connection'); return false; }
+  }
+  function updateDoc(collection, id, data){
+    var arr = STATE[collection], prev = null, idx = -1;
+    for(var i=0;i<arr.length;i++){ if(arr[i].id===id){ idx=i; prev=Object.assign({}, arr[i]); Object.assign(arr[i], data); break; } }
+    render();
+    if(MODE==='sheets'){
+      cacheSave();
+      return sheetsPost({ action:'update', collection:collection, id:id, data:data }).then(function(){ return true; }).catch(function(){
+        if(idx>-1 && STATE[collection][idx] && STATE[collection][idx].id===id) STATE[collection][idx] = prev;
+        cacheSave(); render(); toast('Sync failed — change was reverted'); return false;
+      });
+    }
+    localSave(); return Promise.resolve(true);
+  }
+  function deleteDoc(collection, id){
+    var removed = STATE[collection].filter(function(x){ return x.id===id; })[0];
+    STATE[collection] = STATE[collection].filter(function(x){ return x.id!==id; });
+    render();
+    if(MODE==='sheets'){
+      cacheSave();
+      return sheetsPost({ action:'delete', collection:collection, id:id }).then(function(){ return true; }).catch(function(){
+        if(removed) STATE[collection].push(removed);
+        cacheSave(); render(); toast('Sync failed — item restored'); return false;
+      });
+    }
+    localSave(); return Promise.resolve(true);
+  }
+
+  /* ============================= TOAST ============================= */
+  var toastTimer=null;
+  function toast(msg){
+    var el = document.getElementById('toast');
+    el.textContent = msg; el.classList.add('show');
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ el.classList.remove('show'); }, 2400);
+  }
+
+  /* ============================= DERIVED DATA ============================= */
+  function activeEngagements(){ return STATE.engagements.filter(function(e){ return e.status==='active'; }); }
+  function inactiveEngagements(){ return STATE.engagements.filter(function(e){ return e.status!=='active'; }); }
+  function deptRevenue(){
+    return DEPTS.map(function(d){
+      return { key:d.key, label:d.label, color:d.hex,
+        value: sumBy(activeEngagements().filter(function(e){return e.department===d.key;}), function(e){return e.revenue;}) };
+    });
+  }
+  function statusCounts(){ var c = {}; STATE.engagements.forEach(function(e){ c[e.status] = (c[e.status]||0) + 1; }); return c; }
+  function monthlyAgg(){
+    var map = {};
+    STATE.revenueLog.forEach(function(r){
+      var m = monthKey(r) || '—';
+      if(!map[m]) map[m] = { recurring:0, addon:0 };
+      map[m][r.type==='addon' ? 'addon' : 'recurring'] += Number(r.amount)||0;
+    });
+    return Object.keys(map).sort().map(function(m){ return Object.assign({month:m}, map[m]); });
+  }
+  function isOpenProspect(p){ return P_OPEN.indexOf(p.stage||'new') > -1; }
+  function isDue(p){
+    var d = normDate(p.nextFollowUp);
+    return isOpenProspect(p) && d && d <= todayStr() && ['done','none'].indexOf(p.followUpStatus)===-1;
+  }
+  function dueProspects(){
+    return STATE.prospects.filter(isDue).sort(function(a,b){ return normDate(a.nextFollowUp).localeCompare(normDate(b.nextFollowUp)); });
+  }
+  function dueLabel(p){
+    var d = normDate(p.nextFollowUp); if(!d) return null;
+    var diff = daysBetween(todayStr(), d);
+    if(diff>0) return { text:'Overdue '+diff+'d', color:'#E5544B' };
+    if(diff===0) return { text:'Due today', color:'#F0A93E' };
+    return { text:'Follow-up '+d, color:'var(--text-muted)' };
+  }
+
+  /* ============================= RENDER: OVERVIEW ============================= */
+  function renderKPIs(){
+    var activeClients = activeEngagements().length;
+    var openLeads = STATE.prospects.filter(isOpenProspect).length;
+    var due = dueProspects().length;
+    var activeProjects = STATE.projects.filter(function(p){ return p.status!=='completed'; }).length;
+    var avgProgress = STATE.projects.length ? Math.round(sumBy(STATE.projects, function(p){return p.progress;})/STATE.projects.length) : 0;
+    var cards = [
+      { label:'Active clients', value: activeClients, glow:'var(--accent-web)' },
+      { label:'Open prospects', value: openLeads, glow:'var(--accent-email)' },
+      { label:'Follow-ups due', value: due, glow: due ? 'var(--status-lost)' : 'var(--accent-web)' },
+      { label:'Projects in motion', value: activeProjects, glow:'var(--accent-social)' },
+      { label:'Avg. project progress', value: avgProgress + '%', glow:'var(--accent-web)' }
+    ];
+    document.getElementById('kpis').innerHTML = cards.map(function(c){
+      return '<div class="kpi" style="--kpi-glow:'+c.glow+'"><div class="label">'+c.label+'</div><div class="value">'+c.value+'</div></div>';
+    }).join('');
+    var badge = document.getElementById('dueBadge');
+    badge.textContent = due; badge.style.display = due ? 'inline-block' : 'none';
+  }
+
+  function renderFollowups(){
+    var list = dueProspects();
+    var el = document.getElementById('followups');
+    if(list.length===0){ el.innerHTML = '<div class="trend-empty">You\'re all caught up — no follow-ups due.</div>'; return; }
+    el.innerHTML = list.slice(0,8).map(function(p){
+      var dl = dueLabel(p), d = deptOf(p.department);
+      return '<div class="fu-item" data-open-prospect="'+p.id+'"><div><div class="card-name">'+escapeHtml(p.name)+(p.company?' · '+escapeHtml(p.company):'')+'</div>'+
+        '<div class="card-rev">'+d.label+' · '+pStage(p.stage).label+'</div></div>'+
+        '<span class="status-pill" style="color:'+dl.color+';background:'+(dl.color.charAt(0)==='#'?dl.color+'22':'var(--surface-3)')+'">'+dl.text+'</span></div>';
+    }).join('') + (list.length>8 ? '<div class="empty-hint">+ '+(list.length-8)+' more in the Pipeline tab</div>' : '');
+  }
+
+  function renderDeptRevenue(){
+    var data = deptRevenue();
+    var max = Math.max.apply(null, data.map(function(d){return d.value;}).concat([1]));
+    document.getElementById('deptRevenue').innerHTML = data.map(function(d){
+      var pct = Math.round((d.value/max)*100);
+      return '<div class="bar-row"><div class="bl">'+d.label+'</div><div class="bar-track"><div class="bar-fill" style="width:'+pct+'%;background:'+d.color+'"></div></div><div class="bv">'+fmtMoney(d.value)+'</div></div>';
+    }).join('');
+  }
+
+  function renderStatusDonut(){
+    var c = statusCounts(), keys = Object.keys(c);
+    var total = keys.reduce(function(a,k){return a+c[k];},0);
+    var el = document.getElementById('statusDonut');
+    if(total===0){ el.innerHTML = '<div class="trend-empty">No engagements yet.</div>'; return; }
+    var R = 46, C = 2*Math.PI*R, offset = 0, circles = '';
+    keys.forEach(function(k){
+      var v = c[k]; if(v<=0) return;
+      var len = (v/total)*C;
+      circles += '<circle cx="60" cy="60" r="'+R+'" fill="none" stroke="'+statusMeta(k).color+'" stroke-width="14" stroke-dasharray="'+len+' '+(C-len)+'" stroke-dashoffset="'+(-offset)+'" transform="rotate(-90 60 60)"/>';
+      offset += len;
+    });
+    var svg = '<svg viewBox="0 0 120 120" width="120" height="120">'+circles+
+      '<text x="60" y="55" text-anchor="middle" font-size="22" font-weight="700" fill="var(--text)">'+total+'</text>'+
+      '<text x="60" y="72" text-anchor="middle" font-size="10" fill="var(--text-muted)">total</text></svg>';
+    var legend = '<div class="legend">'+ keys.map(function(k){ var sm = statusMeta(k); return '<span><i style="background:'+sm.color+'"></i>'+sm.label+' · '+c[k]+'</span>'; }).join('') +'</div>';
+    el.innerHTML = '<div class="donut-wrap">'+svg+'</div>'+legend;
+  }
+
+  function renderRevTrend(){
+    var el = document.getElementById('revTrend');
+    var agg = monthlyAgg();
+    if(agg.length===0){ el.innerHTML = '<div class="trend-empty">Log monthly revenue to see the trend.</div>'; return; }
+    var max = Math.max.apply(null, agg.map(function(a){return a.recurring+a.addon;}).concat([1]));
+    var rows = agg.map(function(a){
+      return '<div class="bar-row"><div class="bl">'+escapeHtml(a.month)+'</div><div class="bar-track" style="display:flex">'+
+        (a.recurring>0 ? '<div class="bar-fill" style="width:'+(a.recurring/max*100)+'%;background:#43D9C8;flex:none"></div>' : '')+
+        (a.addon>0 ? '<div class="bar-fill" style="width:'+(a.addon/max*100)+'%;background:#F5B942;flex:none"></div>' : '')+
+        '</div><div class="bv">'+fmtMoney(a.recurring+a.addon)+'</div></div>';
+    }).join('');
+    el.innerHTML = rows + '<div class="legend"><span><i style="background:#43D9C8"></i>Recurring</span><span><i style="background:#F5B942"></i>Add-on / project</span></div>';
+  }
+
+  /* ============================= RENDER: CLIENTS ============================= */
+  function matchesSearch(text){ var q = STATE.search.trim().toLowerCase(); return !q || String(text||'').toLowerCase().indexOf(q)>-1; }
+
+  function renderBoard(){
+    var html = DEPTS.map(function(d){
+      var items = activeEngagements().filter(function(e){ return e.department===d.key && matchesSearch(e.clientName); });
+      var cardsHtml = items.map(function(e){
+        var revTxt = e.revenue ? fmtMoney(e.revenue)+'/mo' : 'No revenue logged';
+        return '<div class="card" data-open-engagement="'+e.id+'"><div><div class="card-name">'+escapeHtml(e.clientName)+'</div><div class="card-rev">'+revTxt+'</div></div>'+
+          '<span class="status-pill" style="color:#5FD68A;background:#5FD68A22">Active</span></div>';
+      }).join('') || '<div class="empty-hint">No active clients here.</div>';
+      return '<div class="col"><div class="col-head"><span class="tag"><span class="dot" style="background:'+d.color+'"></span>'+d.label+'</span><span class="col-count">'+items.length+'</span></div>'+
+        '<div class="cards">'+cardsHtml+'</div>'+
+        '<button class="btn col-add btn-sm" data-add-engagement="'+d.key+'">＋ Add to '+d.label+'</button></div>';
+    }).join('');
+    document.getElementById('board').innerHTML = html;
+    document.getElementById('btnInactive').textContent = 'Inactive clients · ' + inactiveEngagements().length;
+  }
+
+  /* ============================= RENDER: PIPELINE ============================= */
+  function pipeList(){
+    return STATE.prospects.filter(function(p){
+      if(!(matchesSearch(p.name) || matchesSearch(p.company) || matchesSearch(p.phone) || matchesSearch(p.email) || matchesSearch(p.scope))) return false;
+      var f = STATE.pipeFilter;
+      if(f==='all') return true;
+      if(f==='due') return isDue(p);
+      return p.department===f;
+    });
+  }
+
+  function renderPipeline(){
+    var all = STATE.prospects;
+    var open = all.filter(isOpenProspect);
+    var won = all.filter(function(p){ return p.stage==='won'; }).length;
+    var closed = won + all.filter(function(p){ return p.stage==='lost'; }).length;
+    var rate = closed ? Math.round(won/closed*100)+'%' : '—';
+    var cards = [
+      { label:'Open leads', value: open.length, glow:'var(--accent-web)' },
+      { label:'Open pipeline value / mo', value: fmtMoney(sumBy(open, function(p){return p.value;})), glow:'var(--accent-email)' },
+      { label:'Follow-ups due', value: dueProspects().length, glow:'var(--status-lost)' },
+      { label:'Win rate', value: rate, glow:'var(--status-active)' }
+    ];
+    document.getElementById('pipeKpis').innerHTML = cards.map(function(c){
+      return '<div class="kpi" style="--kpi-glow:'+c.glow+'"><div class="label">'+c.label+'</div><div class="value">'+c.value+'</div></div>';
+    }).join('');
+
+    var chips = [{key:'all',label:'All leads'},{key:'due',label:'Follow-up due'}].concat(DEPTS.map(function(d){return {key:d.key,label:d.label};}));
+    document.getElementById('pipeFilters').innerHTML = chips.map(function(c){
+      return '<button class="chip'+(STATE.pipeFilter===c.key?' active':'')+'" data-pipe-filter="'+c.key+'">'+c.label+'</button>';
+    }).join('');
+
+    var list = pipeList();
+    document.getElementById('pipeBoard').innerHTML = P_STAGES.map(function(s){
+      var items = list.filter(function(p){ return (p.stage||'new')===s.key; });
+      var val = sumBy(items, function(p){return p.value;});
+      return '<div class="pcol" data-stage="'+s.key+'">'+
+        '<div class="col-head"><span class="tag"><span class="dot" style="background:'+s.color+';color:'+s.color+'"></span>'+s.label+'</span><span class="col-count">'+items.length+'</span></div>'+
+        '<div class="pcol-sum">'+(val ? fmtMoney(val)+'/mo' : '&nbsp;')+'</div>'+
+        '<div class="cards">'+(items.map(prospectCard).join('') || '<div class="empty-hint">Drop a lead here.</div>')+'</div></div>';
+    }).join('');
+  }
+
+  function prospectCard(p){
+    var d = deptOf(p.department), open = isOpenProspect(p);
+    var idx = P_STAGES.map(function(s){return s.key;}).indexOf(p.stage||'new');
+    var adv = (canEdit() && open && idx < 5) ? '<button class="adv" data-advance="'+p.id+'" title="Move to '+P_STAGES[idx+1].label+'" aria-label="Move to next stage">›</button>' : '';
+    var fuHtml = '';
+    if(open){
+      var fs = pFollow(p.followUpStatus || 'pending');
+      var dl = dueLabel(p);
+      fuHtml = '<div class="fu"><span class="status-pill" style="color:'+fs.color+';background:'+fs.color+'22">'+fs.label+'</span> ' +
+        (dl ? '<span style="color:'+(isDue(p)?dl.color:'var(--text-muted)')+';margin-left:4px">'+dl.text+'</span>' : '<span style="color:var(--text-dim);margin-left:4px">No date set</span>') + '</div>';
+    }
+    var links = '';
+    if(p.phone) links += '<a class="link-chip" href="tel:'+escapeHtml(p.phone)+'">Call</a>';
+    if(p.email) links += '<a class="link-chip" href="mailto:'+escapeHtml(p.email)+'">Email</a>';
+    return '<div class="pcard"'+(canEdit()?' draggable="true"':'')+' data-open-prospect="'+p.id+'">'+
+      '<div class="pcard-top"><div><div class="card-name">'+escapeHtml(p.name)+'</div>'+(p.company?'<div class="card-rev">'+escapeHtml(p.company)+'</div>':'')+'</div>'+adv+'</div>'+
+      (p.scope?'<div class="scope">'+escapeHtml(p.scope)+'</div>':'')+
+      '<div class="meta"><span class="dept-tag" style="color:'+d.hex+'">'+d.label+'</span>'+(p.value?'<span class="card-rev">'+fmtMoney(p.value)+'/mo</span>':'')+'</div>'+
+      fuHtml+(links?'<div class="links">'+links+'</div>':'')+'</div>';
+  }
+
+  /* ============================= RENDER: PROJECTS ============================= */
+  function renderProjFilters(){
+    var deptChips = [{key:'all',label:'All departments'}].concat(DEPTS.map(function(d){return {key:d.key,label:d.label};}));
+    var statusChips = [{key:'all',label:'All statuses'}].concat(PROJ_STATUS);
+    document.getElementById('projFilters').innerHTML =
+      '<div style="display:flex;gap:8px;flex-wrap:wrap">' + deptChips.map(function(c){ return '<button class="chip'+(STATE.projFilterDept===c.key?' active':'')+'" data-proj-dept="'+c.key+'">'+c.label+'</button>'; }).join('') +
+      '</div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">' + statusChips.map(function(c){ return '<button class="chip'+(STATE.projFilterStatus===c.key?' active':'')+'" data-proj-status="'+c.key+'">'+c.label+'</button>'; }).join('') + '</div>';
+  }
+
+  function renderProjects(){
+    var list = STATE.projects.filter(function(p){
+      return (STATE.projFilterDept==='all' || p.department===STATE.projFilterDept) && (STATE.projFilterStatus==='all' || p.status===STATE.projFilterStatus);
+    });
+    document.getElementById('projSub').textContent = list.length + ' project' + (list.length===1?'':'s') + ' shown';
+    var head = '<div class="proj-row head"><div>Project</div><div>Department</div><div>Status</div><div>Progress</div><div>Due</div><div></div></div>';
+    var rows = list.map(function(p){
+      var d = deptOf(p.department), st = PROJ_STATUS_COLOR[p.status] || '#8B93A7';
+      var stLabel = (PROJ_STATUS.filter(function(s){return s.key===p.status;})[0]||{}).label || p.status;
+      return '<div class="proj-row" data-open-project="'+p.id+'">'+
+        '<div data-k="Project"><div class="proj-name">'+escapeHtml(p.name)+'</div><div class="proj-client">'+escapeHtml(p.clientName||'—')+'</div></div>'+
+        '<div data-k="Department"><span class="dept-tag" style="color:'+d.hex+'">'+d.label+'</span></div>'+
+        '<div data-k="Status"><span class="status-pill" style="color:'+st+';background:'+st+'22">'+stLabel+'</span></div>'+
+        '<div data-k="Progress"><div class="progress-wrap"><div class="progress-track"><div class="progress-fill" style="width:'+(p.progress||0)+'%;background:'+st+'"></div></div><span style="font-size:11.5px;color:var(--text-muted)">'+(p.progress||0)+'%</span></div></div>'+
+        '<div data-k="Due">'+(p.dueDate?escapeHtml(normDate(p.dueDate)):'—')+'</div>'+
+        '<div class="row-actions"><button class="icon-btn" data-del-project="'+p.id+'" title="Delete" aria-label="Delete project">✕</button></div></div>';
+    }).join('') || '<div class="table-empty">No projects match these filters yet.</div>';
+    document.getElementById('projTable').innerHTML = head + rows;
+  }
+
+  /* ============================= RENDER: REVENUE (month picker) ============================= */
+  function revRows(m){
+    return STATE.revenueLog.filter(function(r){ return m==='all' || monthKey(r)===m; })
+      .sort(function(a,b){ return monthKey(b).localeCompare(monthKey(a)) || (Number(b.createdAt)||0)-(Number(a.createdAt)||0); });
+  }
+  function renderRevenueView(){
+    var m = STATE.revMonth;
+    var inp = document.getElementById('revMonthInput');
+    inp.value = m==='all' ? '' : m;
+    document.getElementById('revSub').textContent = m==='all' ? 'Showing every month' : 'Showing ' + m;
+    var rows = revRows(m);
+    var rec = sumBy(rows.filter(function(r){return r.type!=='addon';}), function(r){return r.amount;});
+    var add = sumBy(rows.filter(function(r){return r.type==='addon';}), function(r){return r.amount;});
+    var cards = [
+      { label:'Recurring logged', value: fmtMoney(rec), glow:'var(--accent-web)' },
+      { label:'Add-on / project logged', value: fmtMoney(add), glow:'var(--accent-email)' },
+      { label:'Total logged', value: fmtMoney(rec+add), glow:'var(--accent-social)' },
+      { label:'Entries', value: rows.length, glow:'var(--accent-web)' }
+    ];
+    document.getElementById('revKpis').innerHTML = cards.map(function(c){
+      return '<div class="kpi" style="--kpi-glow:'+c.glow+'"><div class="label">'+c.label+'</div><div class="value">'+c.value+'</div></div>';
+    }).join('');
+
+    var html = '<thead><tr><th>Month</th><th>Type</th><th>Department</th><th>Amount</th><th>Note</th><th></th></tr></thead><tbody>';
+    if(rows.length===0){
+      html += '<tr><td colspan="6" class="table-empty">Nothing logged for this period — use “Log revenue”.</td></tr>';
+    } else {
+      rows.forEach(function(r){
+        var dept = r.department && r.department!=='all' ? deptOf(r.department).label : 'All departments';
+        var addon = r.type==='addon', tc = addon ? '#F5B942' : '#43D9C8';
+        html += '<tr><td>'+escapeHtml(monthKey(r))+'</td><td><span class="status-pill" style="color:'+tc+';background:'+tc+'22">'+(addon?'Add-on / project':'Recurring')+'</span></td>'+
+          '<td>'+escapeHtml(dept)+'</td><td>'+fmtMoney(r.amount)+'</td><td>'+escapeHtml(r.note||'—')+'</td>'+
+          '<td><button class="icon-btn" data-del-revenue="'+r.id+'" title="Delete" aria-label="Delete entry">✕</button></td></tr>';
+      });
+    }
+    html += '</tbody>' + (rows.length ? '<tfoot><tr><td colspan="3">Total</td><td>'+fmtMoney(rec+add)+'</td><td colspan="2"></td></tr></tfoot>' : '');
+    document.getElementById('revTable').innerHTML = html;
+  }
+
+  function render(){
+    if(SHARE_MODE){ renderPipeline(); return; }
+    renderKPIs(); renderFollowups(); renderDeptRevenue(); renderStatusDonut(); renderRevTrend();
+    renderBoard(); renderPipeline(); renderProjFilters(); renderProjects(); renderRevenueView();
+  }
+
+  /* ============================= VIEWS ============================= */
+  function setView(v){
+    STATE.view = v;
+    Array.prototype.forEach.call(document.querySelectorAll('.view'), function(el){ el.classList.toggle('active', el.id==='view-'+v); });
+    Array.prototype.forEach.call(document.querySelectorAll('.nav-btn'), function(b){ b.classList.toggle('active', b.getAttribute('data-view')===v); });
+    try{ sessionStorage.setItem('signalroom_view', v); }catch(e){}
+    window.scrollTo(0,0);
+  }
+
+  /* ============================= MODALS ============================= */
+  var modalRoot = document.getElementById('modalRoot');
+  function closeModal(){
+    var ov = modalRoot.querySelector('.overlay');
+    if(ov){ ov.classList.remove('open'); setTimeout(function(){ modalRoot.innerHTML=''; }, 160); }
+  }
+  function openModal(html, wide){
+    modalRoot.innerHTML = '<div class="overlay"><div class="modal'+(wide?' wide':'')+'">'+html+'</div></div>';
+    var ov = modalRoot.querySelector('.overlay');
+    requestAnimationFrame(function(){ ov.classList.add('open'); });
+    ov.addEventListener('click', function(e){ if(e.target===ov) closeModal(); });
+  }
+  function deptOptionsHtml(selected){
+    return DEPTS.map(function(d){ return '<option value="'+d.key+'"'+(d.key===selected?' selected':'')+'>'+d.label+'</option>'; }).join('');
+  }
+  function statusOptionsHtml(deptKey, selected){
+    return (STATUS_BY_DEPT[deptKey] || STATUS_BY_DEPT.social).map(function(k){
+      return '<option value="'+k+'"'+(k===selected?' selected':'')+'>'+statusMeta(k).label+'</option>';
+    }).join('');
+  }
+
+  /* ---- Inactive clients popup ---- */
+  function openInactiveModal(){
+    var list = inactiveEngagements();
+    var body = DEPTS.map(function(d){
+      var items = list.filter(function(e){ return e.department===d.key; });
+      if(!items.length) return '';
+      return '<div class="group-title"><span class="dot" style="background:'+d.color+'"></span>'+d.label+' · '+items.length+'</div><div class="cards">'+
+        items.map(function(e){
+          var sm = statusMeta(e.status);
+          var meta = (e.endDate ? 'Ended '+escapeHtml(normDate(e.endDate)) : (e.revenue ? fmtMoney(e.revenue)+'/mo' : 'No revenue logged'));
+          return '<div class="card" data-open-engagement="'+e.id+'"><div><div class="card-name" style="'+(sm.strike?'text-decoration:line-through;':'')+(sm.dim?'color:var(--text-muted);':'')+'">'+escapeHtml(e.clientName)+'</div><div class="card-rev">'+meta+'</div></div>'+
+            '<span class="status-pill" style="color:'+sm.color+';background:'+sm.color+'22">'+sm.label+'</span></div>';
+        }).join('') + '</div>';
+    }).join('') || '<div class="table-empty">No paused, done or lost clients.</div>';
+    openModal('<h3>Inactive clients</h3><p class="mhint">Paused, done, completed and lost engagements. Click one to edit or reactivate it.</p>'+body+
+      '<div class="modal-actions"><span></span><button class="btn btn-primary" id="inCloseBtn">Close</button></div>', true);
+    document.getElementById('inCloseBtn').onclick = closeModal;
+  }
+
+  /* ---- Financial statement popup ---- */
+  function openFinanceModal(){
+    var m = (STATE.revMonth && STATE.revMonth!=='all') ? STATE.revMonth : curMonth();
+    openModal('<h3>Financial statement</h3><p class="mhint">Choose a month to see what was logged. Active retainers always show current figures.</p>'+
+      '<div class="fin-controls"><input type="month" id="fin_month" class="month-input" value="'+m+'"><button class="btn btn-sm" id="fin_all">All months</button></div>'+
+      '<div id="fin_body"></div><div class="modal-actions"><span></span><button class="btn btn-primary" id="fin_close">Close</button></div>', true);
+    function paint(sel){
+      var logs = STATE.revenueLog.filter(function(r){ return sel==='all' || monthKey(r)===sel; });
+      var rec = sumBy(logs.filter(function(r){return r.type!=='addon';}), function(r){return r.amount;});
+      var add = sumBy(logs.filter(function(r){return r.type==='addon';}), function(r){return r.amount;});
+      var mrr = sumBy(activeEngagements(), function(e){return e.revenue;});
+      var rows = DEPTS.map(function(d){
+        var mr = sumBy(activeEngagements().filter(function(e){return e.department===d.key;}), function(e){return e.revenue;});
+        var lg = sumBy(logs.filter(function(r){return r.department===d.key;}), function(r){return r.amount;});
+        return '<tr><td><span class="dept-tag" style="color:'+d.hex+'">'+d.label+'</span></td><td>'+fmtMoney(mr)+'</td><td>'+fmtMoney(lg)+'</td></tr>';
+      }).join('');
+      var general = sumBy(logs.filter(function(r){ return !r.department || r.department==='all'; }), function(r){return r.amount;});
+      rows += '<tr><td>All departments</td><td>—</td><td>'+fmtMoney(general)+'</td></tr>';
+      document.getElementById('fin_body').innerHTML =
+        '<div class="fin-grid">'+
+          '<div class="fin-card"><div class="label">Client MRR (active retainers)</div><div class="value">'+fmtMoney(mrr)+'</div></div>'+
+          '<div class="fin-card"><div class="label">Total logged · '+(sel==='all'?'all months':sel)+'</div><div class="value">'+fmtMoney(rec+add)+'</div></div>'+
+          '<div class="fin-card"><div class="label">Recurring logged</div><div class="value">'+fmtMoney(rec)+'</div></div>'+
+          '<div class="fin-card"><div class="label">Add-on / project logged</div><div class="value">'+fmtMoney(add)+'</div></div>'+
+        '</div><div class="table-scroll"><table class="revlog-table"><thead><tr><th>Department</th><th>Active MRR</th><th>Logged</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    }
+    paint(m);
+    document.getElementById('fin_month').onchange = function(){ paint(this.value || 'all'); };
+    document.getElementById('fin_all').onclick = function(){ document.getElementById('fin_month').value = ''; paint('all'); };
+    document.getElementById('fin_close').onclick = closeModal;
+  }
+
+  /* ---- Client modal ---- */
+  function openEngagementModal(existing, presetDept){
+    var e = existing || { clientName:'', department: presetDept || 'social', status:'active', revenue:'', startDate:'', endDate:'', notes:'', contact:'' };
+    var isEdit = !!existing;
+    var showEnd = TERMINAL_STATUSES.indexOf(e.status) > -1;
+    openModal(
+      '<h3>'+(isEdit?'Edit client':'Add client')+'</h3><p class="mhint">Track a client\'s engagement with one of your service lines.</p>'+
+      '<form id="engForm">'+
+        '<div class="field"><label>Client name</label><input required id="f_name" value="'+escapeHtml(e.clientName)+'" placeholder="e.g. Strata"></div>'+
+        '<div class="row2"><div class="field"><label>Department</label><select id="f_dept">'+deptOptionsHtml(e.department)+'</select></div>'+
+        '<div class="field"><label>Status</label><select id="f_status">'+statusOptionsHtml(e.department, e.status)+'</select></div></div>'+
+        '<div class="row2"><div class="field"><label>Monthly revenue (৳)</label><input id="f_rev" type="number" min="0" step="1" value="'+(e.revenue||'')+'" placeholder="0"></div>'+
+        '<div class="field"><label>Start date</label><input id="f_start" type="date" value="'+escapeHtml(normDate(e.startDate))+'"></div></div>'+
+        '<div class="field" id="f_endWrap" style="display:'+(showEnd?'block':'none')+'"><label>End date</label><input id="f_end" type="date" value="'+escapeHtml(normDate(e.endDate))+'"></div>'+
+        '<div class="field"><label>Contact info</label><input id="f_contact" value="'+escapeHtml(e.contact||'')+'" placeholder="Name · phone · email"></div>'+
+        '<div class="field"><label>Notes</label><textarea id="f_notes" placeholder="Scope, contract details…">'+escapeHtml(e.notes||'')+'</textarea></div>'+
+        '<div class="modal-actions">'+(isEdit ? '<button type="button" class="btn btn-danger" id="engDelete">Delete</button>' : '<span></span>')+
+        '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="engCancel">Cancel</button><button type="submit" class="btn btn-primary">'+(isEdit?'Save changes':'Add client')+'</button></div></div>'+
+      '</form>'
+    );
+    function toggleEndDate(status){
+      var t = TERMINAL_STATUSES.indexOf(status) > -1;
+      document.getElementById('f_endWrap').style.display = t ? 'block' : 'none';
+      if(!t) document.getElementById('f_end').value = '';
+    }
+    document.getElementById('engCancel').onclick = closeModal;
+    document.getElementById('f_dept').onchange = function(){
+      document.getElementById('f_status').innerHTML = statusOptionsHtml(this.value, null);
+      toggleEndDate(document.getElementById('f_status').value);
+    };
+    document.getElementById('f_status').onchange = function(){ toggleEndDate(this.value); };
+    if(isEdit){
+      document.getElementById('engDelete').onclick = async function(){
+        if(confirm('Remove '+e.clientName+' from '+deptOf(e.department).label+'?')){ closeModal(); await deleteDoc('engagements', e.id); toast('Client removed'); }
+      };
+    }
+    document.getElementById('engForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        clientName: document.getElementById('f_name').value.trim(),
+        department: document.getElementById('f_dept').value,
+        status: document.getElementById('f_status').value,
+        revenue: Number(document.getElementById('f_rev').value)||0,
+        startDate: document.getElementById('f_start').value,
+        endDate: document.getElementById('f_end').value,
+        contact: document.getElementById('f_contact').value.trim(),
+        notes: document.getElementById('f_notes').value.trim()
+      };
+      if(!data.clientName) return;
+      if(isEdit){ closeModal(); await updateDoc('engagements', e.id, data); toast('Client updated'); }
+      else{ data.createdAt = Date.now(); if(await addDoc('engagements', data)){ toast('Client added'); closeModal(); } }
+    };
+  }
+
+  /* ---- Prospect modal ---- */
+  function openProspectModal(existing, presetStage){
+    var p = existing || { name:'', company:'', phone:'', email:'', source:'', department:'social', scope:'', value:'', stage: presetStage||'new', followUpStatus:'pending', nextFollowUp:'', lastContact:'', notes:'' };
+    var isEdit = !!existing;
+    var stageOpts = P_STAGES.map(function(s){ return '<option value="'+s.key+'"'+(s.key===(p.stage||'new')?' selected':'')+'>'+s.label+'</option>'; }).join('');
+    var fuOpts = P_FOLLOW.map(function(s){ return '<option value="'+s.key+'"'+(s.key===(p.followUpStatus||'pending')?' selected':'')+'>'+s.label+'</option>'; }).join('');
+    var srcList = '<datalist id="srcList">'+P_SOURCES.map(function(s){ return '<option value="'+s+'">'; }).join('')+'</datalist>';
+    var converted = p.converted==='yes';
+    openModal(
+      '<h3>'+(isEdit?'Edit prospect':'Add prospect')+'</h3><p class="mhint">Everything you know about this lead, in one place.</p>'+
+      '<form id="prForm">'+
+        '<div class="row2"><div class="field"><label>Name</label><input required id="pr_name" value="'+escapeHtml(p.name)+'" placeholder="Contact person"></div>'+
+        '<div class="field"><label>Company / brand</label><input id="pr_company" value="'+escapeHtml(p.company||'')+'" placeholder="Optional"></div></div>'+
+        '<div class="row2"><div class="field"><label>Phone / WhatsApp</label><input id="pr_phone" value="'+escapeHtml(p.phone||'')+'" placeholder="+880…"></div>'+
+        '<div class="field"><label>Email</label><input id="pr_email" type="email" value="'+escapeHtml(p.email||'')+'" placeholder="name@company.com"></div></div>'+
+        '<div class="row2"><div class="field"><label>Service line</label><select id="pr_dept">'+deptOptionsHtml(p.department)+'</select></div>'+
+        '<div class="field"><label>Expected value / month (৳)</label><input id="pr_value" type="number" min="0" value="'+(p.value||'')+'" placeholder="0"></div></div>'+
+        '<div class="field"><label>Scope of service</label><textarea id="pr_scope" placeholder="What they need — e.g. 12 posts/mo + ads management">'+escapeHtml(p.scope||'')+'</textarea></div>'+
+        '<div class="row2"><div class="field"><label>Stage</label><select id="pr_stage">'+stageOpts+'</select></div>'+
+        '<div class="field"><label>Lead source</label><input id="pr_source" list="srcList" value="'+escapeHtml(p.source||'')+'" placeholder="Referral, Facebook…">'+srcList+'</div></div>'+
+        '<div class="row2"><div class="field"><label>Follow-up status</label><select id="pr_fu">'+fuOpts+'</select></div>'+
+        '<div class="field"><label>Next follow-up</label><input id="pr_next" type="date" value="'+escapeHtml(normDate(p.nextFollowUp))+'"></div></div>'+
+        '<div class="field"><label>Last contacted</label><input id="pr_last" type="date" value="'+escapeHtml(normDate(p.lastContact))+'"></div>'+
+        '<div class="field"><label>Notes / conversation log</label><textarea id="pr_notes" placeholder="What was discussed, objections, next steps…">'+escapeHtml(p.notes||'')+'</textarea></div>'+
+        '<div class="modal-actions">'+((isEdit && !SHARE_MODE) ? '<button type="button" class="btn btn-danger" id="prDelete">Delete</button>' : '<span></span>')+
+        '<div style="display:flex;gap:8px;flex-wrap:wrap">'+
+          (isEdit && !SHARE_MODE && (p.stage==='won') ? (converted ? '<button type="button" class="btn" disabled>Converted to client ✓</button>' : '<button type="button" class="btn" id="prConvert">Convert to client</button>') : '')+
+          '<button type="button" class="btn btn-ghost" id="prCancel">Cancel</button><button type="submit" class="btn btn-primary">'+(isEdit?'Save changes':'Add prospect')+'</button></div></div>'+
+      '</form>', true
+    );
+    function read(){
+      return {
+        name: document.getElementById('pr_name').value.trim(),
+        company: document.getElementById('pr_company').value.trim(),
+        phone: document.getElementById('pr_phone').value.trim(),
+        email: document.getElementById('pr_email').value.trim(),
+        department: document.getElementById('pr_dept').value,
+        value: Number(document.getElementById('pr_value').value)||0,
+        scope: document.getElementById('pr_scope').value.trim(),
+        stage: document.getElementById('pr_stage').value,
+        source: document.getElementById('pr_source').value.trim(),
+        followUpStatus: document.getElementById('pr_fu').value,
+        nextFollowUp: document.getElementById('pr_next').value,
+        lastContact: document.getElementById('pr_last').value,
+        notes: document.getElementById('pr_notes').value.trim()
+      };
+    }
+    document.getElementById('pr_stage').onchange = function(){
+      if(P_OPEN.indexOf(this.value)===-1) document.getElementById('pr_fu').value = 'none';
+    };
+    document.getElementById('prCancel').onclick = closeModal;
+    if(!canEdit()){
+      Array.prototype.forEach.call(document.querySelectorAll('#prForm input, #prForm select, #prForm textarea'), function(el){ el.disabled = true; });
+      var sb = document.querySelector('#prForm button[type="submit"]'); if(sb) sb.style.display = 'none';
+      document.getElementById('prCancel').textContent = 'Close';
+    }
+    if(isEdit && !SHARE_MODE){
+      document.getElementById('prDelete').onclick = async function(){
+        if(confirm('Delete prospect “'+p.name+'”?')){ closeModal(); await deleteDoc('prospects', p.id); toast('Prospect deleted'); }
+      };
+      var cv = document.getElementById('prConvert');
+      if(cv) cv.onclick = async function(){
+        var d = read(); if(!d.name) return;
+        cv.disabled = true;
+        var clientName = d.company || d.name;
+        var ok = await addDoc('engagements', { clientName: clientName, department: d.department, status:'active', revenue: d.value, startDate: todayStr(), endDate:'',
+          contact: [d.name, d.phone, d.email].filter(Boolean).join(' · '), notes: d.scope, createdAt: Date.now() });
+        if(ok){ await updateDoc('prospects', p.id, Object.assign(d, { converted:'yes' })); toast(clientName+' is now an active client'); closeModal(); }
+        else cv.disabled = false;
+      };
+    }
+    document.getElementById('prForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      if(!canEdit()) return;
+      var data = read(); if(!data.name) return;
+      if(isEdit){ closeModal(); await updateDoc('prospects', p.id, data); toast('Prospect updated'); }
+      else{ data.createdAt = Date.now(); if(await addDoc('prospects', data)){ toast('Prospect added'); closeModal(); } }
+    };
+  }
+
+  function moveProspect(id, stage){
+    var data = { stage: stage };
+    if(P_OPEN.indexOf(stage)===-1) data.followUpStatus = 'none';
+    updateDoc('prospects', id, data);
+    toast('Moved to ' + pStage(stage).label);
+  }
+
+  /* ---- Project modal ---- */
+  function clientOptionsHtml(selected){
+    var names = STATE.engagements.map(function(e){return e.clientName;});
+    var uniq = names.filter(function(n,i){return names.indexOf(n)===i;});
+    if(uniq.length===0) return '<option value="">No clients yet</option>';
+    return uniq.map(function(n){ return '<option value="'+escapeHtml(n)+'"'+(n===selected?' selected':'')+'>'+escapeHtml(n)+'</option>'; }).join('');
+  }
+  function openProjectModal(existing){
+    var p = existing || { name:'', clientName:'', department:'social', status:'planning', progress:0, dueDate:'', value:'', notes:'' };
+    var isEdit = !!existing;
+    var statusOpts = PROJ_STATUS.map(function(s){ return '<option value="'+s.key+'"'+(s.key===p.status?' selected':'')+'>'+s.label+'</option>'; }).join('');
+    openModal(
+      '<h3>'+(isEdit?'Edit project':'Add project')+'</h3><p class="mhint">Track a specific deliverable or campaign for a client.</p>'+
+      '<form id="projForm">'+
+        '<div class="field"><label>Project name</label><input required id="p_name" value="'+escapeHtml(p.name)+'" placeholder="e.g. Q4 Instagram campaign"></div>'+
+        '<div class="row2"><div class="field"><label>Client</label><select id="p_client">'+clientOptionsHtml(p.clientName)+'</select></div>'+
+        '<div class="field"><label>Department</label><select id="p_dept">'+deptOptionsHtml(p.department)+'</select></div></div>'+
+        '<div class="row2"><div class="field"><label>Status</label><select id="p_status">'+statusOpts+'</select></div>'+
+        '<div class="field"><label>Progress (%)</label><input id="p_progress" type="number" min="0" max="100" value="'+(p.progress||0)+'"></div></div>'+
+        '<div class="row2"><div class="field"><label>Due date</label><input id="p_due" type="date" value="'+escapeHtml(normDate(p.dueDate))+'"></div>'+
+        '<div class="field"><label>Project value (৳)</label><input id="p_value" type="number" min="0" value="'+(p.value||'')+'"></div></div>'+
+        '<div class="field"><label>Notes</label><textarea id="p_notes" placeholder="Milestones, blockers…">'+escapeHtml(p.notes||'')+'</textarea></div>'+
+        '<div class="modal-actions">'+(isEdit ? '<button type="button" class="btn btn-danger" id="projDelete">Delete</button>' : '<span></span>')+
+        '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="projCancel">Cancel</button><button type="submit" class="btn btn-primary">'+(isEdit?'Save changes':'Add project')+'</button></div></div>'+
+      '</form>'
+    );
+    document.getElementById('projCancel').onclick = closeModal;
+    if(isEdit){
+      document.getElementById('projDelete').onclick = async function(){
+        if(confirm('Delete project “'+p.name+'”?')){ closeModal(); await deleteDoc('projects', p.id); toast('Project deleted'); }
+      };
+    }
+    document.getElementById('projForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        name: document.getElementById('p_name').value.trim(),
+        clientName: document.getElementById('p_client').value,
+        department: document.getElementById('p_dept').value,
+        status: document.getElementById('p_status').value,
+        progress: Math.max(0, Math.min(100, Number(document.getElementById('p_progress').value)||0)),
+        dueDate: document.getElementById('p_due').value,
+        value: Number(document.getElementById('p_value').value)||0,
+        notes: document.getElementById('p_notes').value.trim()
+      };
+      if(!data.name) return;
+      if(isEdit){ closeModal(); await updateDoc('projects', p.id, data); toast('Project updated'); }
+      else{ data.createdAt = Date.now(); if(await addDoc('projects', data)){ toast('Project added'); closeModal(); } }
+    };
+  }
+
+  /* ---- Revenue modal ---- */
+  function openRevenueModal(){
+    var defMonth = (STATE.revMonth && STATE.revMonth!=='all') ? STATE.revMonth : curMonth();
+    var deptOpts = '<option value="all">All departments</option>' + deptOptionsHtml('');
+    openModal(
+      '<h3>Log revenue</h3><p class="mhint">Add a monthly revenue figure.</p>'+
+      '<form id="revForm">'+
+        '<div class="row2"><div class="field"><label>Month</label><input required id="r_month" type="month" value="'+defMonth+'"></div>'+
+        '<div class="field"><label>Amount (৳)</label><input required id="r_amount" type="number" min="0" placeholder="0"></div></div>'+
+        '<div class="row2"><div class="field"><label>Type</label><select id="r_type"><option value="recurring">Recurring (retainer)</option><option value="addon">Add-on / small project</option></select></div>'+
+        '<div class="field"><label>Department</label><select id="r_dept">'+deptOpts+'</select></div></div>'+
+        '<div class="field"><label>Note</label><input id="r_note" placeholder="Optional context"></div>'+
+        '<div class="modal-actions"><span></span><div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="revCancel">Cancel</button><button type="submit" class="btn btn-primary">Save entry</button></div></div>'+
+      '</form>'
+    );
+    document.getElementById('revCancel').onclick = closeModal;
+    document.getElementById('revForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var data = {
+        month: document.getElementById('r_month').value,
+        type: document.getElementById('r_type').value,
+        amount: Number(document.getElementById('r_amount').value)||0,
+        department: document.getElementById('r_dept').value,
+        note: document.getElementById('r_note').value.trim(),
+        createdAt: Date.now()
+      };
+      if(!data.month) return;
+      if(await addDoc('revenueLog', data)){ STATE.revMonth = data.month; renderRevenueView(); toast('Revenue logged'); closeModal(); }
+    };
+  }
+
+  /* ---- Share pipeline modal ---- */
+  function shareUrl(token){ return location.href.split('#')[0].split('?')[0] + '?share=' + encodeURIComponent(token); }
+  function genToken(){
+    var a = new Uint8Array(18), s = '', chars = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+    crypto.getRandomValues(a);
+    for(var i=0;i<a.length;i++) s += chars[a[i]%62];
+    return 's' + s;
+  }
+  function paintShares(){
+    var el = document.getElementById('sh_list'); if(!el) return;
+    var list = STATE.shares.slice().sort(function(a,b){ return (Number(b.createdAt)||0)-(Number(a.createdAt)||0); });
+    if(!list.length){ el.innerHTML = '<div class="empty-hint">No links yet.</div>'; return; }
+    el.innerHTML = list.map(function(s){
+      var edit = s.permission==='edit';
+      return '<div class="share-row"><div class="share-top"><div class="card-name">'+escapeHtml(s.label||'Untitled link')+'</div>'+
+        '<div style="display:flex;gap:6px;align-items:center"><select class="month-input" data-share-perm="'+s.id+'" aria-label="Permission">'+
+        '<option value="view"'+(edit?'':' selected')+'>View only</option><option value="edit"'+(edit?' selected':'')+'>Can edit</option></select>'+
+        '<button class="btn btn-sm btn-danger" data-share-revoke="'+s.id+'">Revoke</button></div></div>'+
+        '<div class="share-link"><input readonly value="'+escapeHtml(shareUrl(s.token))+'" aria-label="Share link"><button class="btn btn-sm" data-share-copy="'+s.id+'">Copy</button></div></div>';
+    }).join('');
+  }
+  function openShareModal(){
+    if(MODE!=='sheets'){
+      openModal('<h3>Share pipeline</h3><p class="mhint">Links work through your Google Sheet, so connect it first (gear icon) and then come back here.</p>'+
+        '<div class="modal-actions"><span></span><button class="btn btn-primary" id="shClose">Close</button></div>');
+      document.getElementById('shClose').onclick = closeModal; return;
+    }
+    var fileWarn = location.protocol==='file:' ? '<div class="warn-box">This page is open from a file on your computer, so the links will only work on this device. Upload index.html to a web host first, then generate links from the hosted page.</div>' : '';
+    openModal('<h3>Share pipeline</h3><p class="mhint">Anyone with a link sees only the prospect pipeline — nothing else from this dashboard.</p>'+fileWarn+
+      '<div class="row2"><div class="field"><label>Permission</label><select id="sh_perm"><option value="view">View only</option><option value="edit">Can edit</option></select></div>'+
+      '<div class="field"><label>Label (optional)</label><input id="sh_label" placeholder="e.g. Sales partner"></div></div>'+
+      '<button class="btn btn-primary" id="sh_gen">Generate link</button>'+
+      '<div class="group-title">Active links</div><div id="sh_list"></div>'+
+      '<p class="mhint" style="margin:12px 0 0">“Can edit” lets people add and update leads and move them between stages, but not delete them. Revoke a link to stop access immediately.</p>'+
+      '<div class="modal-actions"><span></span><button class="btn" id="shClose">Close</button></div>', true);
+    paintShares();
+    document.getElementById('shClose').onclick = closeModal;
+    document.getElementById('sh_gen').onclick = async function(){
+      var btn = this; btn.disabled = true;
+      var ok = await addDoc('shares', { token: genToken(), permission: document.getElementById('sh_perm').value,
+        label: document.getElementById('sh_label').value.trim(), active:'yes', createdAt: Date.now() });
+      btn.disabled = false;
+      if(ok){ document.getElementById('sh_label').value = ''; paintShares(); toast('Link created — copy it below'); }
+    };
+  }
+
+  /* ---- Settings modal ---- */
+  function openSettingsModal(){
+    var connected = MODE==='sheets';
+    var pwSection = '';
+    if(connected){
+      pwSection =
+        '<hr style="border:none;border-top:1px solid var(--border);margin:20px 0">'+
+        '<h3 style="font-size:15px;margin:0 0 4px">Dashboard password</h3>'+
+        '<p class="mhint">'+(AUTH_PASSWORD ? 'Password protection is on for every device using this sheet.' : 'No password set — anyone with the link can open this dashboard.')+'</p>'+
+        '<form id="pwForm"><div class="field"><label>'+(AUTH_PASSWORD?'Change password':'Set a password')+'</label><input id="pw_new" type="password" placeholder="Leave blank to remove protection"></div>'+
+        '<div class="modal-actions"><span></span><button type="submit" class="btn btn-primary">Save password</button></div></form>';
+    }
+    openModal(
+      '<h3>Connect Google Sheet</h3><p class="mhint">Paste your deployed Apps Script Web App URL to sync this dashboard to a Google Sheet. Leave it blank to keep data on this device only.</p>'+
+      '<form id="settingsForm">'+
+        '<div class="field"><label>Web App URL</label><input id="s_url" placeholder="https://script.google.com/macros/s/…/exec" value="'+escapeHtml(SHEETS_URL||'')+'"></div>'+
+        '<div id="s_status" style="font-size:12.5px;color:var(--text-muted);margin-bottom:10px">'+(connected?'Currently connected and syncing.':'Currently in standalone (local-only) mode.')+'</div>'+
+        '<div class="modal-actions">'+(connected ? '<button type="button" class="btn btn-danger" id="s_disconnect">Disconnect</button>' : '<span></span>')+
+        '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost" id="s_cancel">Cancel</button><button type="submit" class="btn btn-primary" id="s_connect">Connect</button></div></div>'+
+      '</form>'+pwSection
+    );
+    document.getElementById('s_cancel').onclick = closeModal;
+    if(connected){
+      document.getElementById('s_disconnect').onclick = function(){ disconnectSheets(); toast('Disconnected — back to standalone mode'); closeModal(); };
+      document.getElementById('pwForm').onsubmit = async function(ev){
+        ev.preventDefault();
+        var val = document.getElementById('pw_new').value;
+        var btn = ev.target.querySelector('button[type="submit"]');
+        btn.disabled = true;
+        try{
+          if(val){
+            if(authRecordId){ await sheetsPost({ action:'update', collection:'settings', id:authRecordId, data:{ key:'password', value:val } }); }
+            else { var res = await sheetsPost({ action:'add', collection:'settings', data:{ key:'password', value:val } }); authRecordId = res.id; }
+            AUTH_PASSWORD = val; writeAuthCache();
+            try{ sessionStorage.setItem('signalroom_unlocked','1'); }catch(e){}
+            toast('Password updated');
+          } else {
+            if(authRecordId){ await sheetsPost({ action:'update', collection:'settings', id:authRecordId, data:{ key:'password', value:'' } }); }
+            AUTH_PASSWORD = null; writeAuthCache();
+            toast('Password protection removed');
+          }
+          closeModal();
+        }catch(err){ toast('Could not save password — try again'); btn.disabled = false; }
+      };
+    }
+    document.getElementById('settingsForm').onsubmit = async function(ev){
+      ev.preventDefault();
+      var url = document.getElementById('s_url').value.trim();
+      if(!url){ toast('Enter a Web App URL first'); return; }
+      var btn = document.getElementById('s_connect');
+      btn.textContent = 'Connecting…'; btn.disabled = true;
+      try{ await connectSheets(url); toast('Connected to Google Sheet'); closeModal(); }
+      catch(err){
+        document.getElementById('s_status').textContent = 'Could not connect — check the URL and that the script is deployed with "Anyone" access.';
+        btn.textContent = 'Connect'; btn.disabled = false;
+      }
+    };
+  }
+
+  /* ============================= EVENTS ============================= */
+  document.getElementById('btnAddClient').onclick = function(){ openEngagementModal(null); };
+  document.getElementById('btnAddProspect').onclick = function(){ openProspectModal(null); };
+  document.getElementById('btnAddProject').onclick = function(){ openProjectModal(null); };
+  document.getElementById('btnAddRevenue').onclick = function(){ openRevenueModal(); };
+  document.getElementById('btnSettings').onclick = function(){ openSettingsModal(); };
+  document.getElementById('btnInactive').onclick = function(){ openInactiveModal(); };
+  document.getElementById('btnFinance').onclick = function(){ openFinanceModal(); };
+  document.getElementById('btnShare').onclick = function(){ openShareModal(); };
+  document.body.addEventListener('change', function(e){
+    var sp = e.target.closest && e.target.closest('[data-share-perm]');
+    if(sp){ updateDoc('shares', sp.getAttribute('data-share-perm'), { permission: sp.value }); toast('Permission updated'); }
+  });
+  document.getElementById('revMonthInput').onchange = function(){ STATE.revMonth = this.value || 'all'; renderRevenueView(); };
+  document.getElementById('btnRevThis').onclick = function(){ STATE.revMonth = curMonth(); renderRevenueView(); };
+  document.getElementById('btnRevAll').onclick = function(){ STATE.revMonth = 'all'; renderRevenueView(); };
+  document.getElementById('btnRefresh').onclick = async function(){
+    if(MODE==='sheets'){
+      try{ await refreshData(); toast('Refreshed'); }
+      catch(e){ toast('Could not refresh — check your connection'); }
+    } else { toast('Standalone mode — nothing to refresh'); }
+  };
+  document.getElementById('searchInput').oninput = function(e){ STATE.search = e.target.value; renderBoard(); renderPipeline(); };
+
+  document.getElementById('lockForm').onsubmit = async function(ev){
+    ev.preventDefault();
+    var val = document.getElementById('lockPass').value;
+    var ok = false;
+    if(val){
+      if(AUTH_LOADED) ok = (val === AUTH_PASSWORD);
+      else if(cachedAuth && cachedAuth.hash) ok = ((await sha256(val)) === cachedAuth.hash);
+    }
+    if(ok){
+      try{ sessionStorage.setItem('signalroom_unlocked','1'); }catch(e){}
+      hideLock();
+      document.getElementById('lockError').style.display = 'none';
+      document.getElementById('lockPass').value = '';
+    } else {
+      document.getElementById('lockError').style.display = 'block';
+    }
+  };
+
+  /* Drag & drop between pipeline stages */
+  var dragId = null;
+  document.body.addEventListener('dragstart', function(e){
+    var c = e.target.closest && e.target.closest('.pcard');
+    if(!c) return;
+    dragId = c.getAttribute('data-open-prospect');
+    e.dataTransfer.effectAllowed = 'move';
+    try{ e.dataTransfer.setData('text/plain', dragId); }catch(x){}
+  });
+  document.body.addEventListener('dragover', function(e){
+    var col = e.target.closest && e.target.closest('.pcol');
+    if(col && dragId){ e.preventDefault(); col.classList.add('drop'); }
+  });
+  document.body.addEventListener('dragleave', function(e){
+    var col = e.target.closest && e.target.closest('.pcol');
+    if(col && !col.contains(e.relatedTarget)) col.classList.remove('drop');
+  });
+  document.body.addEventListener('dragend', function(){
+    dragId = null;
+    Array.prototype.forEach.call(document.querySelectorAll('.pcol.drop'), function(c){ c.classList.remove('drop'); });
+  });
+  document.body.addEventListener('drop', function(e){
+    var col = e.target.closest && e.target.closest('.pcol');
+    if(!col || !dragId) return;
+    e.preventDefault();
+    var id = dragId, stage = col.getAttribute('data-stage');
+    dragId = null; col.classList.remove('drop');
+    var p = STATE.prospects.filter(function(x){return x.id===id;})[0];
+    if(p && (p.stage||'new')!==stage) moveProspect(id, stage);
+  });
+
+  document.body.addEventListener('click', function(e){
+    var t = e.target;
+    if(t.closest('a')) return; // tel: / mailto: links
+    var shCopy = t.closest('[data-share-copy]');
+    if(shCopy){
+      var inp = shCopy.parentNode.querySelector('input'); inp.select();
+      var done = function(){ toast('Link copied'); };
+      try{ navigator.clipboard.writeText(inp.value).then(done, function(){ document.execCommand('copy'); done(); }); }
+      catch(x){ document.execCommand('copy'); done(); }
+      return;
+    }
+    var shRev = t.closest('[data-share-revoke]');
+    if(shRev){
+      if(confirm('Revoke this link? Anyone using it will lose access right away.')){
+        deleteDoc('shares', shRev.getAttribute('data-share-revoke')).then(function(ok){ if(ok){ paintShares(); toast('Link revoked'); } });
+      }
+      return;
+    }
+    var nav = t.closest('[data-view]');
+    if(nav){ setView(nav.getAttribute('data-view')); return; }
+
+    var adv = t.closest('[data-advance]');
+    if(adv){
+      var ap = STATE.prospects.filter(function(x){return x.id===adv.getAttribute('data-advance');})[0];
+      if(ap){ var order = P_STAGES.map(function(s){return s.key;}); var i = order.indexOf(ap.stage||'new'); if(i>-1 && i<5) moveProspect(ap.id, order[i+1]); }
+      return;
+    }
+    var openPr = t.closest('[data-open-prospect]');
+    if(openPr){
+      var pr = STATE.prospects.filter(function(x){return x.id===openPr.getAttribute('data-open-prospect');})[0];
+      if(pr) openProspectModal(pr);
+      return;
+    }
+    var pf = t.closest('[data-pipe-filter]');
+    if(pf){ STATE.pipeFilter = pf.getAttribute('data-pipe-filter'); renderPipeline(); return; }
+
+    var openEng = t.closest('[data-open-engagement]');
+    if(openEng){
+      var eng = STATE.engagements.filter(function(x){return x.id===openEng.getAttribute('data-open-engagement');})[0];
+      if(eng) openEngagementModal(eng);
+      return;
+    }
+    var addEng = t.closest('[data-add-engagement]');
+    if(addEng){ openEngagementModal(null, addEng.getAttribute('data-add-engagement')); return; }
+
+    var delProj = t.closest('[data-del-project]');
+    if(delProj){
+      var did = delProj.getAttribute('data-del-project');
+      if(confirm('Delete this project?')){ deleteDoc('projects', did).then(function(ok){ if(ok) toast('Project deleted'); }); }
+      return;
+    }
+    var openProj = t.closest('[data-open-project]');
+    if(openProj){
+      var proj = STATE.projects.filter(function(x){return x.id===openProj.getAttribute('data-open-project');})[0];
+      if(proj) openProjectModal(proj);
+      return;
+    }
+    var delRev = t.closest('[data-del-revenue]');
+    if(delRev){
+      var rid = delRev.getAttribute('data-del-revenue');
+      if(confirm('Delete this revenue entry?')){ deleteDoc('revenueLog', rid).then(function(ok){ if(ok) toast('Entry deleted'); }); }
+      return;
+    }
+    var pd = t.closest('[data-proj-dept]');
+    if(pd){ STATE.projFilterDept = pd.getAttribute('data-proj-dept'); renderProjFilters(); renderProjects(); return; }
+    var ps = t.closest('[data-proj-status]');
+    if(ps){ STATE.projFilterStatus = ps.getAttribute('data-proj-status'); renderProjFilters(); renderProjects(); return; }
+  });
+
+  /* ============================= THEME ============================= */
+  function applyThemeIcon(){
+    var isLight = document.documentElement.getAttribute('data-theme')==='light';
+    document.getElementById('themeIcon').innerHTML = isLight
+      ? '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>'
+      : '<path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9z"/>';
+  }
+  document.getElementById('themeToggle').onclick = function(){
+    var next = document.documentElement.getAttribute('data-theme')==='light' ? 'dark' : 'light';
+    document.documentElement.setAttribute('data-theme', next);
+    try{ localStorage.setItem('signalroom_theme', next); }catch(e){}
+    applyThemeIcon();
+  };
+  applyThemeIcon();
+
+  /* ============================= INIT ============================= */
+  if(SHARE_MODE){
+    initShare();
+  } else {
+    try{ var sv = sessionStorage.getItem('signalroom_view'); if(sv && document.getElementById('view-'+sv)) setView(sv); }catch(e){}
+    initData();
+  }
+
+})();
+</script>
+</body>
+</html>
