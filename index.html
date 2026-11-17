@@ -321,6 +321,59 @@
   .filters .push{ margin-left:auto; display:flex; gap:8px; flex-wrap:wrap; }
   @media (max-width: 980px){ .tboard{ grid-template-columns: 1fr; } }
 
+  /* ---------- Client hub + social playbook ---------- */
+  .modal.xl{ max-width:1040px; }
+  .hub-grid{ display:grid; gap:10px; margin-top:6px; }
+  .hub-tile{ display:flex; align-items:center; gap:14px; width:100%; text-align:left; color:var(--text); background: var(--surface-2); border:1px solid var(--glass-border);
+    border-radius:18px; padding:14px 16px; transition: transform .25s var(--ease-spring), background .2s var(--ease-out), border-color .2s var(--ease-out); }
+  .hub-tile:hover{ background: var(--surface-3); border-color: var(--text-dim); transform: translateY(-2px); }
+  .hub-ico{ width:44px; height:44px; border-radius:14px; display:grid; place-items:center; font-size:22px; background: var(--surface-3); flex:none; }
+  .hub-txt{ flex:1; min-width:0; display:flex; flex-direction:column; gap:2px; }
+  .hub-txt b{ font-size:14.5px; font-family: var(--font-display); }
+  .hub-txt small{ font-size:12px; color: var(--text-muted); }
+  .hub-arrow{ font-size:22px; color: var(--text-dim); }
+  .hub-info{ display:grid; grid-template-columns: 1fr 1fr; gap:8px; margin-bottom:14px; }
+  .hub-info div{ background: var(--surface-2); border:1px solid var(--border); border-radius:14px; padding:9px 12px; font-size:12.5px; }
+  .hub-info span{ display:block; font-size:10.5px; font-weight:700; color: var(--text-dim); margin-bottom:2px; }
+  .pb-head{ display:flex; justify-content:space-between; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom:14px; }
+  .modal > .pb-head{ z-index:5; }
+  .pb-actions{ display:flex; gap:8px; flex-wrap:wrap; align-items:center; position:relative; }
+  .pb-menu-wrap{ position:relative; }
+  .pb-menu{ display:none; position:absolute; right:0; top:100%; margin-top:6px; min-width:200px; background: var(--bg-2); border:1px solid var(--glass-border); border-radius:14px; box-shadow: var(--shadow); padding:6px; z-index:20; }
+  .pb-menu.open{ display:block; }
+  .pb-menu button{ display:block; width:100%; text-align:left; background:transparent; border:0; color:var(--text); padding:9px 12px; border-radius:10px; font-size:13px; }
+  .pb-menu button:hover{ background: var(--surface-3); }
+  .pb-banner{ background: color-mix(in srgb, var(--accent-web) 12%, transparent); border:1px solid color-mix(in srgb, var(--accent-web) 35%, transparent); border-radius:14px; padding:12px 14px; margin-bottom:14px; font-size:13px; display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+  .pb-banner .grow{ flex:1; min-width:200px; }
+  .sharebar{ display:flex; height:12px; border-radius:980px; overflow:hidden; background: var(--surface-3); gap:2px; }
+  .sharebar i{ display:block; height:100%; }
+  .pl-grid{ display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:14px; margin-top:14px; }
+  .pl-card{ border:1px solid var(--glass-border); border-left:4px solid var(--pc, var(--text-dim)); background: var(--surface-2); border-radius: var(--radius-sm); padding:16px; min-width:0; }
+  .pl-top{ display:flex; gap:12px; align-items:flex-start; }
+  .pl-emoji{ font-size:26px; line-height:1; }
+  .pl-title{ font-weight:700; font-size:15.5px; font-family: var(--font-display); }
+  .pl-share{ font-size:12px; color: var(--text-muted); margin-top:2px; }
+  .pl-tools{ margin-left:auto; display:flex; gap:6px; flex:none; }
+  .pl-desc{ font-size:13px; margin:10px 0 0; color: var(--text); white-space:pre-wrap; }
+  .pl-sec{ font-size:10.5px; font-weight:700; color: var(--text-dim); margin:12px 0 4px; letter-spacing:.4px; text-transform:uppercase; }
+  .pl-list{ margin:0; padding-left:18px; font-size:13px; }
+  .pl-chips{ display:flex; flex-wrap:wrap; gap:6px; }
+  .pl-two{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+  .row3{ display:grid; grid-template-columns: 2fr 1fr 1fr; gap:12px; }
+  .pl-form .field textarea{ min-height:56px; }
+  .week{ display:grid; grid-template-columns: repeat(4, minmax(0,1fr)); gap:10px; margin-top:12px; }
+  .wday{ background: var(--surface-2); border:1px solid var(--glass-border-soft); border-radius:14px; padding:10px; min-height:90px; min-width:0; }
+  .wday h4{ margin:0 0 8px; font-size:12px; font-weight:700; color: var(--text-muted); }
+  .slot{ border-left:3px solid var(--pc, var(--text-dim)); background: var(--surface-3); border-radius:10px; padding:8px 10px; margin-bottom:6px; font-size:12px; }
+  .slot b{ display:block; font-size:12.5px; }
+  .slot span{ color: var(--text-muted); }
+  .cell-in{ width:100%; min-width:80px; background: var(--surface-2); border:1px solid var(--border); color: var(--text); border-radius:10px; padding:7px 9px; font-size:12.5px; font-family:inherit; outline:none; }
+  .cell-in:focus{ border-color: var(--accent-web); }
+  .kb-sec{ background: var(--surface-2); border:1px solid var(--glass-border-soft); border-radius:14px; padding:2px 14px; margin-bottom:8px; }
+  .kb-sec summary{ cursor:pointer; padding:12px 0; font-weight:650; font-size:14px; }
+  .kb-body{ white-space:pre-wrap; font-size:13px; padding:0 0 14px; color: var(--text); word-break:break-word; }
+  @media (max-width: 900px){ .pl-grid{ grid-template-columns:1fr; } .week{ grid-template-columns: repeat(2, minmax(0,1fr)); } .pl-two, .row3{ grid-template-columns:1fr; } }
+
   /* ---------- Shared (public link) mode: pipeline only ---------- */
   .share-mode .nav, .share-mode #btnSettings, .share-mode #btnShare, .share-mode .mode-note{ display:none !important; }
   .share-mode .view{ display:none !important; }
@@ -645,7 +698,7 @@
   var SHARE_TOKEN = null; try{ SHARE_TOKEN = new URLSearchParams(location.search).get('share'); }catch(e){}
   var SHARE_MODE = !!SHARE_TOKEN, SHARE_PERM = 'view';
   function canEdit(){ return !SHARE_MODE || SHARE_PERM==='edit'; }
-  var STATE = { engagements: [], projects: [], revenueLog: [], prospects: [], shares: [], todos: [], todoClient: null, todoMode: 'boards', todoFilter: 'all',
+  var STATE = { engagements: [], projects: [], revenueLog: [], prospects: [], shares: [], todos: [], playbooks: [], todoClient: null, todoMode: 'boards', todoFilter: 'all',
     search:'', projFilterDept:'all', projFilterStatus:'all', pipeFilter:'all', revMonth: curMonth(), view:'overview' };
   var MODE = 'local';
   var SHEETS_URL = null;
@@ -661,6 +714,7 @@
     { clientName:'CCCL', department:'social', status:'lost' },
     { clientName:'Chitrorekha', department:'social', status:'lost' },
     { clientName:'InfoTitan', department:'social', status:'active' },
+    { clientName:'Ru-Tech', department:'social', status:'active', contact:'01540-731004 · rutechbd.com', notes:'MicFil filtration — Bangladesh distributor. 4 static + 1 dynamic / month. FB, IG, LinkedIn, YouTube.' },
     { clientName:'Flow Fest', department:'social', status:'active' },
     { clientName:'CIU', department:'social', status:'active' },
     { clientName:'Essential Foods', department:'social', status:'active' },
@@ -678,13 +732,13 @@
       if(raw){
         var p = JSON.parse(raw);
         STATE.engagements = p.engagements || []; STATE.projects = p.projects || [];
-        STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || []; STATE.todos = p.todos || [];
+        STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || []; STATE.todos = p.todos || []; STATE.playbooks = p.playbooks || [];
       }
     }catch(e){}
   }
   function localSave(){
     try{ localStorage.setItem('signalroom_data', JSON.stringify({
-      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects, todos: STATE.todos })); }catch(e){}
+      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects, todos: STATE.todos, playbooks: STATE.playbooks })); }catch(e){}
   }
   function seedLocalIfEmpty(){
     if(STATE.engagements.length===0 && STATE.projects.length===0 && STATE.revenueLog.length===0){
@@ -699,7 +753,7 @@
   function cacheSave(){
     if(MODE!=='sheets' || SHARE_MODE) return;
     try{ localStorage.setItem(CACHE_KEY, JSON.stringify({
-      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects, shares: STATE.shares, todos: STATE.todos })); }catch(e){}
+      engagements: STATE.engagements, projects: STATE.projects, revenueLog: STATE.revenueLog, prospects: STATE.prospects, shares: STATE.shares, todos: STATE.todos, playbooks: STATE.playbooks })); }catch(e){}
   }
   function cacheLoad(){
     try{
@@ -707,7 +761,7 @@
       if(!raw) return false;
       var p = JSON.parse(raw);
       STATE.engagements = p.engagements || []; STATE.projects = p.projects || [];
-      STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || []; STATE.shares = p.shares || []; STATE.todos = p.todos || [];
+      STATE.revenueLog = p.revenueLog || []; STATE.prospects = p.prospects || []; STATE.shares = p.shares || []; STATE.todos = p.todos || []; STATE.playbooks = p.playbooks || [];
       return true;
     }catch(e){ return false; }
   }
@@ -732,9 +786,11 @@
       sheetsGet('prospects').catch(function(){ return null; }),
       sheetsGet('settings').catch(function(){ return null; }),
       sheetsGet('shares').catch(function(){ return null; }),
-      sheetsGet('todos').catch(function(){ return null; })
+      sheetsGet('todos').catch(function(){ return null; }),
+      sheetsGet('playbooks').catch(function(){ return null; })
     ]);
     if(r[6]) STATE.todos = r[6];
+    if(r[7]) STATE.playbooks = r[7];
     STATE.engagements = r[0]; STATE.projects = r[1]; STATE.revenueLog = r[2];
     if(r[3]) STATE.prospects = r[3];
     if(r[5]) STATE.shares = r[5];
@@ -849,6 +905,7 @@
     try{ localStorage.setItem('signalroom_sheets_url', url); }catch(e){}
     await seedSheetsIfEmpty();
     migrateStatuses();
+    await ensureRuTechClient();
     render(); applyLockDecision(); updateModeNote(); startPolling();
   }
   function disconnectSheets(){
@@ -857,7 +914,7 @@
     stopPolling();
     AUTH_PASSWORD = null; authRecordId = null; AUTH_LOADED = false; cachedAuth = null;
     hideLock();
-    STATE.engagements=[]; STATE.projects=[]; STATE.revenueLog=[]; STATE.prospects=[]; STATE.todos=[];
+    STATE.engagements=[]; STATE.projects=[]; STATE.revenueLog=[]; STATE.prospects=[]; STATE.todos=[]; STATE.playbooks=[];
     localLoad(); seedLocalIfEmpty(); migrateStatuses(); render(); updateModeNote();
   }
 
@@ -885,6 +942,7 @@
       await fetchAllFromSheets();
       await seedSheetsIfEmpty();
       migrateStatuses();
+      await ensureRuTechClient();
       render(); applyLockDecision(); updateModeNote(); startPolling();
     }catch(e){
       if(hadCache){
@@ -909,6 +967,13 @@
         updateDoc('engagements', e.id, { status: fallback });
       }
     });
+  }
+
+  var ruTechEnsured = false;
+  async function ensureRuTechClient(){
+    if(ruTechEnsured) return; ruTechEnsured = true;
+    if(STATE.engagements.some(function(e){ return slugify(e.clientName)==='ru-tech'; })) return;
+    await addDoc('engagements', { clientName:'Ru-Tech', department:'social', status:'active', revenue:0, startDate:'', endDate:'', notes:'MicFil filtration — Bangladesh distributor. 4 static + 1 dynamic / month. FB, IG, LinkedIn, YouTube.', contact:'01540-731004 · rutechbd.com', createdAt: Date.now() });
   }
 
   function updateModeNote(){
@@ -1542,6 +1607,955 @@
     toast('Cleared');
   }
 
+  /* ============================= CLIENT HUB + SOCIAL PLAYBOOK ============================= */
+  /* Clicking a client on the board opens a hub. Social-media clients get three playbook pages:
+     Content pillars · Content schedule plan · Master knowledge base. Everything for one client is stored in a single
+     `playbooks` row (one JSON string per section, split across cells if it is very long). */
+  var PB = null;
+  var PB_PALETTE = ['#FF6B57','#43D9C8','#F5B942','#6C8CFF','#B07CFF','#5FD68A','#FF8FB1','#8BD3FF'];
+  var PB_DAYS = ['Saturday','Sunday','Monday','Tuesday','Wednesday','Thursday','Friday'];
+  var PB_MONTHLY_RE = /^(1st|2nd|3rd|4th|last)\s+/i;
+  var PB_ORD = { '1st':1, '2nd':2, '3rd':3, '4th':4, 'last':5 };
+  function pbIsMonthly(day){ return PB_MONTHLY_RE.test(String(day||'')); }
+  function pbMonthlyKey(day){
+    var m = /^(1st|2nd|3rd|4th|last)\s+(.+)$/i.exec(String(day||'').trim());
+    if(!m) return null;
+    var w = PB_DAYS.indexOf(pbDay(m[2])); return { ord: PB_ORD[m[1].toLowerCase()]||9, wd: w<0?99:w };
+  }
+  var PB_LABEL = { pillars:'Content pillars', schedule:'Content schedule plan', knowledge:'Master knowledge base' };
+  var PB_ICON = { pillars:'🎯', schedule:'🗓️', knowledge:'🧠' };
+  var PB_SCHEMA = { pillars:'signalroom.content-pillars.v1', schedule:'signalroom.content-schedule.v1', knowledge:'signalroom.knowledge-base.v1' };
+  var PB_FILE = { pillars:'content-pillars', schedule:'content-schedule', knowledge:'knowledge-base' };
+  /* ---- Ru-Tech seed data (from the supplied PDFs) ----
+     Shown automatically for a client named Ru-Tech until that client has saved
+     playbook data of its own. Nothing is written to the Sheet / localStorage
+     until Maruf edits or imports something on one of the three pages. */
+  var PB_SEED = {
+  "ru-tech": {
+    "pillars": {
+      "brand": "Ru-Tech × MicFil",
+      "overview": "Promotion-first, education-supported. Every piece of content should communicate MicFil’s relevance, demonstrate its value, build trust, or create commercial interest. One message per post. Closing line: MicFil. Delivered in Bangladesh by Ru-Tech. (Shares below are a starting split — editable — they add up to 100%.)",
+      "pillars": [
+        {
+          "title": "Problem / Education",
+          "emoji": "🔍",
+          "share": 25,
+          "description": "Highlight common oil and fuel contamination problems and explain how they affect engines, machinery, and operational performance.",
+          "goal": "Make the audience feel the problem first, then connect it to MicFil filtration.",
+          "topics": [
+            "What happens when contaminated fuel enters an engine?",
+            "How fine particles damage engine components.",
+            "The impact of water contamination in fuel and oil.",
+            "Why standard filtration may not be enough."
+          ],
+          "formats": [
+            "Static post",
+            "Carousel",
+            "Reel"
+          ],
+          "tone": "Professional, technical but easy to understand.",
+          "examples": [
+            "Microscopic contaminant visual vs clean fuel",
+            "Problem-versus-solution layout: damaged component → MicFil"
+          ],
+          "hashtags": [
+            "#MicFil",
+            "#RuTech",
+            "#CleanFuel",
+            "#OilFiltration",
+            "#FuelFiltration"
+          ],
+          "dos": [
+            "Focus on hidden contaminants — fine particles, water, microbial contamination.",
+            "Explain how contamination damages equipment and affects performance.",
+            "Connect each problem with MicFil’s filtration solution."
+          ],
+          "donts": [
+            "Do not make generic educational posts with no problem.",
+            "Do not present potential savings as guaranteed results."
+          ]
+        },
+        {
+          "title": "Use-case Spotlights (Applications)",
+          "emoji": "🏭",
+          "share": 25,
+          "description": "Demonstrate how MicFil filtration solutions are relevant to different industries, machinery, and operational environments.",
+          "goal": "Make each industry recognise how the solution applies to their business.",
+          "topics": [
+            "Marine vessels — protecting vessel engines through cleaner fuel.",
+            "Industrial machinery",
+            "Transportation and bus/taxi fleets",
+            "Fuel stations and fuel storage",
+            "Construction machinery",
+            "Generators and power systems"
+          ],
+          "formats": [
+            "Static post",
+            "Reel",
+            "Carousel"
+          ],
+          "tone": "Industry-specific, business-oriented.",
+          "examples": [
+            "Marine: cleaner fuel, protected engine, reliable voyages.",
+            "Construction: filtration for heavy machinery.",
+            "Generators: cleaner fuel for reliable generator operations."
+          ],
+          "hashtags": [
+            "#MicFil",
+            "#RuTech",
+            "#Marine",
+            "#Construction",
+            "#Fleet"
+          ],
+          "dos": [
+            "Create industry-specific content, not generic product promotion.",
+            "Show the actual operational challenges of each industry.",
+            "Focus on one application per post."
+          ],
+          "donts": [
+            "Do not list multiple unrelated industries in one static (unless the concept is multi-industry).",
+            "Do not place a product beside machinery without explaining its relevance."
+          ]
+        },
+        {
+          "title": "Proof & Trust",
+          "emoji": "🛡️",
+          "share": 20,
+          "description": "Build credibility by highlighting MicFil’s engineering quality, technical capabilities, product specifications, and evidence-backed performance.",
+          "goal": "Give the audience a reason to trust the product — and Ru-Tech as the local provider.",
+          "topics": [
+            "German engineering and product quality.",
+            "Filtration capability down to 0.5 microns.",
+            "Water absorption capabilities.",
+            "Real-world applications and project references.",
+            "Technical specifications and performance evidence."
+          ],
+          "formats": [
+            "Static post",
+            "Carousel",
+            "Reel"
+          ],
+          "tone": "Factual, premium, evidence-led.",
+          "examples": [
+            "Product close-up with 0.5 micron spec callout",
+            "Certification visual (verify variant first: RINA for AL, Bureau Veritas for ST)"
+          ],
+          "hashtags": [
+            "#MicFil",
+            "#RuTech",
+            "#GermanEngineering",
+            "#Filtration"
+          ],
+          "dos": [
+            "Highlight measurable technical specifications.",
+            "Use genuine product references, certifications and case studies where available.",
+            "Present manufacturer claims accurately."
+          ],
+          "donts": [
+            "Do not use unsupported guarantees.",
+            "Do not claim a certification unless the specific certification is verified.",
+            "Do not invent customer testimonials or project references."
+          ]
+        },
+        {
+          "title": "Cost & Sustainability (ROI Story)",
+          "emoji": "💰",
+          "share": 15,
+          "description": "Communicate the financial and operational value of cleaner oil and fuel, focusing on reduced waste, maintenance costs, and equipment protection.",
+          "goal": "Sell the financial and operational benefit — help owners see filtration as an investment.",
+          "topics": [
+            "Reduce frequent oil changes.",
+            "Minimize oil waste and consumption.",
+            "Reduce maintenance-related expenses.",
+            "Protect expensive machinery and equipment.",
+            "Improve long-term operational value."
+          ],
+          "formats": [
+            "Static post",
+            "Carousel",
+            "Reel"
+          ],
+          "tone": "Business-oriented, for owners and decision-makers.",
+          "examples": [
+            "Cost comparison: frequent oil changes vs MicFil",
+            "Before-and-after ROI graphic (qualified figures only)"
+          ],
+          "hashtags": [
+            "#MicFil",
+            "#RuTech",
+            "#ROI",
+            "#SaveCosts"
+          ],
+          "dos": [
+            "Connect filtration with operational cost savings.",
+            "Use verified figures and clearly qualify performance claims (up to / potential)."
+          ],
+          "donts": [
+            "Never present potential savings as guaranteed results.",
+            "Do not confuse filtration capacity (L/hour) with filtration fineness (microns)."
+          ]
+        },
+        {
+          "title": "Product & Engineering Deep-dive",
+          "emoji": "⚙️",
+          "share": 15,
+          "description": "Showcase MicFil’s individual products, filtration technology, engineering features, and technical capabilities to help customers understand which solution fits their requirements.",
+          "goal": "Help a buyer choose the right unit — with a clear marketing angle, not a catalogue list.",
+          "topics": [
+            "AL 50 MINI, AL150, AL300, AL600 product highlights.",
+            "Product capacity and technical specifications.",
+            "How MicFil filtration technology works.",
+            "Different filtration configurations.",
+            "Choosing the right unit for specific operational requirements."
+          ],
+          "formats": [
+            "Static post",
+            "Reel",
+            "Carousel"
+          ],
+          "tone": "Technical but easy to understand.",
+          "examples": [
+            "AL 50 MINI — compact filtration for smaller operations",
+            "AL600 — up to 1,200 L/hour for larger systems"
+          ],
+          "hashtags": [
+            "#MicFil",
+            "#RuTech",
+            "#AL50MINI",
+            "#Engineering"
+          ],
+          "dos": [
+            "Highlight individual product units and their specifications.",
+            "Match product units with relevant applications.",
+            "Give each product a clear marketing angle."
+          ],
+          "donts": [
+            "Do not make boring product-catalogue posts.",
+            "Do not change a product name or its capacity.",
+            "Do not assume every product supports every application."
+          ]
+        }
+      ]
+    },
+    "schedule": {
+      "brand": "Ru-Tech × MicFil",
+      "notes": "Deal: 4 static + 1 dynamic / month. Platforms: Facebook, Instagram, LinkedIn, YouTube. Organic only. Times: LinkedIn 10:00 AM, FB / IG / YT 7:30 PM. November catch-up: 17 Nov Static 1, 19 Nov Static 2, 22 Nov Dynamic, 24 Nov Static 3, 26 Nov Static 4, review 29 Nov. Pillar / sector for each post to be confirmed with Ru-Tech in the meeting.",
+      "slots": [
+        {
+          "day": "1st Sunday",
+          "time": "LinkedIn 10:00 AM · FB / IG / YT 7:30 PM",
+          "platform": "Facebook, Instagram, LinkedIn, YouTube",
+          "pillar": "Problem / Education",
+          "format": "Static post",
+          "topic": "Static 1",
+          "notes": "1st Sunday of the month."
+        },
+        {
+          "day": "2nd Tuesday",
+          "time": "LinkedIn 10:00 AM · FB / IG / YT 7:30 PM",
+          "platform": "Facebook, Instagram, LinkedIn, YouTube",
+          "pillar": "Use-case Spotlights (Applications)",
+          "format": "Static post",
+          "topic": "Static 2",
+          "notes": "2nd Tuesday of the month."
+        },
+        {
+          "day": "2nd Thursday",
+          "time": "LinkedIn 10:00 AM · FB / IG / YT 7:30 PM",
+          "platform": "Facebook, Instagram, LinkedIn, YouTube",
+          "pillar": "",
+          "format": "Reel / Short",
+          "topic": "Dynamic (Reel / Short) — sector & pillar to confirm with Ru-Tech",
+          "notes": "Confirm sector + pillar in the meeting."
+        },
+        {
+          "day": "3rd Sunday",
+          "time": "LinkedIn 10:00 AM · FB / IG / YT 7:30 PM",
+          "platform": "Facebook, Instagram, LinkedIn, YouTube",
+          "pillar": "Proof & Trust",
+          "format": "Static post",
+          "topic": "Static 3",
+          "notes": "3rd Sunday of the month."
+        },
+        {
+          "day": "4th Tuesday",
+          "time": "LinkedIn 10:00 AM · FB / IG / YT 7:30 PM",
+          "platform": "Facebook, Instagram, LinkedIn, YouTube",
+          "pillar": "Cost & Sustainability (ROI Story)",
+          "format": "Static post",
+          "topic": "Static 4 — confirm it stays Cost & Sustainability",
+          "notes": "Confirm in the meeting whether Static 4 stays Cost & Sustainability."
+        }
+      ]
+    },
+    "knowledge": {
+      "brand": "Ru-Tech × MicFil",
+      "sections": [
+        {
+          "title": "Brand overview",
+          "content": "Ru-Tech | Engineering by Professionals\nWebsite: https://rutechbd.com/ | Market: Bangladesh\nRu-Tech is the local distributor of MicFil filtration solutions in Bangladesh. Its role is to introduce MicFil's oil and fuel filtration technology to relevant industries in Bangladesh and provide customers with access to these solutions.\nBrand positioning: professional engineering solutions, technical expertise, and reliable industrial products.\nCommunication direction: professional, technical but easy to understand, reliable, modern, industry-focused, business-oriented.\nDo not position Ru-Tech as merely a product-selling company. Communicate its role as a solution provider."
+        },
+        {
+          "title": "About MicFil",
+          "content": "Brand: MicFil | Website: https://www.micfil.com/\nProduct category: Modular Ultra-Fine Oil & Fuel Filtration Systems.\nMicFil develops filtration systems designed to improve oil and fuel cleanliness by removing contaminants such as fine particles and water. Its solutions are designed for different industries, machinery, and operational requirements.\nCore value: ultra-fine oil and fuel filtration; filtration capability down to 0.5 microns; water removal capabilities; different filtration units for different operational requirements; potential reduction in oil consumption and maintenance-related costs; equipment protection through improved oil and fuel cleanliness.\nCore positioning: MicFil is not just a filter. It is an oil and fuel cleanliness solution designed to help protect equipment and reduce operational costs associated with contamination.\nImportant: MicFil's official website is the primary reference for technical specifications, product features, applications, certifications, and manufacturer claims."
+        },
+        {
+          "title": "Products & technical knowledge",
+          "content": "Product range (verify specifications against official MicFil documentation before publishing):\nAL 50 MINI — 50 L/hour\nAL150 — 300 L/hour\nAL300 — 600 L/hour\nAL600 — 1,200 L/hour\nAL 50 MINI — known applications: small engines, generators, small trucks, taxi fleets, outboard engines. It is a compact filtration solution for smaller-scale operational requirements.\nPreviously selected AL 50 MINI tagline: “প্রতিদিনের কাজে নির্ভরযোগ্য ফিল্টারিং।” — English equivalent for content adaptation: “Reliable Filtration for Everyday Operations.” Do not automatically translate this tagline if the user requests the original Bengali wording.\nVariant note: AL = aluminium, ST = stainless. RINA certification relates to AL, Bureau Veritas to ST — verify the variant before publishing."
+        },
+        {
+          "title": "Technical claims & accuracy",
+          "content": "Claims that may be used when relevant, but must be verified against official MicFil sources before publication:\n- Filtration down to 0.5 microns.\n- Water removal capabilities.\n- Potentially 80–90% fewer oil changes in applicable situations.\n- Potential fuel savings of up to 5%.\n- Manufacturer-stated filtration and performance capabilities.\nStrict rules:\n1. Never present potential savings as guaranteed results.\n2. Do not confuse filtration capacity (L/hour) with filtration fineness (microns).\n3. Do not invent technical specifications.\n4. Do not claim a product is certified unless the specific certification is verified.\n5. Distinguish manufacturer claims from independently verified results.\n6. If information is uncertain, verify it through MicFil's official website or documentation."
+        },
+        {
+          "title": "Target industries & applications",
+          "content": "Always connect the application with a relevant operational problem and MicFil's potential solution. Do not randomly place a product beside machinery without explaining its relevance.\n1. Marine — marine vessels, ship engines, marine fuel systems, marine oil filtration.\n2. Transportation — bus fleets, taxi fleets, trucks, commercial vehicles, fleet fuel systems.\n3. Industrial — industrial machinery, manufacturing equipment, industrial oil systems.\n4. Fuel Station & Fuel Storage — fuel storage tanks, fuel transfer systems, fuel filtration before dispensing or equipment use.\n5. Construction — excavators, wheel loaders, heavy construction machinery, construction equipment fuel systems.\n6. Power & Generators — industrial generators, commercial generators, small generators, generator fuel systems."
+        },
+        {
+          "title": "Target audience",
+          "content": "Primary target: businesses and organizations in Bangladesh that operate machinery, engines, vehicles, vessels, generators, or fuel systems where oil and fuel cleanliness is important.\nSegments: (A) Marine & shipping — ship owners, vessel operators, shipping companies, marine engineering and maintenance companies, fleet technical managers, marine procurement departments. (B) Transportation & fleet operators — bus operators, taxi and commercial vehicle fleet owners, trucking and logistics companies, fleet managers, vehicle maintenance and workshop operators. (C) Industrial & manufacturing — factory owners, plant managers, industrial maintenance departments, mechanical and engineering departments, procurement and technical purchasing teams. (D) Construction & heavy equipment — construction companies, heavy equipment rental businesses, excavator and wheel loader operators, construction machinery fleet owners, equipment maintenance managers. (E) Fuel stations & fuel storage — fuel station owners and operators, fuel distributors, bulk fuel storage operators, fuel handling and transfer businesses. (F) Generator & power system operators — industrial and commercial generator operators, power generation businesses, generator maintenance companies, facility and technical managers.\nDecision-makers: business owners, directors, managing directors, operations directors, general managers, fleet owners — and technical influencers: chief engineers, technical managers, plant and maintenance managers, marine and mechanical engineers, procurement managers.\nPain points: fuel and oil contamination; fine particles and water in fuel or oil; engine and machinery wear; frequent oil changes; high maintenance expenses; equipment downtime; fuel-system reliability concerns; high operating costs; difficulty maintaining oil and fuel cleanliness.\nCommunication rules: do not create every post for a general audience; identify the intended industry or segment before developing a concept; use industry-specific pain points and relevant machinery; make technical features understandable to the intended decision-maker; business-oriented messaging for owners and management, technical and performance-oriented messaging for engineers; avoid irrelevant applications or machinery in visuals; prioritize commercial and industrial customers over general consumers.\nAudience focus by segment: Business owners & directors — cost savings, ROI, equipment protection, long-term business value. Operations managers — operational efficiency, reliability, reduced downtime. Engineers & technical managers — filtration technology, specifications, contamination control, technical performance. Fleet owners & managers — fuel cleanliness, fleet protection, maintenance expenses. Marine operators — marine fuel and oil cleanliness, engine protection, operational reliability. Industrial & factory operators — machinery protection, oil cleanliness, maintenance efficiency. Construction companies — heavy equipment protection, fuel-system cleanliness, operating costs. Fuel station operators — fuel storage, transfer, and filtration quality."
+        },
+        {
+          "title": "Social media content strategy",
+          "content": "Platforms: Facebook, Instagram, LinkedIn — and YouTube in practice (content is also published there).\nMonthly scope: 4 static posts + 1 dynamic post / video. Organic only — no paid marketing.\nOverall strategy: Promotion First, Education Second. The objective is not educational content just for engagement. Every piece of content should help the audience understand at least one of: what problem MicFil solves; where it can be used; why the filtration technology is relevant; what makes the product technically valuable; how it can protect equipment; how it can potentially reduce operational costs; why customers should contact Ru-Tech.\nMarketing communication flow: 1. Problem Awareness, 2. Application Relevance, 3. Product Introduction, 4. Technical Credibility, 5. Business Value, 6. Customer Inquiry. Content does not always need to follow this sequence, but the overall plan should cover all stages.\nContent philosophy: (A) Sell the solution, not just the product — explain the problem it solves and the value it delivers, do not just show a machine and list specs. (B) Focus on customer pain points — fuel/oil contamination, engine damage, machinery maintenance, frequent oil changes, operational expenses, equipment reliability. (C) Make content industry-specific — marine, fleet, industrial, construction, generator operators; avoid generic industrial ads. (D) Communicate business value — connect technical features with practical benefits. Example: filtration down to 0.5 microns → helps remove fine contaminants to support cleaner oil and fuel → better contamination control and equipment protection. (E) Keep communication premium — modern B2B advertising, premium industrial visuals, strong headlines, concise copy.\nClosing line for content: MicFil. Delivered in Bangladesh by Ru-Tech."
+        },
+        {
+          "title": "Approved content pillars",
+          "content": "There are five approved content pillars. Every content idea must be developed under the most relevant pillar.\nPILLAR 01 — Problem / Education: highlight common oil and fuel contamination problems and explain how they affect engines, machinery, and operational performance.\nPILLAR 02 — Use-case Spotlights (Applications): demonstrate how MicFil is relevant to different industries, machinery, and operational environments. One application per post.\nPILLAR 03 — Proof & Trust: build credibility with engineering quality, technical capabilities, specifications, and evidence-backed performance.\nPILLAR 04 — Cost & Sustainability (ROI Story): communicate the financial and operational value of cleaner oil and fuel — reduced waste, maintenance costs, equipment protection.\nPILLAR 05 — Product & Engineering Deep-dive: showcase individual products, filtration technology, engineering features, and technical capabilities so customers understand which solution fits their requirements.\nFull pillar details (topics, formats, visual direction, do's and don'ts) live in this client's Content Pillars page."
+        },
+        {
+          "title": "Content creation workflow",
+          "content": "This section is mandatory. Follow it whenever the user requests content ideas.\nWhen the user provides a content pillar (example: “Next static content: Content Pillar: Use-case, Use case: Construction Machinery”): Step 1 — understand the pillar (objective, content focus, creative direction). Step 2 — understand the specific topic (do not change the requested topic). Step 3 — generate exactly 3 concepts with different creative angles, not three variations of the same headline. Step 4 — each concept must include a short concept title, a strong tagline, and a clear visual direction. Step 5 — follow the requested language: unless the user specifies otherwise, provide both a full Bengali version and a full English version. Do not unnecessarily mix Bengali and English within the same language version.\nRequired output format for static content ideas: a table with Bangla Version and English Version columns; each concept has Concept Title, Tagline (short, punchy), Visual (clear direction for a designer). Strict rules: exactly 3 concepts; use a table; keep taglines short and memorable; make visual directions specific enough for a graphic designer; avoid unnecessary explanations; do not add “Why this works”, “Marketing strategy”, or similar extra sections; do not repeat the same creative angle; do not create generic concepts that could apply to any industrial product. If the user requests English only, provide only the English column; Bangla only, only the Bangla column.\nWhen the user requests a product unit highlight (example: Pillar: Product & Engineering Deep-dive, Product Unit: AL 50 MINI): focus on the specified unit, use accurate specifications, develop exactly 3 distinct concepts highlighting different aspects (design, functionality, application, technical capacity), match the unit with relevant applications, do not change the product name or capacity. The AL 50 MINI tagline above is a preferred reference, not mandatory for every post.\nWhen the user requests a caption: create a ready-to-publish caption. Start with a strong headline or hook; keep it concise and punchy; explain the product's relevance or benefit; include relevant applications; add a clear CTA; include contact details when appropriate. Official contact details: Phone 01540-731004, Website www.rutechbd.com. Caption style: professional, modern B2B, clear and persuasive, short paragraphs, minimal emojis, relevant hashtags only. Avoid: long introductions, repeating the design's entire text, generic marketing language, unnecessary technical explanations, excessive emojis and hashtags.\nWhen the user requests a revision: follow the feedback exactly. “Make it short” = reduce wording without losing the main message. “Make it punchy” = stronger, sharper language. “More promotional” = increase product and commercial focus. “Less technical” = simplify technical language. “English only” = remove Bengali entirely. “Use this tagline” = preserve the exact selected tagline. Do not unnecessarily rewrite parts the user already approved."
+        },
+        {
+          "title": "Creative & copywriting rules",
+          "content": "Taglines should be short, strong, memorable, benefit-oriented, easy to understand, and suitable for static graphic design.\nPreferred style references: “More Miles. Cleaner Fuel. Better Protection.” / “Protect the Fuel System. Protect the Operation.” / “Cleaner Fuel. Protected Engine. Reliable Voyages.” / “German Engineering. Reliable Filtration.” / “প্রতিদিনের কাজে নির্ভরযোগ্য ফিল্টারিং।” — these are style references, do not repeat them in every post.\nVisual direction should clearly communicate what the designer needs: main subject, product placement, industry or application environment, key visual elements, main information to highlight. Preferred styles: clean and modern layouts, premium product hero shots, realistic industrial environments, high-quality machinery photography, technical illustrations, 3D product renders, strong visual hierarchy, minimal but impactful typography. Avoid: overcrowded designs, excessive text, generic stock-photo concepts, unrelated machinery, unverified technical graphics, random product placement.\nCopywriting principles — use customer-oriented messaging. Weak: “MicFil offers high-quality filtration solutions.” Stronger: “Protect your equipment. Start with cleaner fuel.” Weak: “MicFil is suitable for many industries.” Stronger: “Reliable filtration for marine, industrial, and transportation operations.” Weak: “Reduce your operational costs with MicFil.” Stronger: “Less oil waste. Fewer oil changes. More operational value.” Do not use stronger claims unless the underlying product capability supports them."
+        },
+        {
+          "title": "Brand communication & positioning",
+          "content": "Core message: Protect the Fuel System. Protect the Operation. (Preferred communication direction for MicFil.) Other message themes: cleaner oil, cleaner fuel, equipment protection, operational reliability, filtration efficiency, reduced waste, long-term operational value.\nRu-Tech × MicFil relationship — communicate it clearly: MicFil = filtration technology and products. Ru-Tech = local distributor and customer contact point in Bangladesh. Possible brand sign-offs: “MicFil × Ru-Tech” / “MicFil Technology. Ru-Tech Support.” / “MicFil — Available in Bangladesh through Ru-Tech.” / “Engineering Better Filtration Solutions.” Do not claim Ru-Tech is the exclusive or officially authorized distributor unless that status is confirmed.\nCTA direction — direct, business-oriented CTAs. Examples: “Find the Right Filtration Solution for Your Operation.” / “Contact Ru-Tech for Product Details.” / “Explore MicFil Filtration Solutions.” / “Get in Touch with Our Team.” / “Protect Your Equipment with Better Filtration.”"
+        },
+        {
+          "title": "Research, fact-checking & AI behaviour",
+          "content": "Whenever technical information is required: 1. Check MicFil's official website first: https://www.micfil.com/ 2. Use official product documentation when available. 3. Verify product names, specifications, capacity, and application suitability. 4. Use reliable manufacturer information for technical claims. 5. Do not invent customer testimonials or project references. 6. Do not assume every product supports every application. 7. If a specification cannot be verified, ask the user or clearly state that it needs confirmation. When external research is used, distinguish verified information from marketing interpretation.\nYou are acting as Ru-Tech's dedicated B2B content strategist, social media content planner, copywriter, and creative content assistant. Your responsibility is to create commercially relevant, professional, engaging, and technically accurate social media content for Ru-Tech × MicFil. Always remember: 1. Understand the brand and product before creating content. 2. Follow the five approved content pillars. 3. Prioritize promotion over generic education. 4. Focus on real industry problems and applications. 5. Connect product features with practical business benefits. 6. Keep taglines short and punchy. 7. Make visual directions useful for graphic designers. 8. Generate exactly 3 concepts when the user requests static content ideas for a pillar. 9. Use the specified language and output format. 10. Keep captions concise and ready to publish. 11. Verify technical claims. 12. Follow user feedback and previously approved taglines. 13. Avoid unnecessary explanations when the user asks for content only.\nThe ultimate content goal — make the target audience think: “This solves a real problem we have.” / “This technology is relevant to our operations.” / “This could help protect our equipment.” / “This could improve our operational efficiency.” / “We should contact Ru-Tech to learn more.”\nCore marketing principle: Don't just promote a filter. Show the problem it solves, where it works, why it can be trusted, and what business value it delivers."
+        }
+      ]
+    }
+  }
+};
+  var PB_CHUNK = 40000, PB_MAXCHUNKS = 6;
+  var PB_DAY_ALIAS = (function(){
+    var m = {}, en = ['sunday','monday','tuesday','wednesday','thursday','friday','saturday'];
+    en.forEach(function(d){ var full = d.charAt(0).toUpperCase()+d.slice(1); m[d] = full; m[d.slice(0,3)] = full; });
+    m.tues = 'Tuesday'; m.thur = 'Thursday'; m.thurs = 'Thursday';
+    var bn = { 'রবিবার':'Sunday','সোমবার':'Monday','মঙ্গলবার':'Tuesday','বুধবার':'Wednesday','বৃহস্পতিবার':'Thursday','শুক্রবার':'Friday','শনিবার':'Saturday' };
+    Object.keys(bn).forEach(function(k){ m[k] = bn[k]; });
+    return m;
+  })();
+
+  function slugify(s){ return String(s||'').toLowerCase().replace(/[^\wঀ-৿]+/g,'-').replace(/^-+|-+$/g,'') || 'client'; }
+  function strOf(v){
+    if(v==null) return '';
+    if(Array.isArray(v)) return v.map(strOf).join('\n');
+    if(typeof v==='object') return Object.keys(v).map(function(k){ return k+': '+strOf(v[k]); }).join('\n');
+    return String(v);
+  }
+  function toList(v, re){
+    if(v==null) return [];
+    if(Array.isArray(v)) return v.map(function(x){
+      if(x && typeof x==='object') x = x.title || x.name || x.text || x.value || JSON.stringify(x);
+      return String(x).trim();
+    }).filter(Boolean);
+    return String(v).split(re || /\r?\n/).map(function(s){ return s.replace(/^[\s•\-–*]+/,'').trim(); }).filter(Boolean);
+  }
+  function pbDay(v){
+    var k = String(v==null?'':v).trim().toLowerCase();
+    if(PB_DAY_ALIAS[k]) return PB_DAY_ALIAS[k];
+    if(PB_DAY_ALIAS[k.slice(0,3)] && /^[a-z]+$/.test(k)) return PB_DAY_ALIAS[k.slice(0,3)];
+    return String(v==null?'':v).trim();
+  }
+  function validHex(c){ return /^#[0-9a-f]{6}$/i.test(String(c||'')) ? c : ''; }
+
+  /* ---- normalisers: accept loose AI-written JSON, always produce clean structures ---- */
+  function normPillar(p, i){
+    var sh = p.share!=null ? p.share : (p.percentage!=null ? p.percentage : (p.percent!=null ? p.percent : p.weight));
+    return {
+      title: strOf(p.title||p.name||p.pillar).trim() || ('Pillar '+(i+1)),
+      emoji: strOf(p.emoji||p.icon).trim().slice(0,8),
+      share: Number(String(sh==null?0:sh).replace('%','')) || 0,
+      color: validHex(p.color),
+      description: strOf(p.description||p.about||p.summary).trim(),
+      goal: strOf(p.goal||p.objective||p.purpose).trim(),
+      topics: toList(p.topics||p.ideas||p.content_ideas),
+      formats: toList(p.formats||p.format, /[,\n]/),
+      tone: strOf(p.tone||p.voice).trim(),
+      examples: toList(p.examples),
+      hashtags: toList(p.hashtags, /[\s,]+/),
+      dos: toList(p.dos||p['do']),
+      donts: toList(p.donts||p.dont||p["don'ts"])
+    };
+  }
+  function normPillarsFile(obj){
+    var arr = Array.isArray(obj) ? obj : (obj && (obj.pillars||obj.contentPillars||obj.content_pillars));
+    if(!Array.isArray(arr)) return null;
+    return { brand: strOf(obj.brand||obj.client).trim(), overview: strOf(obj.overview||obj.summary||obj.strategy).trim(),
+      pillars: arr.filter(function(x){ return x && typeof x==='object'; }).map(normPillar) };
+  }
+  function normSlot(s){
+    return { day: pbDay(s.day||s.weekday), time: strOf(s.time||s.at).trim(), platform: strOf(s.platform||s.channel).trim(),
+      pillar: strOf(s.pillar||s.content_pillar).trim(), format: strOf(s.format||s.type).trim(),
+      topic: strOf(s.topic||s.idea||s.title||s.content).trim(), notes: strOf(s.notes||s.note).trim() };
+  }
+  function normScheduleFile(obj){
+    var arr = Array.isArray(obj) ? obj : (obj && (obj.slots||obj.schedule||obj.items||obj.posts));
+    if(arr && !Array.isArray(arr) && typeof arr==='object'){          // { "Saturday":[{...}], ... }
+      var flat = []; Object.keys(arr).forEach(function(day){
+        (Array.isArray(arr[day]) ? arr[day] : []).forEach(function(s){ if(s && typeof s==='object') flat.push(Object.assign({ day:day }, s)); });
+      }); arr = flat;
+    }
+    if(!Array.isArray(arr)) return null;
+    return { brand: strOf(obj.brand||obj.client).trim(), notes: strOf(obj.notes||obj.rules).trim(),
+      slots: arr.filter(function(x){ return x && typeof x==='object'; }).map(normSlot) };
+  }
+  function normKnowledgeFile(obj){
+    var secs = Array.isArray(obj) ? obj : (obj && (obj.sections||obj.knowledge||obj.knowledge_base||obj.instructions));
+    if(secs && !Array.isArray(secs) && typeof secs==='object'){       // { "Brand voice": "text", ... }
+      secs = Object.keys(secs).map(function(k){ return { title:k, content:secs[k] }; });
+    }
+    if(!Array.isArray(secs)) return null;
+    return { brand: strOf(obj.brand||obj.client).trim(),
+      sections: secs.filter(function(x){ return x && typeof x==='object'; }).map(function(s){
+        return { title: strOf(s.title||s.heading||s.name).trim(), content: strOf(s.content||s.body||s.text||s.instructions||s.details).trim() };
+      }).filter(function(s){ return s.title || s.content; }) };
+  }
+  function detectKind(obj){
+    var sc = obj && typeof obj==='object' && !Array.isArray(obj) ? String(obj.schema||'') : '';
+    if(sc.indexOf('pillars')>-1) return 'pillars';
+    if(sc.indexOf('schedule')>-1) return 'schedule';
+    if(sc.indexOf('knowledge')>-1) return 'knowledge';
+    if(obj && !Array.isArray(obj)){
+      if(obj.pillars) return 'pillars';
+      if(obj.slots) return 'schedule';
+      if(obj.sections) return 'knowledge';
+    }
+    return null;
+  }
+  function pbCount(sec, d){ return !d ? 0 : (sec==='pillars' ? d.pillars.length : sec==='schedule' ? d.slots.length : d.sections.length); }
+
+  /* ---- storage (one row per client, long JSON split across cells) ---- */
+  function pbRecord(engId){ return STATE.playbooks.filter(function(p){ return p.engagementId===engId; })[0]; }
+  function pbParse(rec, name){
+    if(!rec) return null;
+    var s = String(rec[name]||'');
+    for(var i=2;i<=PB_MAXCHUNKS;i++){ var c = rec[name+'_'+i]; if(!c) break; s += String(c); }
+    if(!s) return null;
+    try{ var o = JSON.parse(s); return o && typeof o==='object' ? o : null; }catch(e){ return null; }
+  }
+  function pbPack(name, obj){
+    var s = JSON.stringify(obj);
+    if(s.length > PB_CHUNK*PB_MAXCHUNKS) throw new Error('too large');
+    var out = {};
+    for(var i=0;i<PB_MAXCHUNKS;i++) out[i===0 ? name : name+'_'+(i+1)] = s.slice(i*PB_CHUNK, (i+1)*PB_CHUNK);
+    return out;
+  }
+  var pbQueue = Promise.resolve();
+  function savePlaybook(engId, section, obj){
+    var run = function(){
+      var fields;
+      try{ fields = pbPack(section, obj); }catch(e){ toast('This section is too large to save'); return false; }
+      fields.updatedAt = Date.now();
+      var rec = pbRecord(engId);
+      if(rec) return updateDoc('playbooks', rec.id, fields);
+      return addDoc('playbooks', Object.assign({ engagementId:engId, createdAt:Date.now() }, fields));
+    };
+    pbQueue = pbQueue.then(run, run);
+    return pbQueue;
+  }
+  function pbDefaults(eng){
+    var s = PB_SEED[slugify(eng.clientName)];
+    if(s) return JSON.parse(JSON.stringify(s));
+    return { pillars:{ brand:eng.clientName, overview:'', pillars:[] }, schedule:{ brand:eng.clientName, notes:'', slots:[] }, knowledge:{ brand:eng.clientName, sections:[] } };
+  }
+  function pbLoad(eng){
+    var rec = pbRecord(eng.id), d = pbDefaults(eng);
+    ['pillars','schedule','knowledge'].forEach(function(k){
+      var o = pbParse(rec, k); if(!o) return;
+      var list = k==='pillars' ? 'pillars' : k==='schedule' ? 'slots' : 'sections';
+      if(Array.isArray(o[list])) d[k] = Object.assign(d[k], o);
+    });
+    return d;
+  }
+  function pbSaveNow(){
+    if(!PB) return Promise.resolve(true);
+    clearTimeout(PB.timer); PB.timer = null;
+    var P = PB, sec = P.section, el = document.getElementById('pbSaved');
+    if(el) el.textContent = 'Saving…';
+    return savePlaybook(P.eng.id, sec, P.data[sec]).then(function(ok){
+      var e2 = document.getElementById('pbSaved'); if(e2) e2.textContent = ok ? 'Saved ✓' : 'Not saved';
+      return ok;
+    });
+  }
+  function pbSaveSoon(){
+    if(!PB) return;
+    clearTimeout(PB.timer);
+    var el = document.getElementById('pbSaved'); if(el) el.textContent = 'Editing…';
+    PB.timer = setTimeout(pbSaveNow, 700);
+  }
+
+  /* ---- templates: what you hand to an AI to fill in, then import back ---- */
+  function pbTemplate(sec, eng){
+    var name = eng.clientName;
+    if(sec==='pillars') return {
+      schema: PB_SCHEMA.pillars,
+      instructions_for_ai: 'Fill in this JSON for the social media client named in "client". Return ONLY valid JSON (no markdown fences, no commentary) with exactly the same keys. Replace every placeholder text. Create 4 to 7 pillars. "share" is the percentage of all content for that pillar and the shares should add up to 100. "topics", "formats", "examples", "hashtags", "dos" and "donts" must be arrays of short strings. Write in the language the client\'s content uses. Do not rename or remove keys; you may add more objects to "pillars".',
+      client: name, brand: name,
+      overview: 'Two to four sentences: the overall content strategy and what these pillars should achieve.',
+      pillars: [{
+        title: 'Example: Product education', emoji: '🎓', share: 30,
+        description: 'What this pillar is about, in one or two sentences.',
+        goal: 'The business goal this pillar serves (awareness, trust, leads, sales…).',
+        topics: ['Topic or content idea 1', 'Topic or content idea 2'],
+        formats: ['Reel', 'Carousel'],
+        tone: 'How the content should sound for this pillar.',
+        examples: ['A concrete example post idea'],
+        hashtags: ['#examplehashtag'],
+        dos: ['Something to always do'],
+        donts: ['Something to never do']
+      }]
+    };
+    if(sec==='schedule') return {
+      schema: PB_SCHEMA.schedule,
+      instructions_for_ai: 'Fill in this JSON as the posting schedule for the client named in "client". Return ONLY valid JSON with exactly the same keys. "day" must be a weekday (Saturday, Sunday, Monday, Tuesday, Wednesday, Thursday, Friday), "Daily", or a monthly position like "1st Sunday" for a fixed monthly schedule. "time" looks like "7:00 PM". "pillar" must match a pillar title from the client\'s Content Pillars file exactly. Add one object to "slots" for every post. Replace the examples.',
+      client: name, brand: name,
+      notes: 'Posting rules, time zone, approval deadlines, or anything else about the schedule.',
+      slots: [
+        { day:'Saturday', time:'7:00 PM', platform:'Facebook', pillar:'Example: Product education', format:'Reel', topic:'Idea or theme for this slot', notes:'' },
+        { day:'Monday', time:'12:00 PM', platform:'Instagram', pillar:'Example: Product education', format:'Carousel', topic:'Idea or theme for this slot', notes:'' }
+      ]
+    };
+    return {
+      schema: PB_SCHEMA.knowledge,
+      instructions_for_ai: 'Fill in this JSON as the master knowledge base and content creation instructions for the client named in "client". Return ONLY valid JSON with exactly the same keys. For every section write detailed plain-text "content" (it may be long, with line breaks). Keep the section "title"s; you may add more sections. Ignore the "hint" values when you finish (you may leave them). Write so that another AI can create on-brand content using only this document.',
+      client: name, brand: name,
+      sections: [
+        { title:'Brand overview', hint:'Who the brand is, what it sells, its story, positioning and goals.', content:'' },
+        { title:'Target audience', hint:'Who we talk to: demographics, needs, pain points, where they spend time.', content:'' },
+        { title:'Brand voice & tone', hint:'How the brand sounds, words to use and avoid, language (English / Bangla / mixed).', content:'' },
+        { title:'Products & services knowledge', hint:'Everything an AI must know to write accurately: features, prices, USPs, FAQs, proof points.', content:'' },
+        { title:'Content creation instructions for AI', hint:'Step-by-step rules: post structure, caption length, hooks, CTAs, emoji and hashtag rules, formats.', content:'' },
+        { title:'Visual & design guidelines', hint:'Colors, fonts, logo usage, photo/video style, do and don\'t for creatives.', content:'' },
+        { title:'Do\'s and Don\'ts', hint:'Hard rules and sensitive topics.', content:'' },
+        { title:'Approval, publishing & reporting', hint:'Who approves, turnaround times, reporting metrics.', content:'' }
+      ]
+    };
+  }
+  function pbExportObject(sec){
+    var d = PB.data[sec], o = { schema: PB_SCHEMA[sec], client: PB.eng.clientName, exportedAt: new Date().toISOString() };
+    return Object.assign(o, JSON.parse(JSON.stringify(d)));
+  }
+
+  /* ---- helpers ---- */
+  function downloadBlob(blob, name){
+    var a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = name;
+    document.body.appendChild(a); a.click();
+    setTimeout(function(){ URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+  }
+  function downloadText(text, name, type, bom){
+    downloadBlob(new Blob([(bom?'﻿':'')+text], { type: (type||'text/plain')+';charset=utf-8' }), name);
+  }
+  function pbFilename(sec, ext){ return slugify(PB.eng.clientName)+'-'+PB_FILE[sec]+'.'+ext; }
+  function pbColorAt(i, p){ return validHex(p && p.color) || PB_PALETTE[i % PB_PALETTE.length]; }
+  function pbPillarColor(title){
+    var t = String(title||'').trim().toLowerCase(), list = PB.data.pillars.pillars;
+    for(var i=0;i<list.length;i++){ if(list[i].title.trim().toLowerCase()===t) return pbColorAt(i, list[i]); }
+    return '#8B93A7';
+  }
+  function timeMin(t){
+    var m = /(\d{1,2})(?:[:.](\d{2}))?\s*(am|pm)?/i.exec(String(t||'')); if(!m) return 9999;
+    var h = Number(m[1]), mi = Number(m[2]||0), ap = (m[3]||'').toLowerCase();
+    if(ap==='pm' && h<12) h += 12; if(ap==='am' && h===12) h = 0;
+    return h*60+mi;
+  }
+  function slotSort(a, b){
+    var ma = pbMonthlyKey(a.day), mb = pbMonthlyKey(b.day);
+    if(ma && mb) return ma.ord!==mb.ord ? ma.ord-mb.ord : (ma.wd!==mb.wd ? ma.wd-mb.wd : timeMin(a.time)-timeMin(b.time));
+    if(ma) return -1; if(mb) return 1;
+    var da = PB_DAYS.indexOf(a.day), db = PB_DAYS.indexOf(b.day); if(da<0) da = 99; if(db<0) db = 99;
+    return da!==db ? da-db : timeMin(a.time)-timeMin(b.time);
+  }
+  function chipsHtml(list){ return list.map(function(x){ return '<span class="tchip">'+escapeHtml(x)+'</span>'; }).join(''); }
+  function listHtml(list){ return '<ul class="pl-list">'+list.map(function(x){ return '<li>'+escapeHtml(x)+'</li>'; }).join('')+'</ul>'; }
+
+  /* ---- client hub ---- */
+  function openClientHub(eng){
+    PB && pbSaveNow(); PB = null;
+    var d = deptOf(eng.department), sm = statusMeta(eng.status), social = eng.department==='social';
+    var info = [];
+    if(eng.revenue) info.push(['Monthly revenue', fmtMoney(eng.revenue)+'/mo']);
+    if(eng.startDate) info.push(['Started', normDate(eng.startDate)]);
+    if(eng.endDate) info.push(['Ended', normDate(eng.endDate)]);
+    if(eng.contact) info.push(['Contact', eng.contact]);
+    var infoHtml = info.length ? '<div class="hub-info">'+info.map(function(r){ return '<div><span>'+r[0]+'</span>'+escapeHtml(r[1])+'</div>'; }).join('')+'</div>' : '';
+    var notes = eng.notes ? '<p class="mhint" style="white-space:pre-wrap">'+escapeHtml(eng.notes)+'</p>' : '';
+    var tiles = '';
+    if(social){
+      var pd = pbLoad(eng);
+      var np = pd.pillars.pillars.length, ns = pd.schedule.slots.length, nk = pd.knowledge.sections.length;
+      var tile = function(sec, sub){
+        return '<button class="hub-tile" data-pb-open="'+sec+'" data-eng="'+eng.id+'"><span class="hub-ico">'+PB_ICON[sec]+'</span><span class="hub-txt"><b>'+PB_LABEL[sec]+'</b><small>'+sub+'</small></span><span class="hub-arrow">›</span></button>';
+      };
+      tiles = '<div class="group-title">Social media playbook</div><div class="hub-grid">'+
+        tile('pillars', np ? np+' pillar'+(np===1?'':'s') : 'Not set up yet — import or add pillars')+
+        tile('schedule', ns ? ns+' scheduled post'+(ns===1?'':'s') : 'Not set up yet — import or add slots')+
+        tile('knowledge', nk ? nk+' section'+(nk===1?'':'s')+' · import / export JSON' : 'Not set up yet — download the template')+'</div>';
+    }
+    openModal('<h3>'+escapeHtml(eng.clientName)+'</h3><p class="mhint"><span class="dept-tag" style="color:'+d.hex+'">'+d.label+'</span> '+
+      '<span class="status-pill" style="color:'+sm.color+';background:'+sm.color+'22;margin-left:6px">'+sm.label+'</span></p>'+infoHtml+notes+tiles+
+      '<div class="modal-actions"><div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn" data-hub-edit="'+eng.id+'">Edit client details</button>'+
+      (eng.status==='active' ? '<button class="btn" data-hub-todo="'+eng.id+'">To-do board</button>' : '')+'</div><button class="btn btn-primary" id="hubClose">Close</button></div>');
+    document.getElementById('hubClose').onclick = closeModal;
+  }
+
+  /* ---- playbook page shell ---- */
+  function openPlaybookPage(eng, sec){
+    PB = { eng:eng, section:sec, data:pbLoad(eng), editing:null, isNew:false, tab:'week', pending:null, timer:null };
+    openModal(
+      '<div class="pb-head"><button class="btn btn-sm btn-ghost" data-pb-back>← '+escapeHtml(eng.clientName)+'</button><div class="pb-actions" id="pbActions"></div></div>'+
+      '<h3 id="pbTitle"></h3><p class="mhint" id="pbSub"></p>'+
+      '<input type="file" id="pbFile" accept=".json,application/json" style="display:none">'+
+      '<datalist id="dl-platform"><option>Facebook</option><option>Instagram</option><option>LinkedIn</option><option>TikTok</option><option>YouTube</option><option>X (Twitter)</option><option>WhatsApp</option></datalist>'+
+      '<datalist id="dl-format"><option>Reel</option><option>Carousel</option><option>Static post</option><option>Story</option><option>Video</option><option>Live</option><option>Poll</option><option>Blog</option></datalist>'+
+      '<datalist id="dl-pillars"></datalist>'+
+      '<div id="pbBanner"></div><div id="pbBody"></div>', 'xl');
+    paintPB();
+  }
+  function pbMenuItems(sec){
+    var items = [['json','JSON (re-importable)']];
+    if(sec==='knowledge') return items.concat([['md','Markdown (.md)'],['txt','Plain text (.txt)'],['pdfprint','PDF (print / save as PDF)'],['copy','Copy as text']]);
+    items = items.concat([['pdf','PDF'],['jpg','JPG image'],['png','PNG image'],['md','Markdown (.md)'],['txt','Plain text (.txt)']]);
+    if(sec==='schedule') items.push(['csv','CSV (Excel / Sheets)']);
+    return items;
+  }
+  function paintPB(){
+    if(!PB) return;
+    var sec = PB.section, d = PB.data[sec], n = pbCount(sec, d);
+    var menu = pbMenuItems(sec).map(function(m){ return '<button data-pb-export="'+m[0]+'">'+m[1]+'</button>'; }).join('');
+    var addBtn = sec==='pillars' ? '<button class="btn btn-sm btn-primary" data-pb-add>＋ Pillar</button>' : (sec==='schedule' ? '<button class="btn btn-sm btn-primary" data-pb-add>＋ Slot</button>' : '');
+    document.getElementById('pbActions').innerHTML = '<span class="status-pill" id="pbSaved" style="color:var(--text-dim)"></span>'+
+      '<button class="btn btn-sm" data-pb-template>⬇ Template</button><button class="btn btn-sm" data-pb-import>⬆ Import JSON</button>'+
+      '<span class="pb-menu-wrap"><button class="btn btn-sm" data-pb-menu>Export ▾</button><div class="pb-menu" id="pbMenu">'+menu+'</div></span>'+addBtn;
+    document.getElementById('pbTitle').textContent = PB_ICON[sec]+' '+PB_LABEL[sec];
+    document.getElementById('pbSub').textContent = PB.eng.clientName+' · '+n+' '+(sec==='pillars'?'pillar':sec==='schedule'?'slot':'section')+(n===1?'':'s');
+    paintBanner();
+    if(sec==='pillars') paintPillars(); else if(sec==='schedule') paintSchedule(); else paintKnowledge();
+  }
+  function paintBanner(){
+    var el = document.getElementById('pbBanner'); if(!el || !PB) return;
+    if(!PB.pending){ el.innerHTML = ''; return; }
+    var sec = PB.section, inc = pbCount(sec, PB.pending), cur = pbCount(sec, PB.data[sec]);
+    el.innerHTML = '<div class="pb-banner"><div class="grow"><b>File ready:</b> '+inc+' item'+(inc===1?'':'s')+' found. You already have '+cur+'. What should happen?</div>'+
+      '<button class="btn btn-sm btn-primary" data-pb-apply="replace">Replace existing</button><button class="btn btn-sm" data-pb-apply="append">Add to existing</button><button class="btn btn-sm btn-ghost" data-pb-apply="cancel">Cancel</button></div>';
+  }
+
+  /* ---- pillars page ---- */
+  function pillarForm(p, i){
+    var c = pbColorAt(i, p);
+    var inp = function(f, label, val, extra){ return '<div class="field"><label>'+label+'</label><input data-f="'+f+'" value="'+escapeHtml(val)+'" '+(extra||'')+'></div>'; };
+    var ta = function(f, label, val, ph){ return '<div class="field"><label>'+label+'</label><textarea data-f="'+f+'" placeholder="'+(ph||'')+'">'+escapeHtml(val)+'</textarea></div>'; };
+    return '<div class="pl-card pl-form" style="--pc:'+c+'" data-pbform="'+i+'">'+
+      '<div class="row3">'+inp('title','Pillar name',p.title)+inp('emoji','Emoji',p.emoji,'placeholder="🎯"')+inp('share','Share of content (%)',p.share||'','type="number" min="0" max="100"')+'</div>'+
+      ta('description','Description',p.description)+inp('goal','Goal',p.goal)+
+      '<div class="pl-two">'+ta('topics','Topics (one per line)',p.topics.join('\n'))+ta('examples','Examples (one per line)',p.examples.join('\n'))+'</div>'+
+      '<div class="pl-two">'+inp('formats','Formats (comma separated)',p.formats.join(', '))+inp('hashtags','Hashtags (space or comma separated)',p.hashtags.join(' '))+'</div>'+
+      inp('tone','Tone',p.tone)+
+      '<div class="pl-two">'+ta('dos','Do (one per line)',p.dos.join('\n'))+ta('donts',"Don't (one per line)",p.donts.join('\n'))+'</div>'+
+      '<div class="modal-actions" style="margin-top:6px"><button type="button" class="btn btn-danger btn-sm" data-pb-del="'+i+'">Delete</button>'+
+      '<div style="display:flex;gap:8px"><button type="button" class="btn btn-ghost btn-sm" data-pb-cancel>Cancel</button><button type="button" class="btn btn-primary btn-sm" data-pb-save="'+i+'">Save pillar</button></div></div></div>';
+  }
+  function pillarView(p, i, total){
+    var c = pbColorAt(i, p), sec = function(t, html){ return html ? '<div class="pl-sec">'+t+'</div>'+html : ''; };
+    return '<div class="pl-card" style="--pc:'+c+'"><div class="pl-top"><span class="pl-emoji">'+escapeHtml(p.emoji||'•')+'</span><div><div class="pl-title">'+escapeHtml(p.title)+'</div>'+
+      (p.share ? '<div class="pl-share">'+p.share+'% of content</div>' : '')+'</div>'+
+      '<div class="pl-tools"><button class="icon-btn" data-pb-up="'+i+'" title="Move up" aria-label="Move up"'+(i===0?' disabled':'')+'>↑</button>'+
+      '<button class="icon-btn" data-pb-down="'+i+'" title="Move down" aria-label="Move down"'+(i===total-1?' disabled':'')+'>↓</button>'+
+      '<button class="btn btn-sm" data-pb-edit="'+i+'">Edit</button></div></div>'+
+      (p.description ? '<p class="pl-desc">'+escapeHtml(p.description)+'</p>' : '')+
+      sec('Goal', p.goal ? '<div style="font-size:13px">'+escapeHtml(p.goal)+'</div>' : '')+
+      sec('Topics', p.topics.length ? listHtml(p.topics) : '')+
+      sec('Formats', p.formats.length ? '<div class="pl-chips">'+chipsHtml(p.formats)+'</div>' : '')+
+      sec('Tone', p.tone ? '<div style="font-size:13px">'+escapeHtml(p.tone)+'</div>' : '')+
+      sec('Examples', p.examples.length ? listHtml(p.examples) : '')+
+      sec('Hashtags', p.hashtags.length ? '<div class="pl-chips">'+chipsHtml(p.hashtags)+'</div>' : '')+
+      ((p.dos.length||p.donts.length) ? '<div class="pl-two">'+(p.dos.length?'<div>'+sec('Do',listHtml(p.dos))+'</div>':'<div></div>')+(p.donts.length?'<div>'+sec("Don't",listHtml(p.donts))+'</div>':'<div></div>')+'</div>' : '')+
+      '</div>';
+  }
+  function paintPillars(){
+    var d = PB.data.pillars, list = d.pillars, html = '';
+    if(PB.editing==='overview'){
+      html += '<div class="panel"><div class="field"><label>Brand / client name</label><input data-ov="brand" value="'+escapeHtml(d.brand)+'"></div>'+
+        '<div class="field"><label>Overview / strategy</label><textarea data-ov="overview" style="min-height:90px">'+escapeHtml(d.overview)+'</textarea></div>'+
+        '<div class="modal-actions" style="margin-top:6px"><span></span><div style="display:flex;gap:8px"><button class="btn btn-ghost btn-sm" data-pb-cancel>Cancel</button><button class="btn btn-primary btn-sm" data-pb-save="overview">Save</button></div></div></div>';
+    } else {
+      html += '<div class="panel" style="display:flex;gap:14px;align-items:flex-start"><div style="flex:1;min-width:0"><div style="font-family:var(--font-display);font-weight:700;font-size:16px">'+escapeHtml(d.brand||PB.eng.clientName)+'</div>'+
+        (d.overview ? '<p class="pl-desc" style="margin-top:6px">'+escapeHtml(d.overview)+'</p>' : '<p class="mhint" style="margin:6px 0 0">No overview yet — add the overall content strategy.</p>')+'</div>'+
+        '<button class="btn btn-sm" data-pb-edit="overview">Edit</button></div>';
+    }
+    var total = list.reduce(function(a,p){ return a + (Number(p.share)||0); }, 0);
+    if(list.length && total>0){
+      html += '<div style="margin-top:14px"><div class="sharebar">'+list.map(function(p,i){ return p.share>0 ? '<i title="'+escapeHtml(p.title)+' '+p.share+'%" style="width:'+p.share+'%;background:'+pbColorAt(i,p)+'"></i>' : ''; }).join('')+'</div>'+
+        '<div class="empty-hint" style="padding:6px 2px 0">Total '+total+'%'+(total!==100 ? ' — shares usually add up to 100%' : ' ✓')+'</div></div>';
+    }
+    if(!list.length){
+      html += '<div class="table-empty">No pillars yet. Use <b>⬇ Template</b>, give it to any AI to fill in, then <b>⬆ Import JSON</b> — or add pillars by hand with <b>＋ Pillar</b>.</div>';
+    } else {
+      html += '<div class="pl-grid">'+list.map(function(p,i){ return PB.editing===i ? pillarForm(p,i) : pillarView(p,i,list.length); }).join('')+'</div>';
+    }
+    document.getElementById('pbBody').innerHTML = html;
+  }
+  function pbReadPillarForm(i){
+    var card = document.querySelector('[data-pbform="'+i+'"]'); if(!card) return null;
+    var v = function(f){ return card.querySelector('[data-f="'+f+'"]').value; };
+    var old = PB.data.pillars.pillars[i];
+    return { title: v('title').trim() || 'Untitled pillar', emoji: v('emoji').trim().slice(0,8), share: Math.max(0, Math.min(100, Number(v('share'))||0)), color: old.color||'',
+      description: v('description').trim(), goal: v('goal').trim(), topics: toList(v('topics')), formats: toList(v('formats'), /[,\n]/), tone: v('tone').trim(),
+      examples: toList(v('examples')), hashtags: toList(v('hashtags'), /[\s,]+/), dos: toList(v('dos')), donts: toList(v('donts')) };
+  }
+
+  /* ---- schedule page ---- */
+  function slotCard(s){
+    var c = pbPillarColor(s.pillar);
+    return '<div class="slot" style="--pc:'+c+'"><b>'+escapeHtml(s.time||'—')+(s.platform?' · '+escapeHtml(s.platform):'')+'</b>'+
+      (s.pillar?'<span>'+escapeHtml(s.pillar)+'</span><br>':'')+(s.format?'<span>'+escapeHtml(s.format)+'</span><br>':'')+(s.topic?escapeHtml(s.topic):'')+'</div>';
+  }
+  function paintSchedule(){
+    var d = PB.data.schedule, slots = d.slots;
+    document.getElementById('dl-pillars').innerHTML = PB.data.pillars.pillars.map(function(p){ return '<option value="'+escapeHtml(p.title)+'">'; }).join('');
+    var tabs = '<div class="filters" style="margin-bottom:6px"><button class="chip'+(PB.tab==='week'?' active':'')+'" data-pb-tab="week">Week view</button>'+
+      '<button class="chip'+(PB.tab==='table'?' active':'')+'" data-pb-tab="table">Edit table</button></div>';
+    var html = tabs;
+    if(PB.tab==='week'){
+      var monthly = slots.filter(function(s){ return pbIsMonthly(s.day); }).sort(slotSort);
+      var rest = slots.filter(function(s){ return !pbIsMonthly(s.day); });
+      var cols = PB_DAYS.map(function(day){ return { title:day, items:[] }; }), other = { title:'Daily / other', items:[] };
+      rest.forEach(function(s){ var k = PB_DAYS.indexOf(s.day); (k>-1 ? cols[k] : other).items.push(s); });
+      if(other.items.length) cols.push(other);
+      html += (d.notes ? '<p class="pl-desc" style="margin:10px 0 0">'+escapeHtml(d.notes)+'</p>' : '')+
+        (monthly.length ? '<div class="group-title">Monthly schedule · '+monthly.length+' post'+(monthly.length===1?'':'s')+' / month</div>'+monthly.map(function(s){ return '<div class="slot" style="--pc:'+pbPillarColor(s.pillar)+';margin-bottom:6px"><b>'+escapeHtml(s.day)+(s.time?' · '+escapeHtml(s.time):'')+(s.platform?' · '+escapeHtml(s.platform):'')+'</b>'+(s.pillar?'<span>'+escapeHtml(s.pillar)+'</span><br>':'')+(s.format?'<span>'+escapeHtml(s.format)+'</span><br>':'')+(s.topic?escapeHtml(s.topic):'')+(s.notes?'<br><span>'+escapeHtml(s.notes)+'</span>':'')+'</div>'; }).join('') : '')+
+        (rest.length ? '<div class="week">'+cols.map(function(c){
+          c.items.sort(slotSort);
+          return '<div class="wday"><h4>'+c.title+(c.items.length?' · '+c.items.length:'')+'</h4>'+(c.items.map(slotCard).join('') || '<div class="empty-hint" style="padding:2px 0">—</div>')+'</div>';
+        }).join('')+'</div>' : (!slots.length ? '<div class="table-empty">No slots yet. Import a filled template, or switch to <b>Edit table</b> and add slots.</div>' : ''));
+    } else {
+      var dayOpts = function(cur){
+        var monthly = [];
+        ['1st','2nd','3rd','4th'].forEach(function(o){ PB_DAYS.forEach(function(d){ monthly.push(o+' '+d); }); });
+        PB_DAYS.forEach(function(d){ monthly.push('Last '+d); });
+        var all = monthly.concat(PB_DAYS).concat(['Daily']); if(cur && all.indexOf(cur)===-1) all.push(cur);
+        return all.map(function(x){ return '<option'+(x===cur?' selected':'')+'>'+escapeHtml(x)+'</option>'; }).join('');
+      };
+      var cell = function(i, f, val, list, ph){ return '<td><input class="cell-in" data-sl-f="'+f+'" value="'+escapeHtml(val)+'"'+(list?' list="'+list+'"':'')+(ph?' placeholder="'+ph+'"':'')+'></td>'; };
+      html += '<div class="field" style="margin-top:10px"><label>Schedule notes (posting rules, time zone…)</label><textarea data-sl-notes>'+escapeHtml(d.notes||'')+'</textarea></div>'+
+        '<div class="table-scroll"><table class="revlog-table"><thead><tr><th>Day</th><th>Time</th><th>Platform</th><th>Pillar</th><th>Format</th><th>Topic / idea</th><th></th></tr></thead><tbody>'+
+        (slots.map(function(s,i){
+          return '<tr data-slrow="'+i+'"><td><select class="cell-in" data-sl-f="day">'+dayOpts(s.day)+'</select></td>'+cell(i,'time',s.time,'','7:00 PM')+cell(i,'platform',s.platform,'dl-platform')+
+            cell(i,'pillar',s.pillar,'dl-pillars')+cell(i,'format',s.format,'dl-format')+cell(i,'topic',s.topic)+
+            '<td><button class="icon-btn" data-sl-del="'+i+'" aria-label="Delete slot">✕</button></td></tr>';
+        }).join('') || '<tr><td colspan="7" class="table-empty">No slots yet — press ＋ Slot.</td></tr>')+
+        '</tbody></table></div><div style="margin-top:10px;display:flex;gap:8px"><button class="btn btn-sm" data-pb-add>＋ Add slot</button><button class="btn btn-sm btn-ghost" data-sl-sort>Sort by day &amp; time</button></div>';
+    }
+    document.getElementById('pbBody').innerHTML = html;
+  }
+
+  /* ---- knowledge page (JSON-first) ---- */
+  function paintKnowledge(){
+    var k = PB.data.knowledge, chars = k.sections.reduce(function(a,s){ return a + s.title.length + s.content.length; }, 0);
+    var html;
+    if(!k.sections.length){
+      html = '<div class="table-empty">No knowledge base yet. Press <b>⬇ Template</b>, let an AI fill it in with this client\'s details, then <b>⬆ Import JSON</b>.</div>';
+    } else {
+      html = '<p class="mhint">'+escapeHtml(k.brand||PB.eng.clientName)+' · '+chars.toLocaleString('en-US')+' characters</p>'+
+        k.sections.map(function(s,i){
+          return '<details class="kb-sec"'+(i===0?' open':'')+'><summary>'+escapeHtml(s.title||'Untitled')+'</summary><div class="kb-body">'+escapeHtml(s.content||'—')+'</div></details>';
+        }).join('');
+    }
+    document.getElementById('pbBody').innerHTML = html;
+  }
+
+  /* ---- import ---- */
+  function pbHandleImport(text){
+    var obj; try{ obj = JSON.parse(text); }catch(e){ toast('That file is not valid JSON'); return; }
+    var sec = PB.section, kind = detectKind(obj);
+    if(kind && kind!==sec){ toast('This looks like a "'+PB_LABEL[kind]+'" file — open that page to import it'); return; }
+    var norm = sec==='pillars' ? normPillarsFile(obj) : sec==='schedule' ? normScheduleFile(obj) : normKnowledgeFile(obj);
+    if(!norm || !pbCount(sec, norm)){ toast('No '+(sec==='pillars'?'pillars':sec==='schedule'?'slots':'sections')+' found in this file'); return; }
+    if(!pbCount(sec, PB.data[sec])){ pbApplyImport(norm, 'replace'); return; }
+    PB.pending = norm; paintBanner();
+  }
+  function pbApplyImport(norm, mode){
+    var sec = PB.section, cur = PB.data[sec], list = sec==='pillars' ? 'pillars' : sec==='schedule' ? 'slots' : 'sections';
+    var merged = Object.assign({}, cur);
+    if(norm.brand) merged.brand = norm.brand;
+    if(sec==='pillars' && norm.overview && (mode==='replace' || !cur.overview)) merged.overview = norm.overview;
+    if(sec==='schedule' && norm.notes && (mode==='replace' || !cur.notes)) merged.notes = norm.notes;
+    merged[list] = mode==='append' ? cur[list].concat(norm[list]) : norm[list];
+    PB.data[sec] = merged; PB.pending = null; PB.editing = null;
+    paintPB(); pbSaveNow(); toast('Imported '+norm[list].length+' item'+(norm[list].length===1?'':'s'));
+  }
+
+  /* ---- export builders ---- */
+  function pbMarkdown(sec){
+    var d = PB.data[sec], brand = d.brand || PB.eng.clientName, out = [];
+    if(sec==='pillars'){
+      out.push('# '+brand+' — Content Pillars', '');
+      if(d.overview) out.push(d.overview, '');
+      d.pillars.forEach(function(p){
+        out.push('## '+(p.emoji?p.emoji+' ':'')+p.title+(p.share?' ('+p.share+'%)':''), '');
+        if(p.description) out.push(p.description, '');
+        if(p.goal) out.push('**Goal:** '+p.goal, '');
+        if(p.topics.length) out.push('**Topics**'); p.topics.forEach(function(x){ out.push('- '+x); }); if(p.topics.length) out.push('');
+        if(p.formats.length) out.push('**Formats:** '+p.formats.join(', '), '');
+        if(p.tone) out.push('**Tone:** '+p.tone, '');
+        if(p.examples.length) out.push('**Examples**'); p.examples.forEach(function(x){ out.push('- '+x); }); if(p.examples.length) out.push('');
+        if(p.hashtags.length) out.push('**Hashtags:** '+p.hashtags.join(' '), '');
+        if(p.dos.length) out.push('**Do**'); p.dos.forEach(function(x){ out.push('- '+x); }); if(p.dos.length) out.push('');
+        if(p.donts.length) out.push("**Don't**"); p.donts.forEach(function(x){ out.push('- '+x); }); if(p.donts.length) out.push('');
+      });
+    } else if(sec==='schedule'){
+      out.push('# '+brand+' — Content Schedule Plan', '');
+      if(d.notes) out.push(d.notes, '');
+      var esc = function(s){ return String(s||'').replace(/\|/g,'\\|').replace(/\n/g,' '); };
+      out.push('| Day | Time | Platform | Pillar | Format | Topic |', '|---|---|---|---|---|---|');
+      d.slots.slice().sort(slotSort).forEach(function(s){ out.push('| '+[s.day,s.time,s.platform,s.pillar,s.format,s.topic].map(esc).join(' | ')+' |'); });
+    } else {
+      out.push('# '+brand+' — Master Knowledge Base & Content Creation Instructions', '');
+      d.sections.forEach(function(s){ out.push('## '+s.title, '', s.content, ''); });
+    }
+    return out.join('\n');
+  }
+  function pbCsv(){
+    var q = function(v){ return '"'+String(v==null?'':v).replace(/"/g,'""')+'"'; };
+    var rows = [['Day','Time','Platform','Pillar','Format','Topic','Notes']];
+    PB.data.schedule.slots.slice().sort(slotSort).forEach(function(s){ rows.push([s.day,s.time,s.platform,s.pillar,s.format,s.topic,s.notes]); });
+    return rows.map(function(r){ return r.map(q).join(','); }).join('\r\n');
+  }
+  var EX_FONT = "-apple-system,BlinkMacSystemFont,'Segoe UI',Inter,Arial,'Noto Sans Bengali','Noto Sans',sans-serif";
+  function exList(list){ return '<div style="font-size:13px;line-height:1.5">'+list.map(function(x){ return '<div style="padding-left:16px;text-indent:-16px;margin-bottom:2px"><span style="display:inline-block;width:16px;text-indent:0;text-align:left">•</span>'+escapeHtml(x)+'</div>'; }).join('')+'</div>'; }
+  function exChips(list, c){ return list.map(function(x){ return '<span style="display:inline-block;margin:0 6px 6px 0;padding:3px 10px;border-radius:20px;background:'+c+'22;color:#222;font-size:12px;font-weight:600">'+escapeHtml(x)+'</span>'; }).join(''); }
+  function exHead(label, d){
+    return '<div style="font-size:12px;font-weight:700;letter-spacing:1.5px;color:#8a90a2;text-transform:uppercase">'+label+'</div>'+
+      '<div style="font-size:34px;font-weight:800;margin:6px 0 4px;letter-spacing:-.5px">'+escapeHtml(d.brand||PB.eng.clientName)+'</div>';
+  }
+  function exFoot(){ return '<div style="margin-top:28px;font-size:11px;color:#9aa0b0">'+escapeHtml(PB.eng.clientName)+' · generated '+new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})+'</div>'; }
+  function exPillarsHtml(){
+    var d = PB.data.pillars, total = d.pillars.reduce(function(a,p){ return a+(Number(p.share)||0); }, 0);
+    var sub = function(t, h){ return h ? '<div style="font-size:10.5px;font-weight:800;letter-spacing:1px;color:#8a90a2;margin:12px 0 4px;text-transform:uppercase">'+t+'</div>'+h : ''; };
+    var cards = d.pillars.map(function(p,i){
+      var c = pbColorAt(i,p);
+      return '<div style="background:#F6F7FA;border-radius:16px;border-left:8px solid '+c+';padding:22px;min-width:0">'+
+        '<div style="display:flex;gap:12px;align-items:center"><div style="font-size:30px;line-height:1">'+escapeHtml(p.emoji||'•')+'</div><div style="flex:1"><div style="font-size:18px;font-weight:800">'+escapeHtml(p.title)+'</div></div>'+
+        (p.share?'<div style="font-size:15px;font-weight:800;color:'+c+'">'+p.share+'%</div>':'')+'</div>'+
+        (p.description?'<p style="font-size:13.5px;line-height:1.55;margin:12px 0 0;white-space:pre-wrap">'+escapeHtml(p.description)+'</p>':'')+
+        sub('Goal', p.goal?'<div style="font-size:13px">'+escapeHtml(p.goal)+'</div>':'')+sub('Topics', p.topics.length?exList(p.topics):'')+
+        sub('Formats', p.formats.length?exChips(p.formats,c):'')+sub('Tone', p.tone?'<div style="font-size:13px">'+escapeHtml(p.tone)+'</div>':'')+
+        sub('Examples', p.examples.length?exList(p.examples):'')+sub('Hashtags', p.hashtags.length?exChips(p.hashtags,c):'')+
+        ((p.dos.length||p.donts.length)?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px"><div>'+sub('Do',p.dos.length?exList(p.dos):'')+'</div><div>'+sub("Don't",p.donts.length?exList(p.donts):'')+'</div></div>':'')+'</div>';
+    }).join('');
+    var bar = total>0 ? '<div style="display:flex;height:14px;border-radius:20px;overflow:hidden;gap:2px;margin:18px 0 4px;background:#e6e8ef">'+d.pillars.map(function(p,i){ return p.share>0?'<div style="width:'+p.share+'%;background:'+pbColorAt(i,p)+'"></div>':''; }).join('')+'</div>' : '';
+    return '<div style="width:1100px;box-sizing:border-box;padding:52px;background:#fff;color:#16181f;font-family:'+EX_FONT+'">'+exHead('Content Pillars', d)+
+      (d.overview?'<p style="font-size:15px;line-height:1.6;color:#454b5c;margin:8px 0 0;white-space:pre-wrap;max-width:900px">'+escapeHtml(d.overview)+'</p>':'')+bar+
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:22px">'+cards+'</div>'+exFoot()+'</div>';
+  }
+  function exScheduleHtml(){
+    var d = PB.data.schedule, monthly = d.slots.filter(function(s){ return pbIsMonthly(s.day); }).sort(slotSort);
+    var rest = d.slots.filter(function(s){ return !pbIsMonthly(s.day); });
+    var cols = PB_DAYS.map(function(day){ return { title:day, items:[] }; }), other = { title:'Daily / other', items:[] };
+    rest.forEach(function(s){ var k = PB_DAYS.indexOf(s.day); (k>-1 ? cols[k] : other).items.push(s); });
+    if(other.items.length) cols.push(other);
+    var monthlyHtml = monthly.length ? '<div style="margin-top:22px"><div style="font-size:13px;font-weight:800;margin-bottom:10px">Monthly schedule · '+monthly.length+' post'+(monthly.length===1?'':'s')+' / month</div>'+monthly.map(function(s){
+      var col = pbPillarColor(s.pillar);
+      return '<div style="background:#F6F7FA;border-left:5px solid '+col+';border-radius:10px;padding:10px 12px;margin-bottom:8px;font-size:12.5px;line-height:1.5"><b>'+escapeHtml(s.day)+(s.time?' · '+escapeHtml(s.time):'')+(s.platform?' · '+escapeHtml(s.platform):'')+'</b>'+(s.pillar?'<div style="color:#5b6070">'+escapeHtml(s.pillar)+'</div>':'')+(s.format?'<div style="color:#5b6070">'+escapeHtml(s.format)+'</div>':'')+(s.topic?'<div style="margin-top:2px">'+escapeHtml(s.topic)+'</div>':'')+(s.notes?'<div style="color:#5b6070">'+escapeHtml(s.notes)+'</div>':'')+'</div>';
+    }).join('')+'</div>' : '';
+    var colsHtml = cols.map(function(c){
+      c.items.sort(slotSort);
+      return '<div style="background:#F6F7FA;border-radius:14px;padding:12px;min-width:0"><div style="font-size:13px;font-weight:800;margin-bottom:10px">'+c.title+'</div>'+
+        (c.items.map(function(s){
+          var col = pbPillarColor(s.pillar);
+          return '<div style="background:#fff;border-left:5px solid '+col+';border-radius:10px;padding:9px 10px;margin-bottom:8px;font-size:12px;line-height:1.45">'+
+            '<div style="font-weight:800;font-size:12.5px">'+escapeHtml(s.time||'—')+(s.platform?' · '+escapeHtml(s.platform):'')+'</div>'+
+            (s.pillar?'<div style="color:#5b6070">'+escapeHtml(s.pillar)+'</div>':'')+(s.format?'<div style="color:#5b6070">'+escapeHtml(s.format)+'</div>':'')+
+            (s.topic?'<div style="margin-top:3px">'+escapeHtml(s.topic)+'</div>':'')+'</div>';
+        }).join('') || '<div style="font-size:12px;color:#aab0be">—</div>')+'</div>';
+    }).join('');
+    var legend = PB.data.pillars.pillars.length ? '<div style="margin-top:18px">'+PB.data.pillars.pillars.map(function(p,i){ return '<span style="display:inline-block;margin:0 14px 6px 0;font-size:12px"><i style="display:inline-block;width:10px;height:10px;border-radius:50%;background:'+pbColorAt(i,p)+';margin-right:6px"></i>'+escapeHtml(p.title)+'</span>'; }).join('')+'</div>' : '';
+    return '<div style="width:1500px;box-sizing:border-box;padding:52px;background:#fff;color:#16181f;font-family:'+EX_FONT+'">'+exHead('Content Schedule Plan', d)+
+      (d.notes?'<p style="font-size:14px;line-height:1.6;color:#454b5c;margin:8px 0 0;white-space:pre-wrap;max-width:1000px">'+escapeHtml(d.notes)+'</p>':'')+
+      monthlyHtml+(rest.length ? '<div style="display:grid;grid-template-columns:repeat('+Math.min(cols.length,7)+',1fr);gap:12px;margin-top:22px">'+colsHtml+'</div>' : '')+legend+exFoot()+'</div>';
+  }
+  var LIBS = {
+    html2canvas:{ url:'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js', ok:function(){ return !!window.html2canvas; } },
+    jspdf:{ url:'https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js', ok:function(){ return !!(window.jspdf && window.jspdf.jsPDF); } }
+  };
+  function loadLib(k){
+    var L = LIBS[k]; if(L.ok()) return Promise.resolve();
+    if(L.p) return L.p;
+    L.p = new Promise(function(res, rej){
+      var s = document.createElement('script'); s.src = L.url; s.onload = res;
+      s.onerror = function(){ L.p = null; rej(new Error('load failed')); };
+      document.head.appendChild(s);
+    });
+    return L.p;
+  }
+  async function pbRenderCanvas(sec){
+    await loadLib('html2canvas');
+    var host = document.createElement('div');
+    host.style.cssText = 'position:fixed;left:-20000px;top:0;pointer-events:none';
+    host.innerHTML = sec==='pillars' ? exPillarsHtml() : exScheduleHtml();
+    document.body.appendChild(host);
+    try{
+      if(document.fonts && document.fonts.ready) await document.fonts.ready;
+      return await window.html2canvas(host.firstElementChild, { scale:2, backgroundColor:'#ffffff', useCORS:true, logging:false });
+    } finally { host.remove(); }
+  }
+  function pbPrintKnowledge(){
+    var d = PB.data.knowledge, w = window.open('', '_blank');
+    if(!w){ toast('Allow pop-ups to print / save as PDF'); return; }
+    w.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+escapeHtml((d.brand||PB.eng.clientName)+' — Knowledge Base')+'</title>'+
+      '<style>body{font-family:'+EX_FONT+';color:#16181f;max-width:820px;margin:32px auto;padding:0 24px;line-height:1.6}h1{font-size:26px;margin:0 0 6px}h2{font-size:17px;margin:26px 0 6px;border-bottom:1px solid #ddd;padding-bottom:4px}pre{white-space:pre-wrap;font-family:inherit;font-size:13.5px;margin:0}@media print{h2{break-after:avoid}}</style></head><body>'+
+      '<h1>'+escapeHtml(d.brand||PB.eng.clientName)+'</h1><div style="color:#777;font-size:13px">Master knowledge base &amp; content creation instructions</div>'+
+      d.sections.map(function(s){ return '<h2>'+escapeHtml(s.title)+'</h2><pre>'+escapeHtml(s.content)+'</pre>'; }).join('')+'</body></html>');
+    w.document.close(); w.focus(); setTimeout(function(){ try{ w.print(); }catch(e){} }, 400);
+  }
+  async function pbExport(fmt){
+    var sec = PB.section, P = PB;
+    if(fmt==='json'){ downloadText(JSON.stringify(pbExportObject(sec), null, 2), pbFilename(sec,'json'), 'application/json'); return; }
+    if(fmt==='md'){ downloadText(pbMarkdown(sec), pbFilename(sec,'md'), 'text/markdown'); return; }
+    if(fmt==='txt'){ downloadText(pbMarkdown(sec), pbFilename(sec,'txt'), 'text/plain'); return; }
+    if(fmt==='csv'){ downloadText(pbCsv(), pbFilename(sec,'csv'), 'text/csv', true); return; }
+    if(fmt==='pdfprint'){ pbPrintKnowledge(); return; }
+    if(fmt==='copy'){
+      try{ await navigator.clipboard.writeText(pbMarkdown(sec)); toast('Copied to clipboard'); }catch(e){ toast('Could not copy — use Markdown export instead'); }
+      return;
+    }
+    if(fmt==='jpg' || fmt==='png' || fmt==='pdf'){
+      if(!pbCount(sec, P.data[sec])){ toast('Nothing to export yet'); return; }
+      toast('Preparing '+fmt.toUpperCase()+'…');
+      try{
+        var canvas = await pbRenderCanvas(sec);
+        if(fmt==='pdf'){
+          await loadLib('jspdf');
+          var w = canvas.width/2, h = canvas.height/2;
+          if(h > 14000){ toast('This page is too tall for a single PDF page — export as JPG or trim some content'); return; }
+          var pdf = new window.jspdf.jsPDF({ orientation: w>h?'l':'p', unit:'pt', format:[w,h] });
+          pdf.addImage(canvas.toDataURL('image/jpeg', .95), 'JPEG', 0, 0, w, h);
+          pdf.save(pbFilename(sec,'pdf'));
+        } else {
+          var type = fmt==='jpg' ? 'image/jpeg' : 'image/png';
+          canvas.toBlob(function(b){ if(b) downloadBlob(b, pbFilename(sec, fmt)); else toast('Could not create the image'); }, type, .95);
+        }
+      }catch(e){ toast('Could not create the file — check your internet connection and try again'); }
+    }
+  }
+
   function render(){
     if(SHARE_MODE){ renderPipeline(); return; }
     renderKPIs(); renderFollowups(); renderDeptRevenue(); renderStatusDonut(); renderRevTrend();
@@ -1561,10 +2575,10 @@
   var modalRoot = document.getElementById('modalRoot');
   function closeModal(){
     var ov = modalRoot.querySelector('.overlay');
-    if(ov){ ov.classList.remove('open'); setTimeout(function(){ modalRoot.innerHTML=''; }, 160); }
+    if(ov){ ov.classList.remove('open'); setTimeout(function(){ if(modalRoot.querySelector('.overlay')===ov) modalRoot.innerHTML=''; }, 160); }
   }
   function openModal(html, wide){
-    modalRoot.innerHTML = '<div class="overlay"><div class="modal'+(wide?' wide':'')+'">'+html+'</div></div>';
+    modalRoot.innerHTML = '<div class="overlay"><div class="modal'+(wide==='xl'?' xl':(wide?' wide':''))+'">'+html+'</div></div>';
     var ov = modalRoot.querySelector('.overlay');
     requestAnimationFrame(function(){ ov.classList.add('open'); });
     ov.addEventListener('click', function(e){ if(e.target===ov) closeModal(); });
@@ -1965,6 +2979,22 @@
   document.getElementById('btnInactive').onclick = function(){ openInactiveModal(); };
   document.getElementById('btnFinance').onclick = function(){ openFinanceModal(); };
   document.getElementById('btnShare').onclick = function(){ openShareModal(); };
+  document.body.addEventListener('change', function(e){
+    if(e.target.id==='pbFile'){
+      var f = e.target.files && e.target.files[0];
+      if(f && PB){ var rd = new FileReader(); rd.onload = function(){ pbHandleImport(String(rd.result||'')); }; rd.readAsText(f); }
+      return;
+    }
+    if(!PB || PB.section!=='schedule' || !document.getElementById('pbBody')) return;
+    var c = e.target.closest && e.target.closest('[data-sl-f]');
+    if(c){
+      var row = c.closest('[data-slrow]'), s = row && PB.data.schedule.slots[Number(row.getAttribute('data-slrow'))];
+      if(s){ s[c.getAttribute('data-sl-f')] = c.value.trim(); pbSaveSoon(); }
+      return;
+    }
+    var nt = e.target.closest && e.target.closest('[data-sl-notes]');
+    if(nt){ PB.data.schedule.notes = nt.value.trim(); pbSaveSoon(); }
+  });
   document.getElementById('btnAddTodo').onclick = function(){ var e = selectedTodoClient(); if(e) openTodoModal(null, e.id); };
   document.getElementById('todoQuickForm').onsubmit = async function(ev){
     ev.preventDefault();
@@ -2071,6 +3101,67 @@
   document.body.addEventListener('click', function(e){
     var t = e.target;
     if(t.closest('a')) return; // tel: / mailto: links
+    /* ---- client hub + playbook ---- */
+    if(!t.closest('.pb-menu-wrap')){ var om = document.querySelector('.pb-menu.open'); if(om) om.classList.remove('open'); }
+    var engById = function(id){ return STATE.engagements.filter(function(x){ return x.id===id; })[0]; };
+    var hubEdit = t.closest('[data-hub-edit]');
+    if(hubEdit){ var he = engById(hubEdit.getAttribute('data-hub-edit')); if(he) openEngagementModal(he); return; }
+    var hubTodo = t.closest('[data-hub-todo]');
+    if(hubTodo){ closeModal(); STATE.todoClient = hubTodo.getAttribute('data-hub-todo'); STATE.todoMode = 'boards'; STATE.todoFilter = 'all'; setView('todo'); renderTodo(); return; }
+    var pbOpenBtn = t.closest('[data-pb-open]');
+    if(pbOpenBtn){ var pe = engById(pbOpenBtn.getAttribute('data-eng')); if(pe) openPlaybookPage(pe, pbOpenBtn.getAttribute('data-pb-open')); return; }
+    if(PB && document.getElementById('pbBody')){
+      var sec = PB.section, plist = PB.data.pillars.pillars, pb = function(a){ return t.closest('['+a+']'); }, x;
+      if(pb('data-pb-back')){ pbSaveNow(); openClientHub(engById(PB.eng.id) || PB.eng); return; }
+      if(pb('data-pb-template')){ downloadText(JSON.stringify(pbTemplate(sec, PB.eng), null, 2), slugify(PB.eng.clientName)+'-'+PB_FILE[sec]+'-template.json', 'application/json'); toast('Template downloaded — give it to an AI to fill in'); return; }
+      if(pb('data-pb-import')){ document.getElementById('pbFile').click(); return; }
+      if(pb('data-pb-menu')){ document.getElementById('pbMenu').classList.toggle('open'); return; }
+      if((x = pb('data-pb-export'))){ document.getElementById('pbMenu').classList.remove('open'); pbExport(x.getAttribute('data-pb-export')); return; }
+      if((x = pb('data-pb-apply'))){
+        var mode = x.getAttribute('data-pb-apply');
+        if(mode==='cancel'){ PB.pending = null; paintBanner(); } else if(PB.pending){ pbApplyImport(PB.pending, mode); }
+        return;
+      }
+      if(pb('data-pb-add')){
+        if(sec==='pillars'){
+          plist.push(normPillar({ title:'New pillar' }, plist.length)); PB.editing = plist.length-1; PB.isNew = true; paintPillars();
+          var fc = document.querySelector('[data-pbform="'+PB.editing+'"]'); if(fc){ fc.scrollIntoView({ block:'center', behavior:'smooth' }); var ti = fc.querySelector('[data-f="title"]'); ti.focus(); ti.select(); }
+        } else if(sec==='schedule'){
+          PB.data.schedule.slots.push({ day:'Saturday', time:'', platform:'', pillar:'', format:'', topic:'', notes:'' }); PB.tab = 'table'; paintSchedule(); pbSaveSoon();
+          var rows = document.querySelectorAll('[data-slrow]'); if(rows.length){ var last = rows[rows.length-1]; last.scrollIntoView({ block:'center' }); last.querySelector('[data-sl-f="time"]').focus(); }
+        }
+        return;
+      }
+      if((x = pb('data-pb-edit'))){ var ev = x.getAttribute('data-pb-edit'); PB.editing = ev==='overview' ? 'overview' : Number(ev); PB.isNew = false; paintPillars(); return; }
+      if(pb('data-pb-cancel')){
+        if(PB.isNew && typeof PB.editing==='number') plist.splice(PB.editing, 1);
+        PB.editing = null; PB.isNew = false; paintPillars(); return;
+      }
+      if((x = pb('data-pb-save'))){
+        var sv = x.getAttribute('data-pb-save');
+        if(sv==='overview'){
+          var dd = PB.data.pillars;
+          dd.brand = document.querySelector('[data-ov="brand"]').value.trim() || PB.eng.clientName;
+          dd.overview = document.querySelector('[data-ov="overview"]').value.trim();
+        } else {
+          var np = pbReadPillarForm(Number(sv)); if(!np) return;
+          plist[Number(sv)] = np;
+        }
+        PB.editing = null; PB.isNew = false; paintPB(); pbSaveNow(); return;
+      }
+      if((x = pb('data-pb-del'))){
+        if(confirm('Delete this pillar?')){ plist.splice(Number(x.getAttribute('data-pb-del')), 1); PB.editing = null; PB.isNew = false; paintPB(); pbSaveNow(); }
+        return;
+      }
+      if((x = pb('data-pb-up')) || (x = pb('data-pb-down'))){
+        var i = Number(x.getAttribute('data-pb-up') || x.getAttribute('data-pb-down')), j = x.hasAttribute('data-pb-up') ? i-1 : i+1;
+        if(j>=0 && j<plist.length){ var tmp = plist[i]; plist[i] = plist[j]; plist[j] = tmp; paintPillars(); pbSaveNow(); }
+        return;
+      }
+      if((x = pb('data-pb-tab'))){ PB.tab = x.getAttribute('data-pb-tab'); paintSchedule(); return; }
+      if((x = pb('data-sl-del'))){ PB.data.schedule.slots.splice(Number(x.getAttribute('data-sl-del')), 1); paintSchedule(); pbSaveSoon(); return; }
+      if(pb('data-sl-sort')){ PB.data.schedule.slots.sort(slotSort); paintSchedule(); pbSaveSoon(); return; }
+    }
     var tTog = t.closest('[data-todo-toggle]');
     if(tTog){ var tt = findTodo(tTog.getAttribute('data-todo-toggle')); if(tt) patchTodo(tt, { status: tt.status==='done' ? 'todo' : 'done' }); return; }
     var tAdv = t.closest('[data-todo-advance]');
@@ -2121,7 +3212,7 @@
     var openEng = t.closest('[data-open-engagement]');
     if(openEng){
       var eng = STATE.engagements.filter(function(x){return x.id===openEng.getAttribute('data-open-engagement');})[0];
-      if(eng) openEngagementModal(eng);
+      if(eng) openClientHub(eng);
       return;
     }
     var addEng = t.closest('[data-add-engagement]');
